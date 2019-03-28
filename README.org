@@ -1,0 +1,4 @@
+
+* Перечень загружаемых пакетов
+
+| deadgrep | color-theme-sanityinc-tomorrow | slime | cdlatex | ox-twbs | neotree | gnuplot | htmlize | auctex |
