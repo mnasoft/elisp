@@ -26,3 +26,9 @@
   "Вставляет имя текущего буфера"
   (interactive)
   (insert (concat "[[" (buffer-file-name) "]]")))
+
+(defun org-header ()
+  "Вставляет ссылку на заголовчный файл"
+  (interactive)
+  (insert (concat "#+INCLUDE: \"~/org/header/header.org\"")))
+
