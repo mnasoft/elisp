@@ -2,3 +2,24 @@
 * Перечень загружаемых пакетов
 
 | deadgrep | color-theme-sanityinc-tomorrow | slime | cdlatex | ox-twbs | neotree | gnuplot | htmlize | auctex |
+
+* Перечень файлов проекта
+
+#+BEGIN_SRC shell
+cd ~/elisp;
+for i in `ls *.el`
+do
+echo [[~/elisp/${i}]]
+done
+#+END_SRC
+
+#+RESULTS:
+| [[file:~/elisp/common-lisp.el]]                 |
+| [[file:~/elisp/kill-some-buffers.el]]           |
+| [[file:~/elisp/main.el]]                        |
+| [[file:~/elisp/mnas-publish.el]]                |
+| [[file:~/elisp/open-some-files.el]]             |
+| [[file:~/elisp/org-babel-do-load-languages.el]] |
+| [[file:~/elisp/org-code.el]]                    |
+| [[file:~/elisp/translate-commands-gr-ru-uk.el]] |
+| [[file:~/elisp/zm-tz-header.el]]                |
