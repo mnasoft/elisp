@@ -15,6 +15,10 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 ;;;;;;;;;;;;;;;;;;;; change all prompts to y or n - End ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Use pipes for subprocess communication. START ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq process-connection-type nil)
+;; Use pipes for subprocess communication. STOP ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (load "~/elisp/common-lisp.el")
 (load "~/elisp/org-code.el")
 (load "~/elisp/org-babel-do-load-languages.el")
