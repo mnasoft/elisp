@@ -25,14 +25,16 @@
   (insert ":")
   (goto-char (line-beginning-position))
   (delete-char 1 )
+;;;;  
+  (insert "	")
+;;;;  
   (org-table-transpose-table-at-point)
   (query-replace " | " "" nil (point-min) (point-max))
   (query-replace "| "  ":" nil (point-min) (point-max))
   (query-replace " |"  "" nil (point-min) (point-max))
   (goto-char (point-min))
-  (insert "#+LATEX_HEADER:\\usepackage[english,russian]{babel}") (newline)
-  (insert "#+INCLUDE: \"~/quicklisp/local-projects/org/header/header.org\"") (newline 2)
+  (insert "#+INCLUDE: \"~/org/header/header.org\"") (newline 2)
   (insert ":PROPRETIES:") (newline)
   (goto-char (point-max))
   (insert ":END:"))
-
+	
