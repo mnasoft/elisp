@@ -27,12 +27,8 @@
 (load "~/elisp/open-some-files.el")
 (load "~/elisp/translate-commands-gr-ru-uk.el")
 
-
-
-
-
-
-
+;; bigger latex fragment
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.75))
 
 
 
