@@ -7,7 +7,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; SBCL -START ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (cond
  ((string= (system-name) "mnasoft-00")  (setq inferior-lisp-program "/usr/bin/sbcl"))
- ((string= (system-name) "KO11-118383") (setq inferior-lisp-program (concat (getenv "MSYS_HOME") "/usr/local/bin/sbcl.exe"))))
+ ((string= (system-name) "KO11-118383") (setq inferior-lisp-program (concat (getenv "MSYS_HOME") "/usr/local/bin/sbcl.exe")))
+ ((string= (system-name) "MNASOFT-10")  (setq inferior-lisp-program "D:/PRG/msys/usr/local/bin/sbcl.exe")))
 
 ;(setq inferior-lisp-program "D:\\PRG\\ccl\\wx86cl64.exe")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; SBCL -STOP ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

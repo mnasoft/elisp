@@ -29,7 +29,7 @@
 
 ;; bigger latex fragment
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.75))
-
+(set-default 'truncate-lines t)
 
 
 
