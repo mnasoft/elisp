@@ -11,9 +11,11 @@
   (kill-buffer-if-exist "*Completions*")
   (kill-buffer-if-exist "*Messages*")
   (kill-buffer-if-exist "*slime-events*")
+  (kill-buffer-if-exist "*slime-xref*")
   (kill-buffer-if-exist "*Buffer List*")
   (kill-buffer-if-exist "*Help*")
   (kill-buffer-if-exist "*slime-compilation*")
+  (kill-buffer-if-exist "*shell*")
   )
 
 (defun s-r ()
