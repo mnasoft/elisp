@@ -16,6 +16,8 @@
   (kill-buffer-if-exist "*Help*")
   (kill-buffer-if-exist "*slime-compilation*")
   (kill-buffer-if-exist "*shell*")
+  (kill-buffer-if-exist "*slime-description*")
+  (kill-buffer-if-exist "*slime-source*")
   )
 
 (defun s-r ()

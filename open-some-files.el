@@ -4,6 +4,10 @@
   (interactive)
   (find-file "~/org/main.org"))
 
+(defun open-sbcl-org ()
+  (interactive)
+  (find-file "~/org/sbcl/sbcl.org"))
+
 (defun open-dot-emacs ()
   (interactive)
   (find-file "~/.emacs"))

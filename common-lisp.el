@@ -6,6 +6,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; SBCL -START ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq inferior-lisp-program-name :sbcl)
+;;(setq inferior-lisp-program-name :ecl)
+
 ;;(setq inferior-lisp-program-name :allegro-express)
 
 (when (eq inferior-lisp-program-name :sbcl)
@@ -13,6 +15,10 @@
    ((string= (upcase (system-name)) "MNASOFT-00")  (setq inferior-lisp-program "sbcl"))
    ((string= (upcase (system-name)) "KO11-118383") (setq inferior-lisp-program (concat (getenv "MSYS_HOME") "/usr/local/bin/sbcl.exe")))
    ((string= (upcase (system-name)) "MNASOFT-10")  (setq inferior-lisp-program "D:/PRG/msys/usr/local/bin/sbcl.exe"))))
+
+(when (eq inferior-lisp-program-name :ecl)
+  (cond
+   ((string= (upcase (system-name)) "MNASOFT-00")  (setq inferior-lisp-program "ecl"))))
 
 (when (eq inferior-lisp-program-name :allegro-express)
   (cond
