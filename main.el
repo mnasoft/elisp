@@ -28,6 +28,8 @@
 (load "~/elisp/translate-commands-gr-ru-uk.el")
 (load "~/elisp/hide-show-mode.el")
 (load "~/elisp/gnuplot.el")
+(load "~/elisp/scriba.el")
+
 ;;;; (load "~/elisp/slime_smartparens_auto-complete.el")
 
 
@@ -37,7 +39,3 @@
 
 (desktop-save-mode nil)
 ;;;;(desktop-change-dir "~/")
-
-
-
-
