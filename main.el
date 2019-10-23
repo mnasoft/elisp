@@ -29,6 +29,7 @@
 (load "~/elisp/hide-show-mode.el")
 (load "~/elisp/gnuplot.el")
 (load "~/elisp/scriba.el")
+(load "~/elisp/org-structure.el")
 
 ;;;; (load "~/elisp/slime_smartparens_auto-complete.el")
 
