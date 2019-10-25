@@ -11,9 +11,15 @@
 ;;;; INFERIOR-LISP-PROGRAM-START
 
 ;;(setq inferior-lisp-program-name :sbcl)
-;;(setq inferior-lisp-program-name :ecl)
+;;(setq inferior-lisp-program-name :ccl)
 ;;(setq inferior-lisp-program-name :allegro-express)
-(setq inferior-lisp-program-name :ccl)
+;;(setq inferior-lisp-program-name :ecl)
+
+(cond
+ ((string= (upcase (system-name)) "MNASOFT-00" ) (setq inferior-lisp-program-name :sbcl))
+ ((string= (upcase (system-name)) "KO11-118383") (setq inferior-lisp-program-name :sbcl))
+ ((string= (upcase (system-name)) "MNASOFT-10" ) (setq inferior-lisp-program-name :sbcl))
+ ((string= (upcase (system-name)) "MNASOFT-PI" ) (setq inferior-lisp-program-name :ccl)))
 
 (when (eq inferior-lisp-program-name :sbcl)
   (cond
