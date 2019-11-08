@@ -25,13 +25,13 @@
 (load "~/elisp/kill-some-buffers.el")
 (load "~/elisp/zm-tz-header.el")
 (load "~/elisp/open-some-files.el")
-(load "~/elisp/translate-commands-gr-ru-uk.el")
+;;(load "~/elisp/translate-commands-gr-ru-uk.el")
 (load "~/elisp/hide-show-mode.el")
 (load "~/elisp/gnuplot.el")
 (load "~/elisp/scriba.el")
 (load "~/elisp/org-structure.el")
 
-;;;; (load "~/elisp/slime_smartparens_auto-complete.el")
+;;;;(load "~/elisp/slime_smartparens_auto-complete.el")
 
 
 ;; bigger latex fragment
@@ -39,4 +39,4 @@
 (set-default 'truncate-lines t)
 
 (desktop-save-mode nil)
-;;;;(desktop-change-dir "~/")
+(desktop-change-dir "~/")
