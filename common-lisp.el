@@ -21,16 +21,15 @@
  ((string= (upcase (system-name)) "KO11-118383") (setq inferior-lisp-program-name :sbcl))
  ((string= (upcase (system-name)) "MNASOFT-10" ) (setq inferior-lisp-program-name :sbcl))
  ((string= (upcase (system-name)) "MNASOFT-PI" ) (setq inferior-lisp-program-name :ccl))
- (t :sbcl))
+ (t (setq inferior-lisp-program-name :sbcl)))
 
 (when (eq inferior-lisp-program-name :sbcl)
   (cond
    ((string= (upcase (system-name)) "MNASOFT-00" ) (setq inferior-lisp-program "sbcl"))
    ((string= (upcase (system-name)) "KO11-118383") (setq inferior-lisp-program (concat (getenv "MSYS_HOME") "/usr/local/bin/sbcl.exe")))
-   ((string= (upcase (system-name)) "MNASOFT-10" ) (setq inferior-lisp-program (concat (getenv "MSYS_HOME") "/usr/local/bin/sbcl.exe")))
-   ((string= (upcase (system-name)) "MNASOFT-01" ) (setq inferior-lisp-program (concat (getenv "MSYS_HOME") "/usr/local/bin/SBCL/sbcl.exe")))
+   ((string= (upcase (system-name)) "MNASOFT-10" ) (setq inferior-lisp-program "D:/PRG/msys/usr/local/bin/sbcl.exe"))
    ((string= (upcase (system-name)) "MNASOFT-PI" ) (setq inferior-lisp-program "/usr/local/bin/sbcl"))
-   (t (setq inferior-lisp-program (concat (getenv "MSYS_HOME") "/usr/local/bin/SBCL/sbcl.exe")))))
+   (t (setq inferior-lisp-program "/usr/bin/sbcl"))))
 
 (when (eq inferior-lisp-program-name :ecl)
   (cond
