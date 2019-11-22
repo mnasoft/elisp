@@ -15,5 +15,5 @@
    (dot     . t)
    (gnuplot . t)
    (lisp    . t)
-   (sh   . t)))
+   (shell   . t)))
 
