@@ -38,5 +38,6 @@
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.75))
 (set-default 'truncate-lines t)
 
-(desktop-save-mode nil)
-(desktop-change-dir "~/")
+;;(desktop-change-dir "~/")
+(desktop-save-mode 10)
+
