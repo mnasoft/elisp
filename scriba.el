@@ -162,3 +162,27 @@ As you can see, you can use regular tags and begin/end ones interchangeably.
   (interactive)
   (insert "@cl:doc(cbitfield ...)
 "))
+
+(defun scr-description ()
+  "Предназначена для формирования заголовка технического задания"
+  (interactive)
+  (insert "@b(Описание:)
+"))
+
+(defun scr-variables ()
+  "Предназначена для формирования заголовка технического задания"
+  (interactive)
+  (insert "@b(Переменые:)
+"))
+
+(defun scr-example ()
+  "Предназначена для формирования заголовка технического задания"
+  (interactive)
+  (insert "@b(Пример использования:)
+"))
+
+(defun scr-return ()
+  "Предназначена для формирования заголовка технического задания"
+  (interactive)
+  (insert "@b(Возвращает:)
+"))

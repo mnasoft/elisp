@@ -25,7 +25,7 @@
 (load "~/elisp/kill-some-buffers.el")
 (load "~/elisp/zm-tz-header.el")
 (load "~/elisp/open-some-files.el")
-;;(load "~/elisp/translate-commands-gr-ru-uk.el")
+(load "~/elisp/translate-commands-gr-ru-uk.el")
 (load "~/elisp/hide-show-mode.el")
 (load "~/elisp/gnuplot.el")
 (load "~/elisp/scriba.el")
