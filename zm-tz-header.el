@@ -38,3 +38,7 @@
   (goto-char (point-max))
   (insert ":END:"))
 	
+(defun dos ()
+  "Предназначена для формирования заголовка технического задания"
+  (interactive)
+  (revert-buffer-with-coding-system 'windows-1251 T))
