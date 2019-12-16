@@ -19,7 +19,6 @@
 (setq process-connection-type nil)
 ;; Use pipes for subprocess communication. STOP ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(load "~/elisp/common-lisp.el")
 (load "~/elisp/org-code.el")
 (load "~/elisp/org-babel-do-load-languages.el")
 (load "~/elisp/kill-some-buffers.el")
@@ -30,6 +29,7 @@
 (load "~/elisp/gnuplot.el")
 (load "~/elisp/scriba.el")
 (load "~/elisp/org-structure.el")
+(load "~/elisp/common-lisp.el")
 
 ;;;;(load "~/elisp/slime_smartparens_auto-complete.el")
 
