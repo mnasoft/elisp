@@ -30,6 +30,7 @@
 (load "~/elisp/scriba.el")
 (load "~/elisp/org-structure.el")
 (load "~/elisp/common-lisp.el")
+(load "~/elisp/annotation.el")
 (load "~/elisp/annot.el")
 
 ;;;;(load "~/elisp/slime_smartparens_auto-complete.el")
