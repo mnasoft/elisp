@@ -77,7 +77,4 @@
 ;;(slime)
 ;;;; SLIME-AUTOLOAD-END
 
-
-
-
-
+(load "~/.quicklisp/clhs-use-local.el" 'noerror)
