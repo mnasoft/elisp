@@ -78,3 +78,5 @@
 ;;;; SLIME-AUTOLOAD-END
 
 (load "~/.quicklisp/clhs-use-local.el" 'noerror)
+(load "~/.quicklisp/clhs-use-local.el" t)
+;;;;(load "D:/PRG/msys32/home/namatv/quicklisp/clhs-use-local.el" t)
