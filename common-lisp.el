@@ -33,6 +33,7 @@
 
     (when (eq inferior-lisp-program-name :sbcl)
       (cond
+;;;;   ((string= (upcase (system-name)) "MNASOFT-01" ) (setq inferior-lisp-program "D:/PRG/SBCL/sbcl.exe"))
        ((string= (upcase (system-name)) "MNASOFT-01" ) (setq inferior-lisp-program "D:/PRG/msys64/mingw64/bin/sbcl.exe"))
        ((string= (upcase (system-name)) "MNASOFT-00" ) (setq inferior-lisp-program "sbcl"))
        ((string= (upcase (system-name)) "KO11-118383") (setq inferior-lisp-program (concat (getenv "MSYS_HOME") "/mingw32/bin/sbcl.exe"))) 
