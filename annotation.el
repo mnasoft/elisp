@@ -11,14 +11,12 @@
   "Предназначена для формирования вставки блока кода"
   (interactive)
   (insert "@export
-
 "))
 
 (defun ann-doc ()
   "Предназначена для формирования вставки блока кода"
   (interactive)
   (insert "@annot.doc:doc
-
 "))
 
 (defun ann-ignore ()
