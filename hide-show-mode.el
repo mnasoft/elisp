@@ -1,12 +1,15 @@
 ;;;; ~/elisp/hide-show-mode.el
 
-(hs-minor-mode)
-;;(add-hook 'prog-mode-hook #'hs-minor-mode)
-(global-set-key (kbd "C-c <right>") 'hs-show-block)
-(global-set-key (kbd "C-c <left>")  'hs-hide-block)
+(defun h-s ()
+  (interactive)
+  (hs-minor-mode)
+  ;;(add-hook 'prog-mode-hook #'hs-minor-mode)
 
-(global-set-key (kbd "C-c <down>")  'hs-show-all)
-(global-set-key (kbd "C-c <up>")    'hs-hide-all)
+  (global-set-key (kbd "C-c <right>") 'hs-show-block)
+  (global-set-key (kbd "C-c <left>")  'hs-hide-block)
+
+  (global-set-key (kbd "C-c <down>")  'hs-show-all)
+  (global-set-key (kbd "C-c <up>")    'hs-hide-all))
 
 ;;C-c @ C-a	hs-show-all
 ;;C-c @ C-c	hs-toggle-hiding
