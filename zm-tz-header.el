@@ -43,6 +43,7 @@
   (interactive)
   (revert-buffer-with-coding-system 'windows-1251 T))
 
+<<<<<<< HEAD
 (defun iapws-table ()
   (interactive)
   (let ((point (point)))
@@ -50,4 +51,19 @@
     (goto-char point)))
 
 
+=======
+(defun sp-import ()
+  "Импортирование спецификации"
+  (interactive)
+  (insert "
+#+BEGIN_SRC lisp
+;;;;(require :exel-read)
+(defparameter *sp* (exel-read:r-exel))
+*sp*
+#+END_SRC")
+  (previous-line 3)
+  (move-end-of-line nil)
+  (org-edit-special)
+)
+>>>>>>> 0dfd35d212a4bfe5a8b02b7a1c3735d9f157ce6d
 
