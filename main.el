@@ -32,6 +32,7 @@
 (load "~/elisp/inferior-lisp-program.el")
 (load "~/elisp/common-lisp.el")
 (load "~/elisp/annotation.el")
+(load "~/elisp/hunspell.el")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;(load "~/elisp/annot.el")
 
 ;;;;(load "~/elisp/slime_smartparens_auto-complete.el")
