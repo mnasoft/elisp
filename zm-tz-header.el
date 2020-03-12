@@ -42,3 +42,12 @@
   "Предназначена для формирования заголовка технического задания"
   (interactive)
   (revert-buffer-with-coding-system 'windows-1251 T))
+
+(defun iapws-table ()
+  (interactive)
+  (let ((point (point)))
+    (replace-string " 10" "d" t)
+    (goto-char point)))
+
+
+
