@@ -42,3 +42,24 @@
   "Предназначена для формирования заголовка технического задания"
   (interactive)
   (revert-buffer-with-coding-system 'windows-1251 T))
+
+(defun sp-import ()
+  "Импортирование спецификации"
+  (interactive)
+  (insert "
+#+BEGIN_SRC lisp
+;;;;(require :exel-read)
+(defparameter *sp* (exel-read:r-exel))
+*sp*
+#+END_SRC")
+  (previous-line 3)
+  (move-end-of-line nil)
+  (org-edit-special)
+)
+
+(defun iapws-table ()
+  (interactive)
+  (let ((point (point)))
+    (replace-string " 10" "d" t)
+    (goto-char point)))
+

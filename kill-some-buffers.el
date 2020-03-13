@@ -20,9 +20,4 @@
   (kill-buffer-if-exist "*slime-source*")
   )
 
-(defun s-r ()
-  (interactive)
-  (slime-restart-inferior-lisp)
-  (k-b))
-
-(k-b)
+;;;;(k-b)
