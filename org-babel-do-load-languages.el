@@ -35,3 +35,6 @@
    (lisp    . t)
    (shell   . t)))
 
+;; Фрагмент Latex большего размера
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.75))
+
