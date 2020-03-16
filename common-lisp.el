@@ -1,5 +1,4 @@
 
-<<<<<<< HEAD
 ;;(setq slime-contribs '(slime-scratch slime-editing-commands))
 ;;(setq slime-contribs '(slime-repl))  ; repl only
 (setq slime-contribs '(slime-fancy)) ; almost everything
@@ -96,7 +95,7 @@
   (slime-pop-find-definition-stack))
 
 ;;  (slime-edit-definition)
-=======
+
 (load "~/elisp/sly-start.el")
 ;;;;(load "~/elisp/slime-start.el")
->>>>>>> eb6531db278d9543257e6e11f10d9958e0151c36
+
