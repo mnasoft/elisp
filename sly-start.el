@@ -24,5 +24,3 @@
   (interactive)
   (sly-restart-inferior-lisp)
   (k-b))
-
-

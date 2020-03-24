@@ -22,7 +22,7 @@
 ;;;;(load "~/elisp/slime_smartparens_auto-complete.el")
 ;;;;(load "~/elisp.config/mnas-publish")
 
-(setq process-connection-type nil)
-(desktop-save-mode 1)
-(set-default 'truncate-lines t)
+;(setq process-connection-type nil)
+;(desktop-save-mode 1)
+;(set-default 'truncate-lines t)
 
