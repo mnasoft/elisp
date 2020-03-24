@@ -5,7 +5,7 @@
 (setq org-babel-lisp-eval-fn 'sly-eval)
 
 (defun sly-compile-all ()
-  "Предназначена для формирования заголовка технического задания"
+  "Выполняет переоценку и перекомпилирование открытого буфера"
   (interactive)
   (beginning-of-buffer)
   (let ((pnt (point)))
@@ -16,7 +16,7 @@
   (sly-pop-find-definition-stack))
 
 (defun s-c ()
-  "Предназначена для формирования заголовка технического задания"
+  "Выполняет переоценку и перекомпилирование открытого буфера"
   (interactive)  
   (sly-compile-all))
 
