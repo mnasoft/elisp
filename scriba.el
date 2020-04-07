@@ -186,3 +186,21 @@ As you can see, you can use regular tags and begin/end ones interchangeably.
   (interactive)
   (insert "@b(Возвращает:)
 "))
+
+(defun scr-link-external ()
+  "Предназначена для формирования заголовка технического задания"
+  (interactive)
+  (insert "@link[uri=\"https://www.google.com/\"](Google))"))
+
+(defun scr-link-internal ()
+  "Предназначена для формирования заголовка технического задания"
+  (interactive)
+  (insert "@ref[id=data-table-3](table)"))
+
+(defun scr-link-internal-ref ()
+  "Предназначена для формирования заголовка технического задания"
+  (interactive)
+  (insert "@begin[ref=data-table-3](table)
+@row(@cell(@b(A)) @cell(@b(B)) @cell(@b(C)))
+@row(@cell(1.23) @cell(3.14) @cell(4.5))
+@end(table)"))
