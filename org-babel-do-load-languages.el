@@ -27,13 +27,24 @@
 ;;#+LATEX_HEADER: \addtolength{\hoffset}{-2in}
 ;;#+LATEX_HEADER: \addtolength{\voffset}{-1in}
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((ditaa   . t)
-   (dot     . t)
-   (gnuplot . t)
-   (lisp    . t)
-   (shell   . t)))
+(cond
+ ((string= system-name "KO11-118383")
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((ditaa   . t)
+     (dot     . t)
+     (gnuplot . t)
+     (lisp    . t)
+     (shell   . t)
+     )))
+ (t (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((ditaa   . t)
+     (dot     . t)
+     (gnuplot . t)
+     (lisp    . t)
+     (sh      . t)
+     ))))
 
 ;; Фрагмент Latex большего размера
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.75))
