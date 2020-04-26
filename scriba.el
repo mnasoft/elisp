@@ -27,22 +27,31 @@
 @end(enum)
 "))
 
+(defun scr-deflist-item ()
+  "Вставляет элемент списка определений в коротком формате."
+  (interactive)
+  (insert "@term(...) @def(...)
+"))
+
+(defun scr-deflist-item-long ()
+  "Вставляет элемент списка определений в длинном формате."
+  (interactive)
+  (insert "
+@term(...)
+@begin(def)
+...
+@end(def)
+"))
+
 (defun scr-deflist ()
-  "Предназначена для формирования заголовка технического задания"
+  "Вставляет элемент списка определений"
   (interactive)
   (insert "@begin(deflist)
-
-@term(VerTeX)
-@def(A markup language with text syntax.)
-
-@term(Scriba)
-@begin(def)
-A markup language with Scribe syntax.
-
-As you can see, you can use regular tags and begin/end ones interchangeably.
-@end(def)
-
-@end(deflist)
+")
+  (scr-deflist-item)
+  (scr-deflist-item)
+  (scr-deflist-item)
+  (insert "@end(deflist)
 "))
 
 (defun scr-section ()
@@ -54,132 +63,162 @@ As you can see, you can use regular tags and begin/end ones interchangeably.
 @end(section)
 "))
 
-(defun scr-doc ()
-  "Предназначена для формирования заголовка технического задания"
-  (interactive)
-  (insert "@cl:with-package[name=\"pkg-name\"](
-@cl:doc(function  ...)
-@cl:doc(macro     ...)
-@cl:doc(generic   ...)
-@cl:doc(method    ...)
-@cl:doc(variable  ...)
-@cl:doc(struct    ...)
-@cl:doc(class     ...)
-@cl:doc(condition ...)
-@cl:doc(type      ...)
-
-@cl:doc(cfunction ...)
-@cl:doc(ctype     ...)
-@cl:doc(cstruct   ...)
-@cl:doc(cunion    ...)
-@cl:doc(cenum     ...)
-@cl:doc(cbitfield ...)
-)
-"))
-
 (defun scr-doc-function ()
-  "Предназначена для формирования заголовка технического задания"
+  "Вставляет документацию для function."
   (interactive)
-  (insert "@cl:doc(function  ...)
-"))
+  (insert "@cl:doc(function  ...)")
+  (newline 1))
+
+(defun scr-doc-setf-function ()
+  "Вставляет документацию для setf-function."
+  (interactive)
+  (insert "@cl:doc(setf-function ...)")
+  (newline 1))
 
 (defun scr-doc-macro ()
-  "Предназначена для формирования заголовка технического задания"
+  "Вставляет документацию для macro."
   (interactive)
-  (insert "@cl:doc(macro     ...)
-"))
+  (insert "@cl:doc(macro ...)")
+  (newline 1))
 
 (defun scr-doc-generic ()
-  "Предназначена для формирования заголовка технического задания"
+  "Вставляет документацию для generic."
   (interactive)
-  (insert "@cl:doc(generic   ...)
-"))
+  (insert "@cl:doc(generic ...)")
+  (newline 1))
+
+(defun scr-doc-setf-generic ()
+  "Вставляет документацию для setf-generic."
+  (interactive)
+  (insert "@cl:doc(setf-generic ...)")
+  (newline 1))
 
 (defun scr-doc-method ()
-  "Предназначена для формирования заголовка технического задания"
+  "Вставляет документацию для method."
   (interactive)
-  (insert "@cl:doc(method    ...)
-"))
+  (insert "@cl:doc(method ...)")
+  (newline 1))
+
+(defun scr-doc-setf-method ()
+  "Вставляет документацию для method."
+  (interactive)
+  (insert "@cl:doc(setf-method ...)")
+  (newline 1))
 
 (defun scr-doc-variable ()
-  "Предназначена для формирования заголовка технического задания"
+  "Вставляет документацию для variable"
   (interactive)
-  (insert "@cl:doc(variable  ...)"))
+  (insert "@cl:doc(variable ...)")
+  (newline 1))
 
 (defun scr-doc-struct ()
-  "Предназначена для формирования заголовка технического задания"
+  "Вставляет документацию для "
   (interactive)
-  (insert "@cl:doc(struct    ...)"))
+  (insert "@cl:doc(struct ...)")
+  (newline 1))
 
 (defun scr-doc-class ()
-  "Предназначена для формирования заголовка технического задания"
+  "Вставляет документацию для class."
   (interactive)
-  (insert "@cl:doc(class     ...)"))
+  (insert "@cl:doc(class ...)")
+  (newline 1))
 
 (defun scr-doc-condition ()
-  "Предназначена для формирования заголовка технического задания"
+  "Вставляет документацию для condition."
   (interactive)
-  (insert "@cl:doc(condition ...)"))
+  (insert "@cl:doc(condition ...)")
+  (newline 1))
 
 (defun scr-doc-type ()
-  "Предназначена для формирования заголовка технического задания"
+  "Вставляет документацию для type."
   (interactive)
-  (insert "@cl:doc(type      ...)"))
-
+  (insert "@cl:doc(type ...)")
+  (newline 1))
 
 (defun scr-doc-cfunction ()
-  "Предназначена для формирования заголовка технического задания"
+  "Вставляет документацию для cfunction."
   (interactive)
-  (insert "@cl:doc(cfunction ...)
-"))
+  (insert "@cl:doc(cfunction ...)")
+  (newline 1))
 
 (defun scr-doc-ctype ()
-  "Предназначена для формирования заголовка технического задания"
+  "Вставляет документацию для "
   (interactive)
-  (insert "@cl:doc(ctype     ...)
-"))
+  (insert "@cl:doc(ctype ...)")
+  (newline 1))
 
 (defun scr-doc-cstruct ()
-  "Предназначена для формирования заголовка технического задания"
+  "Вставляет документацию для cstruct."
   (interactive)
-  (insert "@cl:doc(cstruct   ...)
-"))
+  (insert "@cl:doc(cstruct ...)")
+  (newline 1))
 
 (defun scr-doc-cunion ()
-  "Предназначена для формирования заголовка технического задания"
+  "Вставляет документацию для cunion."
   (interactive)
-  (insert "@cl:doc(cunion    ...)
-"))
+  (insert "@cl:doc(cunion ...)")
+  (newline 1))
 
 (defun scr-doc-cenum ()
-  "Предназначена для формирования заголовка технического задания"
+  "Вставляет документацию для cenum."
   (interactive)
-  (insert "@cl:doc(cenum     ...)
-"))
+  (insert "@cl:doc(cenum ...)")
+  (newline 1))
 
 (defun scr-doc-cbitfield ()
-  "Предназначена для формирования заголовка технического задания"
+  "Вставляет документацию для cbitfield."
   (interactive)
-  (insert "@cl:doc(cbitfield ...)
-"))
+  (insert "@cl:doc(cbitfield ...)")
+  (newline 1))
+
+(defun scr-doc ()
+  "Вставляет секцию документации."
+  (interactive)
+  (insert "@cl:with-package[name=\"pkg-name\"](")
+  (newline 1)
+  (scr-doc-function)
+  (scr-doc-setf-function)
+  (scr-doc-macro)
+  (scr-doc-generic)
+  (scr-doc-setf-generic)
+  (scr-doc-method)
+  (scr-doc-setf-method)
+  (scr-doc-variable)
+  (scr-doc-struct)
+  (scr-doc-class)
+  (scr-doc-condition)
+  (scr-doc-type)
+
+  (scr-doc-cfunction)
+  (scr-doc-ctype)
+  (scr-doc-cstruct)
+  (scr-doc-cunion)
+  (scr-doc-cenum)
+  (scr-doc-cbitfield)
+  (insert ")")
+  (newline 1))
 
 (defun scr-description ()
   "Предназначена для формирования заголовка технического задания"
   (interactive)
-  (insert "@b(Описание:)
-"))
+  (insert "@b(Описание:) функция|метод|обобщенная_функция| @b(...)")
+  (newline 1))
 
 (defun scr-variables ()
   "Предназначена для формирования заголовка технического задания"
   (interactive)
-  (insert "@b(Переменые:)
-"))
+  (insert "
+ @b(Переменые:)")
+  (newline 1)
+  (scr-deflist))
 
 (defun scr-example ()
   "Предназначена для формирования заголовка технического задания"
   (interactive)
-  (insert "@b(Пример использования:)
-"))
+  (newline 1)
+  (insert " @b(Пример использования:)")
+  (newline 1)
+  (scr-code))
 
 (defun scr-return ()
   "Предназначена для формирования заголовка технического задания"
