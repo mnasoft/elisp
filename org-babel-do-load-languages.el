@@ -29,7 +29,8 @@
 
 (cond
  ((or (string= system-name "KO11-118383")
-      (string= system-name "mnasoft-00"))
+      (string= system-name "mnasoft-00")
+      (string= system-name "MNASOFT-01"))
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((ditaa   . t)
