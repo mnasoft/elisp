@@ -63,3 +63,19 @@
   (insert "@annot.class:export-class
 "))
 
+(defun ann-accessors ()
+  "Предназначена для формирования вставки блока кода
+ @export-accessors
+           (defclass c ()
+                ((a :reader a-of)
+                 (b :writer b-of)
+                 (c :accessor c-of)))
+           (progn
+             (export '(a-of b-of c-of))
+             (defclass c ()
+                ((a :reader a-of)
+                 (b :writer b-of)
+                 (c :accessor c-of))))"
+  (interactive)
+  (insert "@annot.class:export-accessors
+"))
