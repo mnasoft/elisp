@@ -57,4 +57,4 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(kbd-ctrl-meta-ctrlmeta-binding (second *abc-ru-eng*) (first  *abc-ru-eng*))
+;(kbd-ctrl-meta-ctrlmeta-binding (second *abc-ru-eng*) (first  *abc-ru-eng*))
