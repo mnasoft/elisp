@@ -57,4 +57,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;(kbd-ctrl-meta-ctrlmeta-binding (second *abc-ru-eng*) (first  *abc-ru-eng*))
+(define-key-translation-map "C-M-"     "N" "F")
+(define-key-translation-map "C-M-"     "n" "f")
+
+(kbd-ctrl-meta-ctrlmeta-binding (second *abc-ru-eng*) (first  *abc-ru-eng*))
