@@ -98,5 +98,5 @@
 
 ;;  (slime-edit-definition)
 
-(load "~/elisp/sly-start.el")
-;;;;(load "~/elisp/slime-start.el")
+;;;;(load "~/elisp/sly-start.el")
+(load "~/elisp/slime-start.el")
