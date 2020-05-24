@@ -98,5 +98,12 @@
 
 ;;  (slime-edit-definition)
 
-;;;;(load "~/elisp/sly-start.el")
-(load "~/elisp/slime-start.el")
+(cond
+       ((string= (upcase (system-name)) "MNASOFT-01" ) (load "~/elisp/sly-start.el"))
+       ((string= (upcase (system-name)) "MNASOFT-00" ) (load "~/elisp/sly-start.el"))
+       ((string= (upcase (system-name)) "KO11-118383") (load "~/elisp/sly-start.el"))
+       ((string= (upcase (system-name)) "N132866")     (load "~/elisp/sly-start.el"))
+       ((string= (upcase (system-name)) "MNASOFT-10" ) (load "~/elisp/sly-start.el"))
+       ((string= (upcase (system-name)) "MNASOFT-PI" ) (load "~/elisp/slime-start.el")))
+;;;;
+
