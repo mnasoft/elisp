@@ -29,6 +29,7 @@
 
 (cond
  ((or (string= system-name "KO11-118383")
+      (string= system-name "N118944")
       (string= system-name "mnasoft-00")
       (string= system-name "MNASOFT-01")
       (string= system-name "mnasoft-pi"))
