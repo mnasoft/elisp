@@ -18,7 +18,7 @@
 (load "~/elisp/inferior-lisp-program.el")
 (load "~/elisp/common-lisp.el")
 
-;;;; (load "~/elisp/neotree.el")
+(load "~/elisp/neotree.el")
 ;;;; (load "~/elisp/elgrep.el")
 
 ;;;;(load "~/elisp/annot.el")

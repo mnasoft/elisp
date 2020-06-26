@@ -28,11 +28,8 @@
 ;;#+LATEX_HEADER: \addtolength{\voffset}{-1in}
 
 (cond
- ((or (string= system-name "KO11-118383")
-      (string= system-name "N118944")
-      (string= system-name "mnasoft-00")
-      (string= system-name "MNASOFT-01")
-      (string= system-name "mnasoft-pi"))
+ ((member system-name
+	  '("N118383" "N118944" "N118665" "mnasoft-00" "MNASOFT-01" "mnasoft-pi"))
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((ditaa   . t)
