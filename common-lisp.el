@@ -13,7 +13,7 @@
 
 (cond
  ((member (upcase (system-name))
-	  '("MNASOFT-01" "MNASOFT-00" "MNASOFT-10" "N118383" "N132866" "N118665"))
+	  '("MNASOFT-01" "MNASOFT-00" "MNASOFT-10" "N118383" "N118389" "N132866" "N118665"))
   (load "~/elisp/sly-start.el"))
  ((member (upcase (system-name))
 	  '("MNASOFT-PI" "N118944"))

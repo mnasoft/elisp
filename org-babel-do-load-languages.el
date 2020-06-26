@@ -29,7 +29,7 @@
 
 (cond
  ((member system-name
-	  '("N118383" "N118944" "N118665" "mnasoft-00" "MNASOFT-01" "mnasoft-pi"))
+	  '("N118383" "N118389" "N118944" "N118665" "mnasoft-00" "MNASOFT-01" "mnasoft-pi"))
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((ditaa   . t)
