@@ -4,6 +4,10 @@
   (interactive)
   (find-file "~/org/main.org"))
 
+(defun open-msys2-org ()
+  (interactive)
+  (find-file "~/org/msys2.org"))
+
 (defun open-sbcl-org ()
   (interactive)
   (find-file "~/org/sbcl/sbcl.org"))
