@@ -12,6 +12,10 @@
 
 (setq org-babel-lisp-eval-fn 'slime-eval)
 
+(add-to-list 'load-path "~/quicklisp/dists/quicklisp/software/cl-annot-20150608-git/misc/")
+
+(require 'slime-annot)
+
 (load "~/.quicklisp/clhs-use-local.el" 'noerror)
 (load "~/.quicklisp/clhs-use-local.el" t)
 ;;;;(load "D:/PRG/msys32/home/namatv/quicklisp/clhs-use-local.el" t
