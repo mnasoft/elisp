@@ -4,7 +4,8 @@
 
 (setq org-babel-lisp-eval-fn 'sly-eval)
 
-(add-to-list 'load-path "~/quicklisp/dists/quicklisp/software/cl-annot-20150608-git/misc/")
+;;;; (add-to-list 'load-path "~/quicklisp/dists/quicklisp/software/cl-annot-20150608-git/misc/")
+(add-to-list 'load-path "d:/PRG/msys32/home/namatv/quicklisp/dists/quicklisp/software/cl-annot-20150608-git/misc/")
 
 (require 'sly-annot)
 
@@ -29,3 +30,4 @@
   (sly-restart-inferior-lisp)
   (k-b))
 
+(car load-path)
