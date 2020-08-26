@@ -29,5 +29,3 @@
   (interactive)
   (sly-restart-inferior-lisp)
   (k-b))
-
-(car load-path)

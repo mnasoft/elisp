@@ -5,7 +5,7 @@
   (if (first (member lisp-prg '(:abcl :ccl :clisp :ecl :sbcl)))
       (setq inferior-lisp-program-name lisp-prg)
     (cond
-     ((member system-name
+     ((member (upcase system-name)
 	      '("MNASOFT-01" "MNASOFT-00" "MNASOFT-10" "N118383" "N118389" "N118944" "N118665"))
       (setq inferior-lisp-program-name :sbcl))
      ((member system-name '("MNASOFT-PI"))
