@@ -29,3 +29,5 @@
 ;(desktop-save-mode 1)
 ;(set-default 'truncate-lines t)
 
+(setq-default indent-tabs-mode nil)
+(set-default 'truncate-lines t)
