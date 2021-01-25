@@ -63,10 +63,10 @@
 ;;(setq inferior-lisp-program-name :sbcl)
 
 ;;(lisp-inferior-lisp-program :ccl) 
-;;(lisp-inferior-lisp-program nil)
+(lisp-inferior-lisp-program nil)
 
-(setq sly-lisp-implementations
-      '((sbcl ("d:/PRG/msys64/mingw64/bin/sbcl.exe") :coding-system utf-8-unix)
-        (ccl  ("d:/PRG/msys64/usr/local/src/ccl/wx86cl64.exe") :coding-system utf-8-unix)))
+;;(setq sly-lisp-implementations
+;;     '((sbcl ("d:/PRG/msys64/mingw64/bin/sbcl.exe") :coding-system utf-8-unix)
+;;        (ccl  ("d:/PRG/msys64/usr/local/src/ccl/wx86cl64.exe") :coding-system utf-8-unix)))
         
 ;;;; INFERIOR-LISP-PROGRAM-STOP
