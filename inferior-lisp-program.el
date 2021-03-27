@@ -29,7 +29,7 @@
        ((string= (upcase (system-name)) "N118665")     (setq inferior-lisp-program "D:/home/PRG/msys32/mingw32/bin/sbcl"))
        ((string= (upcase (system-name)) "N118389")     (setq inferior-lisp-program "D:/home/PRG/msys32/mingw32/bin/sbcl"))
        ((string= (upcase (system-name)) "MNASOFT-10" ) (setq inferior-lisp-program "D:/PRG/msys/usr/local/bin/sbcl.exe"))       
-       ((string= (upcase (system-name)) "MNASOFT-01" ) (setq inferior-lisp-program "D:/PRG/msys64/mingw64/bin/sbcl.exe"))
+	   ((string= (upcase (system-name)) "MNASOFT-01" ) (setq inferior-lisp-program "D:/PRG/msys64/mingw64/bin/sbcl.exe"))
        ((string= (upcase (system-name)) "MNASOFT-00" ) (setq inferior-lisp-program "sbcl"))       
        ((string= (upcase (system-name)) "MNASOFT-PI" ) (setq inferior-lisp-program "/usr/local/bin/sbcl"))
        (t (setq inferior-lisp-program "/usr/bin/sbcl"))))
