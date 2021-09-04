@@ -17,6 +17,17 @@
 @end(list)
 "))
 
+(defun scr-item ()
+  "Предназначена для формирования заголовка технического задания"
+  (interactive)
+  (insert "
+ @item( )
+ @item( )
+ @item( )
+ @item( )
+ @item( )
+"))
+
 (defun scr-enum ()
   "Предназначена для формирования заголовка технического задания"
   (interactive)
@@ -210,7 +221,7 @@
   (insert "
  @b(Переменые:)")
   (newline 1)
-  (scr-deflist))
+  (scr-list))
 
 (defun scr-example ()
   "Предназначена для формирования заголовка технического задания"

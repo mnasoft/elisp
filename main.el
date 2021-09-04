@@ -31,3 +31,5 @@
 
 (setq-default indent-tabs-mode nil)
 (set-default 'truncate-lines t)
+
+(setq ispell-program-name "aspell")
