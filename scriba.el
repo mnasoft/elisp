@@ -8,6 +8,22 @@
 @end(code)
 "))
 
+(defun scr-code-lisp ()
+  "Предназначена для формирования вставки блока кода"
+  (interactive)
+  (insert "@begin[lang=lisp](code)
+
+@end(code)
+"))
+
+(defun scr-code-txt ()
+  "Предназначена для формирования вставки блока кода"
+  (interactive)
+  (insert "@begin[lang=txt](code)
+
+@end(code)
+"))
+
 (defun scr-list ()
   "Предназначена для формирования заголовка технического задания"
   (interactive)
@@ -240,7 +256,15 @@
 (defun scr-link-external ()
   "Предназначена для формирования заголовка технического задания"
   (interactive)
-  (insert "@link[uri=\"https://www.google.com/\"](Google))"))
+  (insert "@link[uri=\"https://www.google.com/\"](Google)"))
+
+(defun scr-link-external-line ()
+  "Предназначена для формирования заголовка технического задания"
+  (interactive)
+  (beginning-of-line)
+  (insert "@link[uri=\\\"")
+  (end-of-line)
+  (insert "\\\"]()"))
 
 (defun scr-link-internal ()
   "Предназначена для формирования заголовка технического задания"

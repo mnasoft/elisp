@@ -33,3 +33,8 @@
 (set-default 'truncate-lines t)
 
 (setq ispell-program-name "aspell")
+
+;;;; gpg --homedir ~/.emacs.d/elpa/gnupg --receive-keys 066DAFCB81E42C40
+;;;; (setq package-check-signature nil)
+(setq package-gnupghome-dir "/d/PRG/msys64/home/namatv/.emacs.d/elpa/gnupg") ;;;; "d:/PRG/msys64/home/namatv/.emacs.d/elpa/gnupg"
+;;;; (setq package-gnupghome-dir "/home/namatv/.emacs.d/elpa/gnupg")
