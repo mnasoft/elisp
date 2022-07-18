@@ -28,8 +28,7 @@
 ;;#+LATEX_HEADER: \addtolength{\voffset}{-1in}
 
 (cond
- ((member system-name 
-	  '("N133907" "N000308" "N118383" "N118389" "N118944" "N118665" "mnasoft-00" "MNASOFT-01" "mnasoft-pi" "N132849" ))
+ ((member system-name comps-with-shell)
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((ditaa   . t)

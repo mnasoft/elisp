@@ -1,5 +1,5 @@
 ;;;; SLY-AUTOLOAD-START
-(sly)
+;(sly)
 ;;;; SLY-AUTOLOAD-END
 
 (setq org-babel-lisp-eval-fn 'sly-eval)

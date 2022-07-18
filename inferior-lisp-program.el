@@ -1,11 +1,8 @@
 ;;;; inferior-lisp-program.el
 ;;;; INFERIOR-LISP-PROGRAM-START
 
-(setf comps-sbcl-inferior-lisp-program
-      '("N133907" "N000308" "MNASOFT-01" "MNASOFT-00" "MNASOFT-10" "N118383" "N118389" "N118944" "N118665"))
 
-(setf comps-ccl-inferior-lisp-program
-      '("N000308" "MNASOFT-01" "MNASOFT-00" "MNASOFT-10" "N118383" "N118389" "N118944" "N118665"))
+
 
 (defun lisp-inferior-lisp-program (lisp-prg)
   (if (first (member lisp-prg '(:abcl :ccl :clisp :ecl :sbcl)))
@@ -35,7 +32,7 @@
        ((string= (upcase (system-name)) "N118389")     (setq inferior-lisp-program "D:/home/PRG/msys32/mingw32/bin/sbcl"))
        ((string= (upcase (system-name)) "MNASOFT-10" ) (setq inferior-lisp-program "D:/PRG/msys/usr/local/bin/sbcl.exe"))
        ((string= (upcase (system-name)) "MNASOFT-01" ) (setq inferior-lisp-program "D:/PRG/msys64/mingw64/bin/sbcl.exe"))
-       ((string= (upcase (system-name)) "N133907" )    (setq inferior-lisp-program "D:/home/_namatv/PRG/msys64/mingw64/bin/sbcl.exe"))
+       ((string= (upcase (system-name)) "N142013" )    (setq inferior-lisp-program "D:/home/_namatv/PRG/msys64/mingw64/bin/sbcl.exe"))
        ((string= (upcase (system-name)) "N000308" )    (setq inferior-lisp-program "D:/PRG/msys64/mingw64/bin/sbcl.exe"))
        ((string= (upcase (system-name)) "MNASOFT-00" ) (setq inferior-lisp-program "sbcl")) 
        ((string= (upcase (system-name)) "MNASOFT-PI" ) (setq inferior-lisp-program "/usr/local/bin/sbcl"))
@@ -70,7 +67,8 @@
 ;;(setq inferior-lisp-program-name :sbcl)
 
 ;;(lisp-inferior-lisp-program :ccl) 
-(lisp-inferior-lisp-program nil)
+;;(lisp-inferior-lisp-program nil)
+(sly-connect "localhost" 4005)
 
 ;;(setq sly-lisp-implementations
 ;;     '((sbcl ("d:/PRG/msys64/mingw64/bin/sbcl.exe") :coding-system utf-8-unix)
