@@ -69,3 +69,4 @@
 
 (setq-default indent-tabs-mode nil)
 (set-default 'truncate-lines t)
+(global-company-mode 1)
