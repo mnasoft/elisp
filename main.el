@@ -16,6 +16,16 @@
   ("Федоров Олександр Миколайович" "n133148")
   ("Матвєєв Микола Анатолійович" "n142013"))
 
+(setq system-name-with-windows
+      '("MNASOFT-01"
+        "MNASOFT-00"
+        "MNASOFT-10"
+        "N118383"
+        "N118389"
+        "N118944"
+        "N118665"))
+
+
 (setf comps-sbcl-inferior-lisp-program
       '("N142013" "N133906"  "MNASOFT-01"
 	"MNASOFT-00" "MNASOFT-10"  
@@ -31,13 +41,13 @@
 	    "mnasoft-00" "MNASOFT-10"
 	      "N132866" ))
 
+(setf comps-slime-common-lisp
+      '("mnasoft-pi"))
+
 (setf comps-with-shell
       '("N142013" "N133906"     
 	"mnasoft-00" "MNASOFT-01" "mnasoft-pi" "N132849"
 	"UAKAZI-NOTE" ))
-
-(setf comps-slime-common-lisp
-      '("mnasoft-pi"))
 
 (load "~/elisp/org-code.el")
 (load "~/elisp/org-babel-do-load-languages.el") 

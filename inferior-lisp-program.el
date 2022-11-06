@@ -1,9 +1,6 @@
 ;;;; inferior-lisp-program.el
 ;;;; INFERIOR-LISP-PROGRAM-START
 
-(setq system-name-with-windows
-      '("MNASOFT-01" "MNASOFT-00" "MNASOFT-10" "N118383" "N118389" "N118944" "N118665"))
-
 (defun lisp-inferior-lisp-program (lisp-prg)
   (if (first (member lisp-prg '( :ccl :sbcl))) ;; :abcl :clisp :ecl
       (setq inferior-lisp-program-name lisp-prg)
