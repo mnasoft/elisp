@@ -27,9 +27,11 @@
 
 
 (setf comps-sbcl-inferior-lisp-program
-      '("N142013" "N133906"  "MNASOFT-01"
-	"MNASOFT-00" "MNASOFT-10"  
-	 ))
+      '("N142013"
+	"N133906"
+	"MNASOFT-01"
+	"MNASOFT-00"
+	"MNASOFT-10"))
 
 (setf comps-ccl-inferior-lisp-program
       '("MNASOFT-01"
@@ -54,7 +56,8 @@
         "MNASOFT-01"
         "mnasoft-pi"
         "N132849"
-	"UAKAZI-NOTE" ))
+	"UAKAZI-NOTE"
+	"mnasoft-deb"))
 
 (load "~/elisp/org-code.el")
 (load "~/elisp/org-babel-do-load-languages.el") 

@@ -2,7 +2,7 @@
 
 (defun h-s ()
   (interactive)
-  (hs-minor-mode)
+  (hs-minor-mode 1)
   ;;(add-hook 'prog-mode-hook #'hs-minor-mode)
 
   (global-set-key (kbd "C-c <right>") 'hs-show-block)
