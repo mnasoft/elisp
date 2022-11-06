@@ -32,21 +32,28 @@
 	 ))
 
 (setf comps-ccl-inferior-lisp-program
-      '( "MNASOFT-01" "MNASOFT-00"
-	"MNASOFT-10"  
-	 ))
+      '("MNASOFT-01"
+        "MNASOFT-00"
+	"MNASOFT-10"))
 
 (setf comps-sly-common-lisp
-      (list "N142013" "N133906"  "MNASOFT-01"
-	    "mnasoft-00" "MNASOFT-10"
-	      "N132866" ))
+      '("N142013"
+        "N133906"
+        "MNASOFT-01"
+	"mnasoft-00"
+        "MNASOFT-10"
+	"N132866"))
 
 (setf comps-slime-common-lisp
       '("mnasoft-pi"))
 
 (setf comps-with-shell
-      '("N142013" "N133906"     
-	"mnasoft-00" "MNASOFT-01" "mnasoft-pi" "N132849"
+      '("N142013"
+        "N133906"     
+	"mnasoft-00"
+        "MNASOFT-01"
+        "mnasoft-pi"
+        "N132849"
 	"UAKAZI-NOTE" ))
 
 (load "~/elisp/org-code.el")
@@ -86,6 +93,8 @@
 ;;;; gpg --homedir ~/.emacs.d/elpa/gnupg --receive-keys 066DAFCB81E42C40
 ;;;; (setq package-check-signature nil)
 (setq package-gnupghome-dir (concat "/home/" (getenv "USER") "/.emacs.d/elpa/gnupg"))
+
+(global-company-mode 1)
 
 
 
