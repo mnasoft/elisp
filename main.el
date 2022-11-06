@@ -33,7 +33,8 @@
 
 (setf comps-with-shell
       '("N142013" "N133906"     
-	"mnasoft-00" "MNASOFT-01" "mnasoft-pi" "N132849" ))
+	"mnasoft-00" "MNASOFT-01" "mnasoft-pi" "N132849"
+	"UAKAZI-NOTE" ))
 
 (setf comps-slime-common-lisp
       '("mnasoft-pi"))
