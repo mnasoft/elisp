@@ -16,27 +16,48 @@
   ("Федоров Олександр Миколайович" "n133148")
   ("Матвєєв Микола Анатолійович" "n142013"))
 
+(setq system-name-with-windows
+      '("MNASOFT-01"
+        "MNASOFT-00"
+        "MNASOFT-10"
+        "N118383"
+        "N118389"
+        "N118944"
+        "N118665"))
+
+
 (setf comps-sbcl-inferior-lisp-program
-      '("N142013" "N133906"  "MNASOFT-01"
-	"MNASOFT-00" "MNASOFT-10"  
-	 ))
+      '("N142013"
+	"N133906"
+	"MNASOFT-01"
+	"MNASOFT-00"
+	"MNASOFT-10"))
 
 (setf comps-ccl-inferior-lisp-program
-      '( "MNASOFT-01" "MNASOFT-00"
-	"MNASOFT-10"  
-	 ))
+      '("MNASOFT-01"
+        "MNASOFT-00"
+	"MNASOFT-10"))
 
 (setf comps-sly-common-lisp
-      (list "N142013" "N133906"  "MNASOFT-01"
-	    "mnasoft-00" "MNASOFT-10"
-	      "N132866" ))
-
-(setf comps-with-shell
-      '("N142013" "N133906"     
-	"mnasoft-00" "MNASOFT-01" "mnasoft-pi" "N132849" ))
+      '("N142013"
+        "N133906"
+        "MNASOFT-01"
+	"mnasoft-00"
+        "MNASOFT-10"
+	"N132866"))
 
 (setf comps-slime-common-lisp
       '("mnasoft-pi"))
+
+(setf comps-with-shell
+      '("N142013"
+        "N133906"     
+	"mnasoft-00"
+        "MNASOFT-01"
+        "mnasoft-pi"
+        "N132849"
+	"UAKAZI-NOTE"
+	"mnasoft-deb"))
 
 (load "~/elisp/org-code.el")
 (load "~/elisp/org-babel-do-load-languages.el") 
@@ -69,4 +90,11 @@
 
 (setq-default indent-tabs-mode nil)
 (set-default 'truncate-lines t)
+
+(setq ispell-program-name "aspell")
+
+;;;; gpg --homedir ~/.emacs.d/elpa/gnupg --receive-keys 066DAFCB81E42C40
+;;;; (setq package-check-signature nil)
+(setq package-gnupghome-dir (concat "/home/" (getenv "USER") "/.emacs.d/elpa/gnupg"))
+
 (global-company-mode 1)
