@@ -278,3 +278,9 @@
 @row(@cell(@b(A)) @cell(@b(B)) @cell(@b(C)))
 @row(@cell(1.23) @cell(3.14) @cell(4.5))
 @end(table)"))
+
+(defun loop-hash-keys-using ()
+  (interactive)
+  (insert "(loop :for k :being :the hash-keys :in hash-table :using (hash-value v) :do
+    (list k v))"))
+

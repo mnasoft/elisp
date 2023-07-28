@@ -6,7 +6,8 @@
     (sly-connect "localhost" 4005)
   (progn
     (setq sly-lisp-implementations
-          '((sbcl ("sbcl" "--dynamic-space-size" "16384"))))
+          '((sbcl ("sbcl" "--dynamic-space-size" "16384" ;; "--control-stack-size" "8192"
+                   ))))
     (setq inferior-lisp-program
           "d:/home/_namatv/PRG/SBCL/2.3.2-msi/sbcl.exe")
     ;;  "d:/home/_namatv/PRG/SBCL/2.2.1-msi/sbcl.exe"
