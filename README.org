@@ -1,11 +1,75 @@
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+options: author:t broken-links:nil c:nil creator:nil
+#+options: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:t
+#+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
+#+options: timestamp:t title:t toc:t todo:t |:t
+#+title: README
+#+date: <2023-08-28 Пн>
+#+author:
+#+email: mnasoft@gmail.com
+#+language: ru
+#+select_tags: export
+#+exclude_tags: noexport
+#+creator: Emacs 28.2 (Org mode 9.5.5)
+#+cite_export:
+#+options: html-link-use-abs-url:nil html-postamble:auto
+#+options: html-preamble:t html-scripts:nil html-style:t
+#+options: html5-fancy:nil tex:t
+#+html_doctype: xhtml-strict
+#+html_container: div
+#+html_content_class: content
+#+description:
+#+keywords:
+#+html_link_home:
+#+html_link_up:
+#+html_mathjax:
+#+html_equation_reference_format: \eqref{%s}
+#+html_head:
+#+html_head_extra:
+#+subtitle:
+#+infojs_opt:
+#+creator: <a href="https://www.gnu.org/software/emacs/">Emacs</a> 28.2 (<a href="https://orgmode.org">Org</a> mode 9.5.5)
+#+latex_header:
 
-* Перечень загружаемых пакетов
+* Содержание
+** Настройка =.bash_profile=
+#+begin_src sh
+  UNAME_N="N142013"
 
-| deadgrep | color-theme-sanityinc-tomorrow | slime | cdlatex | ox-twbs | neotree | gnuplot | htmlize | auctex |
+  if [[ "N133905" == ${UNAME_N} ]]
+  then
+      SBCL_HOME="//n133905/home/_namatv/PRG//SBCL/2.2.1-msi"
+      PATH="${PATH}:${SBCL_HOME}"
+  elif [[ "N142013" == ${UNAME_N} ]]
+  then
+  #    SBCL_HOME="D:/home/_namatv/PRG/SBCL/2.2.1-msi"
+  #    PATH="${PATH}:/d/home/_namatv/PRG/SBCL/2.2.1-msi"
+  #    SBCL_HOME="D:/home/_namatv/PRG/SBCL/2.3.0-msi"
+  #    PATH="${PATH}:/d/home/_namatv/PRG/SBCL/2.3.0-msi"
+      SBCL_HOME="D:/home/_namatv/PRG/SBCL/2.3.2-msi"
+      PATH="${PATH}:/d/home/_namatv/PRG/SBCL/2.3.2-msi"
+  fi
+	 
+  export SBCL_HOME
+  export PATH
 
-* Перечень файлов проекта
+  echo .bash_profile SBCL_HOME=${SBCL_HOME}
+#+end_src
+** Перечень загружаемых пакетов из репозитория melpa
 
-#+BEGIN_SRC shell
+| deadgrep                       |
+| color-theme-sanityinc-tomorrow |
+| slime                          |
+| cdlatex                        |
+| ox-twbs                        |
+| neotree                        |
+| gnuplot                        |
+| htmlize                        |
+| auctex                         |
+
+** Перечень файлов проекта
+
+#+BEGIN_SRC sh 
 cd ~/elisp;
 for i in `ls *.el`
 do
@@ -14,12 +78,27 @@ done
 #+END_SRC
 
 #+RESULTS:
-| [[file:~/elisp/common-lisp.el]]                 |
-| [[file:~/elisp/kill-some-buffers.el]]           |
-| [[file:~/elisp/main.el]]                        |
-| [[file:~/elisp/mnas-publish.el]]                |
-| [[file:~/elisp/open-some-files.el]]             |
-| [[file:~/elisp/org-babel-do-load-languages.el]] |
-| [[file:~/elisp/org-code.el]]                    |
-| [[file:~/elisp/translate-commands-gr-ru-uk.el]] |
-| [[file:~/elisp/zm-tz-header.el]]                |
+| [[file:~/elisp/annot.el]]                           |
+| [[file:~/elisp/annotation.el]]                      |
+| [[file:~/elisp/common-lisp.el]]                     |
+| [[file:~/elisp/elgrep.el]]                          |
+| [[file:~/elisp/gnuplot.el]]                         |
+| [[file:~/elisp/hide-show-mode.el]]                  |
+| [[file:~/elisp/hunspell.el]]                        |
+| [[file:~/elisp/inferior-lisp-program.el]]           |
+| [[file:~/elisp/kill-some-buffers.el]]               |
+| [[file:~/elisp/main.el]]                            |
+| [[file:~/elisp/mik-tex.el]]                         |
+| [[file:~/elisp/mnas-publish.el]]                    |
+| [[file:~/elisp/neotree.el]]                         |
+| [[file:~/elisp/open-some-files.el]]                 |
+| [[file:~/elisp/org-babel-do-load-languages.el]]     |
+| [[file:~/elisp/org-code.el]]                        |
+| [[file:~/elisp/org-structure.el]]                   |
+| [[file:~/elisp/scriba.el]]                          |
+| [[file:~/elisp/slime_smartparens_auto-complete.el]] |
+| [[file:~/elisp/slime-start.el]]                     |
+| [[file:~/elisp/sly-start.el]]                       |
+| [[file:~/elisp/translate-commands-gr-ru-uk.el]]     |
+| [[file:~/elisp/yes-or-no-p.el]]                     |
+| [[file:~/elisp/zm-tz-header.el]]                    |
