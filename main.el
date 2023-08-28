@@ -56,7 +56,7 @@
         "MNASOFT-01"
         "mnasoft-pi"
         "N132849"
-	"UAKAZI-NOTE"
+	"uakazi-note"
 	"mnasoft-deb"))
 
 (load "~/elisp/org-code.el")
@@ -97,4 +97,5 @@
 ;;;; (setq package-check-signature nil)
 (setq package-gnupghome-dir (concat "/home/" (getenv "USER") "/.emacs.d/elpa/gnupg"))
 
-(global-company-mode 1)
+(global-company-mode 0)
+
