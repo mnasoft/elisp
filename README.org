@@ -42,63 +42,35 @@
       PATH="${PATH}:${SBCL_HOME}"
   elif [[ "N142013" == ${UNAME_N} ]]
   then
-  #    SBCL_HOME="D:/home/_namatv/PRG/SBCL/2.2.1-msi"
-  #    PATH="${PATH}:/d/home/_namatv/PRG/SBCL/2.2.1-msi"
-  #    SBCL_HOME="D:/home/_namatv/PRG/SBCL/2.3.0-msi"
-  #    PATH="${PATH}:/d/home/_namatv/PRG/SBCL/2.3.0-msi"
       SBCL_HOME="D:/home/_namatv/PRG/SBCL/2.3.2-msi"
       PATH="${PATH}:/d/home/_namatv/PRG/SBCL/2.3.2-msi"
   fi
-	 
+
   export SBCL_HOME
   export PATH
 
   echo .bash_profile SBCL_HOME=${SBCL_HOME}
 #+end_src
-** Перечень загружаемых пакетов из репозитория melpa
-
-| deadgrep                       |
-| color-theme-sanityinc-tomorrow |
-| slime                          |
-| cdlatex                        |
-| ox-twbs                        |
-| neotree                        |
-| gnuplot                        |
-| htmlize                        |
-| auctex                         |
+** Перечень рекомендуемых к использованию пакетов
+| Наименование пакета            | Status     | Archive | Описание                                           |
+|--------------------------------+------------+---------+----------------------------------------------------|
+| sly                            | installed  |         | Sylvester the Cat's Common Lisp IDE                |
+| neotree                        | installed  |         | A tree plugin like NerdTree for Vim                |
+| htmlize                        | installed  |         | Convert buffer text and decorations to HTML.       |
+| company                        | dependency |         | Modular text completion framework                  |
+| gnuplot                        | dependency |         | Major-mode and interactive frontend for gnuplot    |
+|--------------------------------+------------+---------+----------------------------------------------------|
+| cdlatex                        | available  | melpa   | Fast input methods for LaTeX environments and math |
+| auctex                         | available  | gnu     | Integrated environment for *TeX*                   |
+| deadgrep                       | available  | melpa   | fast, friendly searching with ripgrep              |
+| color-theme-sanityinc-tomorrow | available  | melpa   | A version of Chris Kempson's "tomorrow" themes     |
+| ox-twbs                        | available  | melpa   | Bootstrap compatible HTML Back-End for Org         |
 
 ** Перечень файлов проекта
-
-#+BEGIN_SRC sh 
-cd ~/elisp;
-for i in `ls *.el`
-do
-echo [[~/elisp/${i}]]
-done
+#+BEGIN_SRC sh :exports both 
+  cd ~/elisp;
+  for i in `ls *.el`
+  do
+      echo [[~/elisp/${i}]]
+  done
 #+END_SRC
-
-#+RESULTS:
-| [[file:~/elisp/annot.el]]                           |
-| [[file:~/elisp/annotation.el]]                      |
-| [[file:~/elisp/common-lisp.el]]                     |
-| [[file:~/elisp/elgrep.el]]                          |
-| [[file:~/elisp/gnuplot.el]]                         |
-| [[file:~/elisp/hide-show-mode.el]]                  |
-| [[file:~/elisp/hunspell.el]]                        |
-| [[file:~/elisp/inferior-lisp-program.el]]           |
-| [[file:~/elisp/kill-some-buffers.el]]               |
-| [[file:~/elisp/main.el]]                            |
-| [[file:~/elisp/mik-tex.el]]                         |
-| [[file:~/elisp/mnas-publish.el]]                    |
-| [[file:~/elisp/neotree.el]]                         |
-| [[file:~/elisp/open-some-files.el]]                 |
-| [[file:~/elisp/org-babel-do-load-languages.el]]     |
-| [[file:~/elisp/org-code.el]]                        |
-| [[file:~/elisp/org-structure.el]]                   |
-| [[file:~/elisp/scriba.el]]                          |
-| [[file:~/elisp/slime_smartparens_auto-complete.el]] |
-| [[file:~/elisp/slime-start.el]]                     |
-| [[file:~/elisp/sly-start.el]]                       |
-| [[file:~/elisp/translate-commands-gr-ru-uk.el]]     |
-| [[file:~/elisp/yes-or-no-p.el]]                     |
-| [[file:~/elisp/zm-tz-header.el]]                    |
