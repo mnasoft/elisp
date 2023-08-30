@@ -28,7 +28,7 @@
 ;;#+LATEX_HEADER: \addtolength{\voffset}{-1in}
 
 (cond
- ((member system-name comps-with-shell)
+ ((member (upcase system-name) comps-with-shell)
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((ditaa   . t)
