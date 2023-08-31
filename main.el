@@ -23,7 +23,8 @@
         "N118383"
         "N118389"
         "N118944"
-        "N118665"))
+        "N118665"
+	"UAKAZI-NOTE"))
 
 
 (setf comps-sbcl-inferior-lisp-program
@@ -31,7 +32,8 @@
 	"N133906"
 	"MNASOFT-01"
 	"MNASOFT-00"
-	"MNASOFT-10"))
+	"MNASOFT-10"
+	"UAKAZI-NOTE"))
 
 (setf comps-ccl-inferior-lisp-program
       '("MNASOFT-01"
@@ -44,7 +46,9 @@
         "MNASOFT-01"
 	"mnasoft-00"
         "MNASOFT-10"
-	"N132866"))
+	"N132866"
+	"UAKAZI-NOTE"))
+
 
 (setf comps-slime-common-lisp
       '("mnasoft-pi"))
@@ -97,4 +101,5 @@
 ;;;; (setq package-check-signature nil)
 (setq package-gnupghome-dir (concat "/home/" (getenv "USER") "/.emacs.d/elpa/gnupg"))
 
-(global-company-mode 1)
+(global-company-mode 0)
+
