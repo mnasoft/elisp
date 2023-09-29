@@ -5,11 +5,15 @@
   (hs-minor-mode 1)
   ;;(add-hook 'prog-mode-hook #'hs-minor-mode)
 
-  (global-set-key (kbd "C-c <right>") 'hs-show-block)
-  (global-set-key (kbd "C-c <left>")  'hs-hide-block)
+  (global-set-key (kbd "C-c <right>")   'hs-show-block)
+  (global-set-key (kbd "C-c C-<right>") 'hs-show-block)
+  (global-set-key (kbd "C-c <left>")    'hs-hide-block)
+  (global-set-key (kbd "C-c C-<left>")  'hs-hide-block)
 
-  (global-set-key (kbd "C-c <down>")  'hs-show-all)
-  (global-set-key (kbd "C-c <up>")    'hs-hide-all))
+  (global-set-key (kbd "C-c <down>")   'hs-show-all)
+  (global-set-key (kbd "C-c C-<down>") 'hs-show-all)
+  (global-set-key (kbd "C-c <up>")     'hs-hide-all)
+  (global-set-key (kbd "C-c C-<up>")   'hs-hide-all))
 
 ;;C-c @ C-a	hs-show-all
 ;;C-c @ C-c	hs-toggle-hiding
