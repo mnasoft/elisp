@@ -103,3 +103,6 @@
 
 (global-company-mode 0)
 
+(defun numbering ()
+  (interactive)
+  (insert (what-line)))
