@@ -35,6 +35,7 @@
      (dot     . t)
      (gnuplot . t)
      (lisp    . t)
+;;;; (tcl     . t) 
      (shell   . t)
      )))
  (t (org-babel-do-load-languages
@@ -43,6 +44,7 @@
        (dot     . t)
        (gnuplot . t)
        (lisp    . t)
+;;;;   (tcl     . t)
        (sh      . t)
        ))))
 

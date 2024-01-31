@@ -104,7 +104,6 @@
   (insert "Пример использования:")
   (th-src))
 
-
 (defun th-variables ()
   (interactive)
   (th-p)
