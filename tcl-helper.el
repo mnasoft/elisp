@@ -1,29 +1,20 @@
 ;;;; ~/elisp/tcl-helper.el
 
-(defun find-proc-string-with-cursor ()
+(defun find-proc-string-with-cursorf ()
   (interactive)
-  (let ((regexp "^\\s-*proc ")
-        (point-pos (point))
-        (end-pos (point-max)))
-    (when (re-search-forward
-           regexp end-pos t)
-      (concat (match-string 0)
-              (number-to-string
-               point-pos) "."))))
+  (re-search-forward "^\\s-*proc "))
 
 (defun th-description-header ()
   "Предназначена для формирования вставки блока кода"
   (interactive)
-    (find-proc-string-with-cursor)
-  (left-char 5)
+  (find-proc-string-with-cursor)
   (setq p1 (point))
-  (search-forward "{")
-  (forward-sexp)
+  (re-search-forward "} {$")
   (setq p2 (point))
-  (kill-ring-save p1 p2)
-  (move-beginning-of-line 1)
-  (newline)
+  (kill-ring-save p1 (- p2 2))
   (previous-line)
+  (move-end-of-line 1)
+  (newline)
   (insert "## - =")
   (yank 1)
   (insert "= :: Возвращает ..."))
@@ -119,3 +110,9 @@
  (move-end-of-line  1)
  (newline)
  (insert "##   "))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+ proc mk_abc_letters { } {

@@ -77,6 +77,7 @@
 (load "~/elisp/hunspell.el")
 (load "~/elisp/yes-or-no-p.el")
 (load "~/elisp/neotree.el")
+(load "~/elisp/tcl-helper.el")
 
 (load "~/elisp/inferior-lisp-program.el")
 (load "~/elisp/common-lisp.el")
