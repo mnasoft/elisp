@@ -11,9 +11,7 @@
       (setq pnt (point))))
   (slime-pop-find-definition-stack))
 
-(cond
- ((member (upcase (system-name)) comps-sly-common-lisp)
-  (load "~/elisp/sly-start.el"))
- ((member (upcase (system-name)) comps-slime-common-lisp)
-  (load "~/elisp/slime-start.el")))
+(load "~/elisp/sly-start.el")
+;;;; (load "~/elisp/slime-start.el")
+
 
