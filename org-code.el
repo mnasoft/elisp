@@ -23,9 +23,14 @@
   )
 
 (defun b-name ()
-  "Вставляет имя текущего буфера"
+  "Вставляет полный путь к текущему буферу"
   (interactive)
   (insert (concat "[[" (buffer-file-name) "]]")))
+
+(defun b-r-name ()
+  "Вставляет путь к текущему буферу относительно домашнего каталога"
+  (interactive)
+  (insert (concat ";;;; ~/" (get-relative-path (buffer-file-name)))))
 
 (defun org-header ()
   "Вставляет ссылку на заголовчный файл"

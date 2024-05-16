@@ -1,5 +1,26 @@
 ;;;; ~/elisp/main.el
 
+;(setq process-connection-type nil)
+;(desktop-save-mode 1)
+;(set-default 'truncate-lines t)
+
+(setq-default indent-tabs-mode nil)
+(set-default 'truncate-lines t)
+
+(setq ispell-program-name "aspell")
+
+;;;; gpg --homedir ~/.emacs.d/elpa/gnupg --receive-keys 066DAFCB81E42C40
+;;;; (setq package-check-signature nil)
+(setq package-gnupghome-dir (concat "/home/" (getenv "USER") "/.emacs.d/elpa/gnupg"))
+
+(global-company-mode 1)
+
+(defun numbering ()
+  (interactive)
+  (insert (what-line)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(load "~/elisp/directory.el")
 (load "~/elisp/org-code.el")
 (load "~/elisp/org-babel-do-load-languages.el") 
 (load "~/elisp/kill-some-buffers.el")
@@ -20,21 +41,3 @@
 (load "~/elisp/inferior-lisp-program.el")
 (load "~/elisp/common-lisp.el")
 
-;(setq process-connection-type nil)
-;(desktop-save-mode 1)
-;(set-default 'truncate-lines t)
-
-(setq-default indent-tabs-mode nil)
-(set-default 'truncate-lines t)
-
-(setq ispell-program-name "aspell")
-
-;;;; gpg --homedir ~/.emacs.d/elpa/gnupg --receive-keys 066DAFCB81E42C40
-;;;; (setq package-check-signature nil)
-(setq package-gnupghome-dir (concat "/home/" (getenv "USER") "/.emacs.d/elpa/gnupg"))
-
-(global-company-mode 0)
-
-(defun numbering ()
-  (interactive)
-  (insert (what-line)))

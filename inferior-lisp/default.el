@@ -8,7 +8,7 @@
 ;;;; серверу sbcl (если use-sly-connection имеет значение t) или
 ;;;; осуществить запуск нового сервера (если use-sly-connection имеет
 ;;;; значение nil)
-(setq use-sly-connection nil)
+(setq use-sly-connection t)
 
 
 ;;;; Блок кода, осуществляющий подключение sly к sbcl, работающему на
