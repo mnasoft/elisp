@@ -27,6 +27,26 @@
                              (html-head       "<link rel=\"stylesheet\" href=\"../other/mystyle.css\" type=\"text/css\"/>")
                              (exclude         "ToDo.org")
                              (recursive       nil))
+  " Возвращает список, предназначенный для вставки в переменную
+org-publish-project-alist (определяющую параметры вывода org-файлов
+в html).
+Глобальные переменные:
+- prj-root - должна указывать на каталог проекта относительно домашней
+  директори пользователя;
+Переменые:
+- name - имя секции к ней автоматически добавляется суффикс -org;
+- path - относительный путь, который вместе с глобальной переменной;
+Ключевые переменные:
+- with-toc - определяет добавление секции содержимого
+- section-numbers - определяет нумерацию секций;
+- headline-levels - определяет уровень секций попадающих в оглавление;
+- html-preamble - определяел добавление преамбулы в html-файл;
+- html-head - определяет заголовок html-файла;
+- exclude - определяет какие файлы не должны обрабатываться
+  експортером в html;
+- recursive - поределяет рекурсивность обработки файлов во вложенных
+  каталогах.
+"
   `(,(concat name "-" "org" )
     :base-directory       ,(concat "~/" prj-root "/" path "/")
     :publishing-directory ,(concat prefix prj-root "/" path "/")
@@ -41,6 +61,17 @@
     :recursive            ,recursive))
 
 (cl-defun org-att-list (name ext path &key (recursive nil))
+  "Глобальные переменные:
+- prj-root - должна указывать на каталог проекта относительно домашней
+  директори пользователя;
+Переменые:
+- name - имя секции к ней автоматически добавляется суффикс -org;
+- ext - определяет расширения фыйлов подлежащие выводу;  
+- path - относительный путь, который вместе с глобальной переменной;
+Ключевые переменные:
+- recursive - поределяет рекурсивность обработки файлов во вложенных
+  каталогах.
+"
   `(,(concat name "-" ext)
     :base-directory ,(concat "~/" prj-root "/" path "/")
     :publishing-directory ,(concat prefix prj-root "/" path "/")
@@ -49,6 +80,13 @@
     :recursive            ,recursive))
 
 (cl-defun org-web-list ()
+ "Добавляет к переменной org-publish-project-alist (определяющей
+параметры вывода org-файлов в html) секцию 'website'.
+
+Секция 'website' при этом включает в себя все имена секций,
+находящиеся в переменной org-publish-project-alist перед её
+'website' добавленим.
+"
   (setq org-publish-project-alist
         (append org-publish-project-alist
                 `(("website" :components
@@ -77,6 +115,13 @@
           "\n  :html-preamble        " html-preamble
           "\n  :recursive            " recursive "\n)"))
 
+(cl-defun org-att-str (name ext path)
+  (concat "\n(\"" name "-" ext "\""
+          "\n  :base-directory       ,(concat \"~/\" prj-root \"/" path "/\")"
+          "\n  :publishing-directory ,(concat prefix prj-root \"/" path "/\")"
+          "\n  :base-extension       \"" ext "\""
+          "\n  :publishing-function org-publish-attachment\n)"))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun org-pub (name path recursive)
@@ -87,14 +132,7 @@
          (read-string "Recursive: " "nil")))
   (insert (org-pub-str name path recursive)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(cl-defun org-att-str (name ext path)
-  (concat "\n(\"" name "-" ext "\""
-          "\n  :base-directory       ,(concat \"~/\" prj-root \"/" path "/\")"
-          "\n  :publishing-directory ,(concat prefix prj-root \"/" path "/\")"
-          "\n  :base-extension       \"" ext "\""
-          "\n  :publishing-function org-publish-attachment\n)"))
                        
 (defun org-att (name ext path)
   "Печатает в буфер секцию для публикации файлов с произвольным "
