@@ -109,3 +109,19 @@
  (move-end-of-line  1)
  (newline)
  (insert "##   "))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Enable Tcl mode for .tcl files
+(autoload 'tcl-mode "tcl" "Tcl editing mode." t)
+(add-to-list 'auto-mode-alist '("\\.tcl\\'" . tcl-mode))
+
+;; Set the Tcl interpreter
+(setq tcl-application "tclsh")
+(setq tcl-command-switches '("-f"))
+
+(add-hook 'tcl-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c C-c") 'tcl-send-buffer)))
+
