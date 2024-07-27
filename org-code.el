@@ -5,6 +5,8 @@
   (interactive)
   (insert "#+name: foo ")
   (newline)
+  (insert "#+header: :var instructions=\"These are some instructions\"")
+  (newline)
   (insert "#+begin_src elisp")
   (newline 2)
   (insert "#+end_src")
@@ -16,11 +18,19 @@
   (interactive)
   (insert "#+name: foo")
   (newline)
+  (insert "#+header: :var instructions=\"These are some instructions\"")
+  (newline)    
   (insert "#+begin_src lisp")
   (newline 2)
   (insert "#+end_src")
   (previous-line)
   )
+
+(defun browse-publishing-directory (key)
+  (browse-url
+   (plist-get
+    (cdr (assoc key org-publish-project-alist))
+    :publishing-directory)))
 
 (defun b-name ()
   "Вставляет полный путь к текущему буферу"
