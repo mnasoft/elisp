@@ -74,3 +74,62 @@
       echo [[~/elisp/${i}]]
   done
 #+END_SRC
+
+#+RESULTS:
+| [[file:~/elisp/annotation.el]]                  |
+| [[file:~/elisp/common-lisp.el]]                 |
+| [[file:~/elisp/directory.el]]                   |
+| [[file:~/elisp/gnuplot.el]]                     |
+| [[file:~/elisp/hide-show-mode.el]]              |
+| [[file:~/elisp/hunspell.el]]                    |
+| [[file:~/elisp/inferior-lisp-program.el]]       |
+| [[file:~/elisp/kill-some-buffers.el]]           |
+| [[file:~/elisp/main.el]]                        |
+| [[file:~/elisp/mik-tex.el]]                     |
+| [[file:~/elisp/mnas-publish.el]]                |
+| [[file:~/elisp/neotree.el]]                     |
+| [[file:~/elisp/open-some-files.el]]             |
+| [[file:~/elisp/org-babel-do-load-languages.el]] |
+| [[file:~/elisp/org-code.el]]                    |
+| [[file:~/elisp/org-structure.el]]               |
+| [[file:~/elisp/scriba.el]]                      |
+| [[file:~/elisp/slime-start.el]]                 |
+| [[file:~/elisp/sly-start.el]]                   |
+| [[file:~/elisp/tcl-helper.el]]                  |
+| [[file:~/elisp/translate-commands-gr-ru-uk.el]] |
+| [[file:~/elisp/yes-or-no-p.el]]                 |
+| [[file:~/elisp/zm-tz-header.el]]                |
+
+** Файл init.el
+
+#+begin_src sh
+  cat ../../.emacs.d/init.el
+#+end_src
+
+
+#+begin_src elisp
+  (require 'package)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
+  ;; and `package-pinned-packages`. Most users will not need or want to do this.
+  ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+  (package-initialize)
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(custom-enabled-themes '(modus-operandi))
+   '(package-selected-packages
+     '(htmlize afterglow 0blayout sly-quicklisp company neotree sly)))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(default ((t (:family "Consolas" :foundry "outline" :slant normal :weight regular :height 128 :width normal)))))
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (load "~/elisp/main.el")
+  (put 'downcase-region 'disabled nil)
+  (put 'upcase-region 'disabled nil)
+#+end_src
