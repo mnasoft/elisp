@@ -60,7 +60,7 @@ org-publish-project-alist (определяющую параметры выво�
     :html-preamble        ,html-preamble
     :recursive            ,recursive))
 
-(cl-defun org-att-list (name ext path &key (recursive nil))
+(cl-defun org-att-list (name ext path &key (recursive nil) (p-dir path))
   "Глобальные переменные:
 - prj-root - должна указывать на каталог проекта относительно домашней
   директори пользователя;
@@ -74,7 +74,7 @@ org-publish-project-alist (определяющую параметры выво�
 "
   `(,(concat name "-" ext)
     :base-directory ,(concat "~/" prj-root "/" path "/")
-    :publishing-directory ,(concat prefix prj-root "/" path "/")
+    :publishing-directory ,(concat prefix prj-root "/" p-dir "/")
     :base-extension       ,ext
     :publishing-function  org-publish-attachment
     :recursive            ,recursive))
