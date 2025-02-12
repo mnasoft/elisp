@@ -41,3 +41,9 @@
 (load "~/elisp/inferior-lisp-program.el")
 (load "~/elisp/common-lisp.el")
 
+(global-set-key (kbd "C-x C-d")  (lambda () (interactive) (insert "°")))
+(global-set-key (kbd "C-x C-'")  (lambda () (interactive) (insert "′")))
+(global-set-key (kbd "C-x C-\"") (lambda () (interactive) (insert "″")))
+
+(global-set-key (kbd "C-x C-/")  (lambda () (interactive) (insert "?")))
+(global-set-key (kbd "C-x C-.")  (lambda () (interactive) (insert "?")))
