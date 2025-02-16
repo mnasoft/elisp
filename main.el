@@ -44,6 +44,7 @@
 (global-set-key (kbd "C-x C-d")  (lambda () (interactive) (insert "°")))
 (global-set-key (kbd "C-x C-'")  (lambda () (interactive) (insert "′")))
 (global-set-key (kbd "C-x C-\"") (lambda () (interactive) (insert "″")))
+(global-set-key (kbd "C-x C-,")  (lambda () (interactive) (insert "□°′″")))
 
 (global-set-key (kbd "C-x C-/")  (lambda () (interactive) (insert "?")))
 (global-set-key (kbd "C-x C-.")  (lambda () (interactive) (insert "?")))
