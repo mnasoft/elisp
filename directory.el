@@ -139,55 +139,21 @@ org-publish-project-alist (определяющую параметры выво�
    (t (setq prefix (concat remote-prefix directory "/"))))
   (list :prefix prefix
         :prj-root prj-root
-        :pub-root pub-root
-        ))
+        :pub-root pub-root))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-defun org-pub-str (name path recursive
-                            &key
-                            (with-toc "nil")
-                            (section-numbers "nil")
-                            (headline-levels "3")
-                            (html-preamble "t")
-                            (exclude "ToDo.org"))
-  (concat "\n(\"" name "-" "org" "\""
-          "\n  :base-directory       ,(concat \"~/\" prj-root \"/" path "/\")"
-          "\n  :publishing-directory ,(concat prefix prj-root \"/" path "/\")"
-          "\n  :base-extension       \"" "org" "\""
-          "\n  :publishing-function  org-html-publish-to-html"
-          "\n  :exclude              \"" exclude "\" ;; regexp"
-          "\n  :headline-levels      " headline-levels
-          "\n  :section-numbers      " section-numbers
-          "\n  :with-toc             " with-toc
-          "\n  :html-head            ,html-head"
-          "\n  :html-preamble        " html-preamble
-          "\n  :recursive            " recursive "\n)"))
-
-(cl-defun org-att-str (name ext path)
-  (concat "\n(\"" name "-" ext "\""
-          "\n  :base-directory       ,(concat \"~/\" prj-root \"/" path "/\")"
-          "\n  :publishing-directory ,(concat prefix prj-root \"/" path "/\")"
-          "\n  :base-extension       \"" ext "\""
-          "\n  :publishing-function org-publish-attachment\n)"))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun org-pub (name path recursive)
-  "Печатает в буфер секцию для публикации org-файлов"
-  (interactive
-   (list (read-string "Name     : " )
-         (read-string "Path     : " "org/...")
-         (read-string "Recursive: " "nil")))
-  (insert (org-pub-str name path recursive)))
-
-
-                       
-(defun org-att (name ext path)
-  "Печатает в буфер секцию для публикации файлов с произвольным "
-  (interactive
-   (list (read-string "Name     : "      )
-         (read-string "Extension: " "png")
-         (read-string "Path     : "  name)))
-  (insert (org-att-str name ext path)))
-
+(cl-defun org-setup-01 (directory project-root
+                               &key
+                               (pub-dir-deep 0)
+                               (pub-prefix "//n133906/home/_namatv/public_html/"))
+  "Устанавливает глобальные переменные:
+- prefix - задает путь к публикации;
+- prj-root - задающую место расположения файлов для публикаци.
+- pub-prefix -
+"
+  (setq eval-expression-print-length 100)
+  (setq prj-root project-root)
+  (setq pub-root (remove-n-parents-from-path prj-root pub-dir-deep))
+  (setq prefix (concat pub-prefix directory "/"))
+  (list :prefix prefix
+        :prj-root prj-root
+        :pub-root pub-root))
