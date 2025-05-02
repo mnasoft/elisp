@@ -47,3 +47,14 @@
 
 (global-set-key (kbd "C-x C-/")  (lambda () (interactive) (insert "?")))
 (global-set-key (kbd "C-x C-.")  (lambda () (interactive) (insert "?")))
+
+
+
+(defun parent-directory (n)
+  "Возвращает каталог предка определенного уровня для текущего файлового
+буфера. 0 - текущий каталог; 1 - родительский; 2 - дедовский."
+    (let ((p (file-name-directory (buffer-file-name))))
+      (dotimes (i n)
+        (setf p (file-name-directory
+                 (directory-file-name p))))
+      p))
