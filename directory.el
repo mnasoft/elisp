@@ -12,9 +12,22 @@
   "Возвращает имя родительского каталога определенного уровня level
 для пути path."
   (let ((current-path (directory-file-name (file-name-directory path))))
-    (dotimes (_ (1- level))
+    (dotimes (i level)
       (setq current-path (directory-file-name (file-name-directory current-path))))
     current-path))
+
+(defun home-ancestor (level)
+  "Возвращает путь к текущену файловому буферу отосительно домашнего
+каталога пользователя к родительскому каталогу уровня level."
+  (get-ancestor-directory-name
+   (get-relative-path
+    (buffer-file-name))
+   level))
+
+(defun remove-n-parents-from-path (path n)
+  "Удаляет из пути определенное количество родителей."
+  (let ((components (split-string path "/" t )))
+    (mapconcat 'identity (nthcdr n components) "/")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -49,7 +62,7 @@ org-publish-project-alist (определяющую параметры выво�
 "
   `(,(concat name "-" "org" )
     :base-directory       ,(concat "~/" prj-root "/" path "/")
-    :publishing-directory ,(concat prefix prj-root "/" path "/")
+    :publishing-directory ,(concat prefix pub-root "/" path "/")
     :base-extension       "org"
     :publishing-function  org-html-publish-to-html
     :exclude              ,exclude 
@@ -74,12 +87,12 @@ org-publish-project-alist (определяющую параметры выво�
 "
   `(,(concat name "-" ext)
     :base-directory ,(concat "~/" prj-root "/" path "/")
-    :publishing-directory ,(concat prefix prj-root "/" p-dir "/")
+    :publishing-directory ,(concat prefix pub-root "/" p-dir "/")
     :base-extension       ,ext
     :publishing-function  org-publish-attachment
     :recursive            ,recursive))
 
-(cl-defun org-web-list ()
+(cl-defun org-web-list (&key (site "website"))
  "Добавляет к переменной org-publish-project-alist (определяющей
 параметры вывода org-файлов в html) секцию 'website'.
 
@@ -89,56 +102,59 @@ org-publish-project-alist (определяющую параметры выво�
 "
   (setq org-publish-project-alist
         (append org-publish-project-alist
-                `(("website" :components
+                `((,site :components
                    ,(cl-loop for i in org-publish-project-alist
                              collect (first i)))))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(cl-defun org-components-list (components &key (group "group") (add-components t))
+  "Добавляет к переменной org-publish-project-alist (определяющей
+параметры вывода org-файлов в html) секцию 'website'.
 
-(cl-defun org-pub-str (name path recursive
-                            &key
-                            (with-toc "nil")
-                            (section-numbers "nil")
-                            (headline-levels "3")
-                            (html-preamble "t")
-                            (exclude "ToDo.org"))
-  (concat "\n(\"" name "-" "org" "\""
-          "\n  :base-directory       ,(concat \"~/\" prj-root \"/" path "/\")"
-          "\n  :publishing-directory ,(concat prefix prj-root \"/" path "/\")"
-          "\n  :base-extension       \"" "org" "\""
-          "\n  :publishing-function  org-html-publish-to-html"
-          "\n  :exclude              \"" exclude "\" ;; regexp"
-          "\n  :headline-levels      " headline-levels
-          "\n  :section-numbers      " section-numbers
-          "\n  :with-toc             " with-toc
-          "\n  :html-head            ,html-head"
-          "\n  :html-preamble        " html-preamble
-          "\n  :recursive            " recursive "\n)"))
+Секция 'group' при этом включает в себя все имена секций,
+находящиеся в переменной org-publish-project-alist перед её
+'group' добавленим.
+"
+  (when add-components
+    (setq org-publish-project-alist (append org-publish-project-alist components)))
+  (setq org-publish-project-alist
+        (append org-publish-project-alist
+                `((,group :components
+                          ,(cl-loop for i in components
+                                    collect (first i)))))))
 
-(cl-defun org-att-str (name ext path)
-  (concat "\n(\"" name "-" ext "\""
-          "\n  :base-directory       ,(concat \"~/\" prj-root \"/" path "/\")"
-          "\n  :publishing-directory ,(concat prefix prj-root \"/" path "/\")"
-          "\n  :base-extension       \"" ext "\""
-          "\n  :publishing-function org-publish-attachment\n)"))
+(cl-defun org-setup (directory project-root
+                               &key
+                               (pub-dir-deep 0)
+                               (local-prefix "~/public_html/")
+                               (remote-prefix "//n133906/home/_namatv/public_html/Site/"))
+  "Устанавливает глобальные переменные:
+- prefix - задает путь к публикации;
+- prj-root - задающую место расположения файлов для публикаци."
+  (setq eval-expression-print-length 100)
+  (setq prj-root project-root)
+  (setq pub-root (remove-n-parents-from-path prj-root pub-dir-deep))
+  (cond
+   ((equal (system-name) "uakazi-note")
+    (setq prefix (concat local-prefix directory "/")))
+   (t (setq prefix (concat remote-prefix directory "/"))))
+  (list :prefix prefix
+        :prj-root prj-root
+        :pub-root pub-root))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun org-pub (name path recursive)
-  "Печатает в буфер секцию для публикации org-файлов"
-  (interactive
-   (list (read-string "Name     : " )
-         (read-string "Path     : " "org/...")
-         (read-string "Recursive: " "nil")))
-  (insert (org-pub-str name path recursive)))
-
-
-                       
-(defun org-att (name ext path)
-  "Печатает в буфер секцию для публикации файлов с произвольным "
-  (interactive
-   (list (read-string "Name     : "      )
-         (read-string "Extension: " "png")
-         (read-string "Path     : "  name)))
-  (insert (org-att-str name ext path)))
-
+(cl-defun org-setup-01 (directory project-root
+                               &key
+                               (pub-dir-deep 0)
+                               (pub-prefix "//n133906/home/_namatv/public_html/"))
+  "Устанавливает глобальные переменные:
+- prefix - задает путь к публикации;
+- prj-root - задающую место расположения файлов для публикаци.
+- ub-dir-deep 
+- pub-prefix -
+"
+  (setq eval-expression-print-length 100)
+  (setq prj-root project-root)
+  (setq pub-root (remove-n-parents-from-path prj-root pub-dir-deep))
+  (setq prefix (concat pub-prefix directory "/"))
+  (list :prefix prefix
+        :prj-root prj-root
+        :pub-root pub-root))
