@@ -29,6 +29,10 @@
   (let ((components (split-string path "/" t )))
     (mapconcat 'identity (nthcdr n components) "/")))
 
+(cl-defun directory-sleshed (directory)
+  "Удаляет лишние слеш или добавляет слеш."
+  (concat (directory-file-name directory) "/"))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (cl-defun org-pub-list (name path
@@ -61,8 +65,8 @@ org-publish-project-alist (определяющую параметры выво�
   каталогах.
 "
   `(,(concat name "-" "org" )
-    :base-directory       ,(concat "~/" prj-root "/" path "/")
-    :publishing-directory ,(concat prefix pub-root "/" path "/")
+    :base-directory       ,(directory-sleshed (concat "~/" prj-root "/" path "/"))
+    :publishing-directory ,(directory-sleshed (concat prefix pub-root "/" path "/"))
     :base-extension       "org"
     :publishing-function  org-html-publish-to-html
     :exclude              ,exclude 
@@ -86,8 +90,8 @@ org-publish-project-alist (определяющую параметры выво�
   каталогах.
 "
   `(,(concat name "-" ext)
-    :base-directory ,(concat "~/" prj-root "/" path "/")
-    :publishing-directory ,(concat prefix pub-root "/" p-dir "/")
+    :base-directory       ,(directory-sleshed (concat "~/" prj-root "/" path "/"))
+    :publishing-directory ,(directory-sleshed (concat prefix pub-root "/" p-dir "/"))
     :base-extension       ,ext
     :publishing-function  org-publish-attachment
     :recursive            ,recursive))
@@ -122,6 +126,27 @@ org-publish-project-alist (определяющую параметры выво�
                           ,(cl-loop for i in components
                                     collect (first i)))))))
 
+(cl-defun org-setup (directory project-root &key (revative-to-home nil))
+  "Устанавливает глобальные переменные:
+- directory - корневой каталог для публикации файлов;
+- prj-root - задающую место расположения файлов для публикаци.
+- pub-dir-deep - количество раз, которое нужно пройти вверх по дереву
+  каталоов из файла вызывающего функцию чтоб добраться до корневог
+  каталога проекта.
+"
+  (setq eval-expression-print-length 100)
+  (setq prj-root project-root)
+  (setq pub-root
+        (if revative-to-home
+            prj-root
+          (file-name-nondirectory (directory-file-name project-root))))
+  (setq prefix (concat (directory-file-name directory) "/"))
+  (list :prefix prefix
+        :prj-root prj-root
+        :pub-root pub-root))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (cl-defun org-setup-bak (directory project-root
                                &key
                                (pub-dir-deep 0)
@@ -137,25 +162,6 @@ org-publish-project-alist (определяющую параметры выво�
    ((equal (system-name) "uakazi-note")
     (setq prefix (concat local-prefix directory "/")))
    (t (setq prefix (concat remote-prefix directory "/"))))
-  (list :prefix prefix
-        :prj-root prj-root
-        :pub-root pub-root))
-
-(cl-defun org-setup (directory project-root &key (revative-to-home nil))
-  "Устанавливает глобальные переменные:
-- prefix - задает путь к публикации;
-- prj-root - задающую место расположения файлов для публикаци.
-- pub-dir-deep - количество раз, которое нужно пройти вверх по дереву
-  каталоов из файла вызывающего функцию чтоб добраться до корневог
-  каталога проекта.
-"
-  (setq eval-expression-print-length 100)
-  (setq prj-root project-root)
-  (setq pub-root
-        (if revative-to-home
-            prj-root
-          (file-name-nondirectory (directory-file-name project-root))))
-  (setq prefix (concat (directory-file-name directory) "/"))
   (list :prefix prefix
         :prj-root prj-root
         :pub-root pub-root))
