@@ -122,7 +122,7 @@ org-publish-project-alist (определяющую параметры выво�
                           ,(cl-loop for i in components
                                     collect (first i)))))))
 
-(cl-defun org-setup (directory project-root
+(cl-defun org-setup-bak (directory project-root
                                &key
                                (pub-dir-deep 0)
                                (local-prefix "~/public_html/")
@@ -141,20 +141,21 @@ org-publish-project-alist (определяющую параметры выво�
         :prj-root prj-root
         :pub-root pub-root))
 
-(cl-defun org-setup-01 (directory project-root
-                               &key
-                               (pub-dir-deep 0)
-                               (pub-prefix "//n133906/home/_namatv/public_html/"))
+(cl-defun org-setup (directory project-root &key (revative-to-home nil))
   "Устанавливает глобальные переменные:
 - prefix - задает путь к публикации;
 - prj-root - задающую место расположения файлов для публикаци.
-- ub-dir-deep 
-- pub-prefix -
+- pub-dir-deep - количество раз, которое нужно пройти вверх по дереву
+  каталоов из файла вызывающего функцию чтоб добраться до корневог
+  каталога проекта.
 "
   (setq eval-expression-print-length 100)
   (setq prj-root project-root)
-  (setq pub-root (remove-n-parents-from-path prj-root pub-dir-deep))
-  (setq prefix (concat pub-prefix directory "/"))
+  (setq pub-root
+        (if revative-to-home
+            prj-root
+          (file-name-nondirectory (directory-file-name project-root))))
+  (setq prefix (concat (directory-file-name directory) "/"))
   (list :prefix prefix
         :prj-root prj-root
         :pub-root pub-root))
