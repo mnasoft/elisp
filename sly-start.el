@@ -20,7 +20,7 @@
   (interactive)  
   (sly-compile-all))
 
-(defun s-r ()
+(defun sly-r ()
+  "Выполняет перезапуск лиспа"
   (interactive)
-  (sly-restart-inferior-lisp)
-  (k-b))
+  (sly-restart-inferior-lisp))

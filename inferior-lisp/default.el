@@ -10,22 +10,24 @@
 ;;;; значение nil)
 (setq use-sly-connection t)
 
-
-;;;; Блок кода, осуществляющий подключение sly к sbcl, работающему на
-;;;; порту 4005 или запуск нового сервера sbcl.
+;;;; sly-port - port to use as the default for ‘sly-connect’.
+(setq sly-port 4005)
+;;;; sly-lisp-implementations - определяет параметры запуска sly
 ;;;; Параметры:
-
 ;;;; - --dynamic-space-size - предельный размер для пространства нодов
 ;;;;   в килобайтах;
 ;;;; - --control-stack-size" - размер стека в килобайтах
-(if use-sly-connection
-    (sly-connect "localhost" 4005)
-  (progn
-    (setq sly-lisp-implementations
-          '((sbcl ("sbcl"
-                   "--dynamic-space-size" "16384"
-                   ;; "--control-stack-size" "8192"
-                   ))))
-    (setq inferior-lisp-program "sbcl" )
-    (sly)))
+(setq sly-lisp-implementations
+       '((sbcl ("sbcl"
+                "--dynamic-space-size" "16384"
+                ;; "--control-stack-size" "8192"
+                ))))
+
+;;;; inferior-lisp-program - лисп-программа 
+(setq inferior-lisp-program "sbcl")
+
+;;;; Блок кода, осуществляющий подключение sly к sbcl, работающему на
+;;;; порту sly-port или запуск нового сервера sbcl.
+
+(if use-sly-connection (sly-connect "localhost" sly-port) (sly))
 
