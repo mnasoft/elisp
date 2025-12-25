@@ -37,6 +37,8 @@
 (load "~/elisp/tcl-helper.el")
 (load "~/elisp/neotree.el")
 (load "~/elisp/tcl-helper.el")
+(load "~/elisp/file-apps.el")
+
 
 (load "~/elisp/inferior-lisp-program.el")
 (load "~/elisp/common-lisp.el")
