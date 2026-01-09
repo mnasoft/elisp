@@ -126,7 +126,7 @@ org-publish-project-alist (определяющую параметры выво�
                           ,(cl-loop for i in components
                                     collect (first i)))))))
 
-(cl-defun org-setup (directory project-root &key (revative-to-home nil))
+(cl-defun org-setup (directory project-root &key (relative-to-home nil))
   "Устанавливает глобальные переменные:
 - directory - корневой каталог для публикации файлов;
 - prj-root - задающую место расположения файлов для публикаци.
@@ -141,27 +141,6 @@ org-publish-project-alist (определяющую параметры выво�
             prj-root
           (file-name-nondirectory (directory-file-name project-root))))
   (setq prefix (concat (directory-file-name directory) "/"))
-  (list :prefix prefix
-        :prj-root prj-root
-        :pub-root pub-root))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-defun org-setup-bak (directory project-root
-                               &key
-                               (pub-dir-deep 0)
-                               (local-prefix "~/public_html/")
-                               (remote-prefix "//n133906/home/_namatv/public_html/Site/"))
-  "Устанавливает глобальные переменные:
-- prefix - задает путь к публикации;
-- prj-root - задающую место расположения файлов для публикаци."
-  (setq eval-expression-print-length 100)
-  (setq prj-root project-root)
-  (setq pub-root (remove-n-parents-from-path prj-root pub-dir-deep))
-  (cond
-   ((equal (system-name) "uakazi-note")
-    (setq prefix (concat local-prefix directory "/")))
-   (t (setq prefix (concat remote-prefix directory "/"))))
   (list :prefix prefix
         :prj-root prj-root
         :pub-root pub-root))
