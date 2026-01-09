@@ -126,21 +126,45 @@ org-publish-project-alist (определяющую параметры выво�
                           ,(cl-loop for i in components
                                     collect (first i)))))))
 
-(cl-defun org-setup (directory project-root &key (relative-to-home nil))
+(cl-defun org-setup (directory project-root
+                               &key
+                               (relative-to :root))
   "Устанавливает глобальные переменные:
-- directory - корневой каталог для публикации файлов;
-- prj-root - задающую место расположения файлов для публикаци.
-- pub-dir-deep - количество раз, которое нужно пройти вверх по дереву
-  каталоов из файла вызывающего функцию чтоб добраться до корневог
-  каталога проекта.
+- directory - каталог, задающий место назначения для публикации файлов;
+- prj-root - каталог, задающий источник файлов для публикаци;
+- relative - может принимать значения:
+  - :root - публиковать в корне каталога назначения;
+  - :home - добавлять к пути назначения путь от домашнего каталога до источника;
+  - :dir  - добавлять к пути назначения имя каталога-источника.
+Примеры использования:
+(progn
+  (org-setup \"//n133906/home/_namatv/public_html/Site-01/\"
+      (home-ancestor 1)
+      :relative-to :root)
+  (setq org-publish-project-alist
+        `(
+          ,(org-pub-list \"root-org\"         \".\"  :recursive t )
+          ,(org-att-list \"pub-el\"   \"el\"  \"publish\")))
+  (org-web-list))
+
+(progn
+  (require 'ox-publish)
+  (setq org-publish-use-timestamps-flag nil)
+  (setq org-confirm-babel-evaluate nil)
+  (org-publish-project \"website\"))
 "
   (setq eval-expression-print-length 100)
   (setq prj-root project-root)
-  (setq pub-root
-        (if revative-to-home
-            prj-root
-          (file-name-nondirectory (directory-file-name project-root))))
-  (setq prefix (concat (directory-file-name directory) "/"))
-  (list :prefix prefix
-        :prj-root prj-root
-        :pub-root pub-root))
+  (cond
+   ((eq :home relative-to)
+    (setq pub-root prj-root))
+   ((eq :root relative-to)
+     (setq pub-root ""))
+   ((eq :dir relative-to)
+    (setq pub-root
+          (file-name-nondirectory
+           (directory-file-name project-root)))))
+   (setq prefix (concat (directory-file-name directory) "/"))
+   (list :prefix   prefix
+         :prj-root prj-root
+         :pub-root pub-root))
