@@ -43,7 +43,8 @@
                              (html-preamble   t)
                              (html-head       "<link rel=\"stylesheet\" href=\"../other/mystyle.css\" type=\"text/css\"/>")
                              (exclude         "ToDo.org")
-                             (recursive       nil))
+                             (recursive       nil)
+                             (homed t))
   " Возвращает список, предназначенный для вставки в переменную
 org-publish-project-alist (определяющую параметры вывода org-файлов
 в html).
@@ -65,7 +66,7 @@ org-publish-project-alist (определяющую параметры выво�
   каталогах.
 "
   `(,(concat name "-" "org" )
-    :base-directory       ,(directory-sleshed (concat "~/" prj-root "/" path "/"))
+    :base-directory       ,(directory-sleshed (concat (if homed "~/" "") prj-root "/" path "/"))
     :publishing-directory ,(directory-sleshed (concat prefix pub-root "/" path "/"))
     :base-extension       "org"
     :publishing-function  org-html-publish-to-html
@@ -77,7 +78,11 @@ org-publish-project-alist (определяющую параметры выво�
     :html-preamble        ,html-preamble
     :recursive            ,recursive))
 
-(cl-defun org-att-list (name ext path &key (recursive nil) (p-dir path))
+(cl-defun org-att-list (name ext path
+                             &key
+                             (recursive nil)
+                             (p-dir path)
+                             (homed t))
   "Глобальные переменные:
 - prj-root - должна указывать на каталог проекта относительно домашней
   директори пользователя;
@@ -90,7 +95,9 @@ org-publish-project-alist (определяющую параметры выво�
   каталогах.
 "
   `(,(concat name "-" ext)
-    :base-directory       ,(directory-sleshed (concat "~/" prj-root "/" path "/"))
+    :base-directory       ,(directory-sleshed
+                            (concat (if homed "~/" "")
+                             prj-root "/" path "/"))
     :publishing-directory ,(directory-sleshed (concat prefix pub-root "/" p-dir "/"))
     :base-extension       ,ext
     :publishing-function  org-publish-attachment
