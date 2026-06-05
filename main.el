@@ -62,3 +62,73 @@
         (setf p (file-name-directory
                  (directory-file-name p))))
       p))
+
+(defun my/sly-open-last-error ()
+  (interactive)
+  (let* ((buf (get-buffer "*sly-mrepl for sbcl*")))
+    (unless buf
+      (error "Буфер *sly-mrepl for sbcl* не найден"))
+    (switch-to-buffer buf)
+    (goto-char (point-max))
+
+    ;; 1. Ищем строку ошибки "(in form starting at line: NNN"
+    (unless (re-search-backward
+             "(in form starting at line: \\([0-9]+\\)" nil t)
+      (error "Не удалось найти строку ошибки SBCL"))
+
+    (let ((line (string-to-number (match-string 1))))
+      ;; 2. Ищем строку с файлом: "file /path/to/file.lisp"
+      (unless (re-search-backward
+               "\"file \\([^\"]+\\.lisp\\)\"" nil t)
+        (error "Не удалось найти путь к файлу"))
+
+      (let ((file (match-string 1)))
+        ;; 3. Открываем файл и прыгаем на строку
+        (find-file file)
+        (goto-char (point-min))
+        (forward-line (1- line))))))
+
+;(defun my/sly-open-last-error ()
+;  (interactive)
+;  (let* ((buf (get-buffer "*sly-mrepl for sbcl*")))
+;    (unless buf
+;      (error "Буфер *sly-mrepl for sbcl* не найден"))
+;    (switch-to-buffer buf)
+;    (goto-char (point-max))
+;
+;    (let (file line)
+;
+;      ;; --- Формат №1 ---
+;      ;; "file /path/file.lisp"
+;      ;; (in form starting at line: NNN)
+;      (save-excursion
+;        (when (re-search-backward
+;               "(in form starting at line: \\([0-9]+\\)" nil t)
+;         (setq line (string-to-number (match-string 1)))
+;          (when (re-search-backward
+;                 "\"file \\([^\"]+\\.lisp\\)\"" nil t)
+;            (setq file (match-string 1)))))
+;
+;      ;; --- Формат №2 ---
+;      ;; Line: NNN
+;      ;; Stream: #<... "file /path/file.lisp">
+;      (unless (and file line)
+;        (save-excursion
+;          (when (re-search-backward
+;                 "Line: \\([0-9]+\\)" nil t)
+;            (setq line (string-to-number (match-string 1)))
+;            (when (re-search-forward
+;                   "\"file \\([^\"]+\\.lisp\\)\"" nil t)
+;             (setq file (match-string 1))))))
+;
+;      ;; Если всё ещё нет — ошибка
+;      (unless (and file line)
+;        (error "Не удалось найти ошибку с файлом и строкой"))
+;
+;      ;; Открываем файл и прыгаем на строку
+;      (find-file file)
+;      (goto-char (point-min))
+;      (forward-line (1- line)))))
+
+
+(global-set-key (kbd "C-c e") #'my/sly-open-last-error)
