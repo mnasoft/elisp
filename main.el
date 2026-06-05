@@ -63,6 +63,7 @@
                  (directory-file-name p))))
       p))
 
+
 (defun my/sly-open-last-error ()
   (interactive)
   (let* ((buf (get-buffer "*sly-mrepl for sbcl*")))
