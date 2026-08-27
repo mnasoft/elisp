@@ -44,8 +44,7 @@
 (load "~/elisp/line-numbering.el")
 
 (load "~/elisp/global-set-key.el")
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
