@@ -1,3 +1,4 @@
+;;; ...  -*- lexical-binding: t -*-
 ;;;; org-code.el
 
 (defun org-code-elisp ()

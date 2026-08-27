@@ -1,3 +1,4 @@
+;;; ...  -*- lexical-binding: t -*-
 ;;;; ~/elisp/hide-show-mode.el
 
 (defun h-s ()

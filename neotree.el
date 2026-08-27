@@ -1,3 +1,4 @@
+;;; ...  -*- lexical-binding: t -*-
 ;;;; ~/elisp/neotree.el
 
 (require 'neotree)

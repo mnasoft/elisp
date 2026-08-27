@@ -1,3 +1,4 @@
+;;; ...  -*- lexical-binding: t -*-
 ;;;; kill-some-buffers.el
 
 (defun my/save-and-kill-all-file-buffers ()

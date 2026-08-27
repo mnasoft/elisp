@@ -1,3 +1,4 @@
+;;; ...  -*- lexical-binding: t -*-
 ;;;; ~/elisp/yes-or-no-p.el
 
 ;;;;;;;;;;;;;;;;;;;; change all prompts to y or n - Start ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -1,3 +1,4 @@
+;;; ...  -*- lexical-binding: t -*-
 ;;;; ./inferior-lisp/default.el
 
 (setq use-sly-connection t)

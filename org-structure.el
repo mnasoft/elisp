@@ -1,5 +1,6 @@
-;;;; org-structure.el
+;;; ...  -*- lexical-binding: t -*-
 
+;;;; org-structure.el
 
 (defun org-remove-blank-line ()
   (newline) ;;;; (org-return)
@@ -12,7 +13,6 @@
   (end-of-buffer)
   (while (> (point) 1)
     (org-remove-blank-line)))
-
 
 (defun  org-populete-items-2 ()
   "Заготовка кода для elisp"

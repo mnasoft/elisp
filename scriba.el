@@ -1,3 +1,5 @@
+;;; ...  -*- lexical-binding: t -*-
+
 ;;;; /home/namatv/elisp/scriba.el
 
 (defun scr-code ()

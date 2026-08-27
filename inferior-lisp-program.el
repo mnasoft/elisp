@@ -1,3 +1,4 @@
+;;; ...  -*- lexical-binding: t -*-
 ;;;; inferior-lisp-program.el
 
 (defun sly--host-port-open-p (host port)

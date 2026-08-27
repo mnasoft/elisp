@@ -1,3 +1,5 @@
+;;; ...  -*- lexical-binding: t -*-
+
 ;;;; org-babel-do-load-languages.el
 
 (require 'package)
@@ -35,8 +37,10 @@
    (lisp    . t)
    ;;(tcl     . t) 
    (shell   . t)
+   ;;(powershell . t)
    ))
 (add-to-list 'org-src-lang-modes '("conf" . caddyfile))
+
 
 ;; Фрагмент Latex большего размера
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.75))

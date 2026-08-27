@@ -1,3 +1,5 @@
+;;; ...  -*- lexical-binding: t -*-
+
 ;;;; SLIME-LOADING-CONTRIB-PACKAGES-START 
 
 ;;(setq slime-contribs '(slime-scratch slime-editing-commands))

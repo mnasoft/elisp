@@ -1,3 +1,4 @@
+;;; ...  -*- lexical-binding: t -*-
 ;;;; zm-tz-header.el
 
 (defun tz-header ()

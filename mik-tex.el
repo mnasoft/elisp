@@ -1,3 +1,4 @@
+;;; ...  -*- lexical-binding: t -*-
 
 (setq Tex-auto-save t) ;I forget what these do, I've 
 (setq TeX-parse-self t) ;always had them 

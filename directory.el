@@ -1,3 +1,4 @@
+;;; ...  -*- lexical-binding: t -*-
 ;;;; ~/elisp/directory.el
 
 (require 'cl-lib)

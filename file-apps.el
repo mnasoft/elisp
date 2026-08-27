@@ -1,3 +1,5 @@
+;;; ...  -*- lexical-binding: t -*-
+
 (setq org-file-apps
       '((auto-mode . emacs)
         (directory . emacs)

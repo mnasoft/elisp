@@ -1,3 +1,4 @@
+;;; ...  -*- lexical-binding: t -*-
 ;;;; ~/elisp/main.el
 
 ;(setq process-connection-type nil)
@@ -39,7 +40,7 @@
 (load "~/elisp/tcl-helper.el")
 (load "~/elisp/file-apps.el")
 (load "~/elisp/lang-utf-8.el")
-
+(load "~/elisp/powershell.el")
 
 (load "~/elisp/inferior-lisp-program.el")
 (load "~/elisp/common-lisp.el")
@@ -51,8 +52,6 @@
 
 (global-set-key (kbd "C-x C-/")  (lambda () (interactive) (insert "?")))
 (global-set-key (kbd "C-x C-.")  (lambda () (interactive) (insert "?")))
-
-
 
 (defun parent-directory (n)
   "Возвращает каталог предка определенного уровня для текущего файлового

@@ -1,3 +1,4 @@
+;;; ...  -*- lexical-binding: t -*-
 ;;;; common-lisp.el
 
 (defun compile-all ()

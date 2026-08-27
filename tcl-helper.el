@@ -1,3 +1,5 @@
+;;; ...  -*- lexical-binding: t -*-
+
 ;;;; ~/elisp/tcl-helper.el
 
 (defun find-proc-string-with-cursorf ()

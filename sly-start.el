@@ -1,3 +1,5 @@
+;;; ...  -*- lexical-binding: t -*-
+
 ;;;; SLY-AUTOLOAD-START
 ;(sly)
 ;;;; SLY-AUTOLOAD-END

@@ -1,3 +1,4 @@
+;;; ...  -*- lexical-binding: t -*-
 ;;;; Установка текущей программы для проверки орфографии.
 (defun hunspell-load ()
   (interactive)

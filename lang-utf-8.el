@@ -1,3 +1,4 @@
+;;; ...  -*- lexical-binding: t -*-
 ;;;; ~/elisp/lang-utf-8.el
 
 (getenv "LANG")
