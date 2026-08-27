@@ -176,3 +176,12 @@ org-publish-project-alist (определяющую параметры выво�
    (list :prefix   prefix
          :prj-root prj-root
          :pub-root pub-root))
+
+(defun parent-directory (n)
+  "Возвращает каталог предка определенного уровня для текущего файлового
+буфера. 0 - текущий каталог; 1 - родительский; 2 - дедовский."
+    (let ((p (file-name-directory (buffer-file-name))))
+      (dotimes (i n)
+        (setf p (file-name-directory
+                 (directory-file-name p))))
+      p))

@@ -1,3 +1,4 @@
+;;; ...  -*- lexical-binding: t -*-
 ;;;; open-some-files.el
 
 (defun open-main-org ()

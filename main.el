@@ -16,14 +16,10 @@
 
 (global-company-mode 1)
 
-(defun numbering ()
-  (interactive)
-  (insert (what-line)))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load "~/elisp/directory.el")
 (load "~/elisp/org-code.el")
-(load "~/elisp/org-babel-do-load-languages.el") 
+(load "~/elisp/org-babel-do-load-languages.el")
 (load "~/elisp/kill-some-buffers.el")
 (load "~/elisp/zm-tz-header.el")
 (load "~/elisp/open-some-files.el")
@@ -44,49 +40,12 @@
 
 (load "~/elisp/inferior-lisp-program.el")
 (load "~/elisp/common-lisp.el")
+(load "~/elisp/find-and-replace.el")
+(load "~/elisp/line-numbering.el")
 
-(global-set-key (kbd "C-x C-d")  (lambda () (interactive) (insert "°")))
-(global-set-key (kbd "C-x C-'")  (lambda () (interactive) (insert "′")))
-(global-set-key (kbd "C-x C-\"") (lambda () (interactive) (insert "″")))
-(global-set-key (kbd "C-x C-,")  (lambda () (interactive) (insert "□°′″")))
+(load "~/elisp/global-set-key.el")
 
-(global-set-key (kbd "C-x C-/")  (lambda () (interactive) (insert "?")))
-(global-set-key (kbd "C-x C-.")  (lambda () (interactive) (insert "?")))
-
-(defun parent-directory (n)
-  "Возвращает каталог предка определенного уровня для текущего файлового
-буфера. 0 - текущий каталог; 1 - родительский; 2 - дедовский."
-    (let ((p (file-name-directory (buffer-file-name))))
-      (dotimes (i n)
-        (setf p (file-name-directory
-                 (directory-file-name p))))
-      p))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun my/replace-in-files-silently (pattern replacement directory &optional extensions)
-  "Recursively replace PATTERN with REPLACEMENT in DIRECTORY.
-EXTENSIONS — список расширений, например '(\"lisp\" \"asd\")."
-  (interactive
-   (list
-    (read-string "Search pattern: ")
-    (read-string "Replace with: ")
-    (read-directory-name "Directory: ")
-    (split-string (read-string "Extensions (space-separated, empty = all): ") " " t)))
-  (let* ((dir (expand-file-name directory))
-         (files (directory-files-recursively
-                 dir
-                 (if extensions
-                     (concat "\\." (regexp-opt extensions) "$")
-                   ".*"))))
-    (dolist (file files)
-      (with-temp-buffer
-        (insert-file-contents file)
-        (goto-char (point-min))
-        (when (re-search-forward pattern nil t)
-          (goto-char (point-min))
-          (while (re-search-forward pattern nil t)
-            (replace-match replacement))
-          (write-region (point-min) (point-max) file nil 'silent))))))
 
-(global-set-key (kbd "C-c r") #'my/replace-in-files-silently)
