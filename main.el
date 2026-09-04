@@ -16,6 +16,7 @@
 
 (global-company-mode 1)
 
+(load "~/elisp/proxy.el")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load "~/elisp/directory.el")
 (load "~/elisp/org-code.el")
