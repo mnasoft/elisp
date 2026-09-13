@@ -45,7 +45,9 @@
 (load "~/elisp/line-numbering.el")
 
 (load "~/elisp/global-set-key.el")
+(load "~/elisp/auto-coding-alist.el")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+
