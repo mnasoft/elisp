@@ -1,5 +1,4 @@
-;;; ...  -*- lexical-binding: t -*-
-;;;; ~/elisp/main.el
+;;; ~/elisp/main.el -*- lexical-binding: t -*-
 
 ;(setq process-connection-type nil)
 ;(desktop-save-mode 1)
@@ -14,10 +13,12 @@
 ;;;; (setq package-check-signature nil)
 (setq package-gnupghome-dir (concat "/home/" (getenv "USER") "/.emacs.d/elpa/gnupg"))
 
-(global-company-mode 1)
+
 
 (load "~/elisp/proxy.el")
+(load "~/elisp/auto-coding-alist.el")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(load "~/elisp/company-mode.el")
 (load "~/elisp/directory.el")
 (load "~/elisp/org-code.el")
 (load "~/elisp/org-babel-do-load-languages.el")
@@ -45,7 +46,7 @@
 (load "~/elisp/line-numbering.el")
 
 (load "~/elisp/global-set-key.el")
-(load "~/elisp/auto-coding-alist.el")
+(load "~/elisp/my-minor-mode.el")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (put 'downcase-region 'disabled nil)

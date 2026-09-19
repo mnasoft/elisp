@@ -1,6 +1,4 @@
-;;; ...  -*- lexical-binding: t -*-
-
-;;;; org-babel-do-load-languages.el
+;;; ./org-babel-do-load-languages.el -*- lexical-binding: t -*-
 
 (require 'package)
 ;;;;(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)

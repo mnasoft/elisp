@@ -1,7 +1,6 @@
-;;; ...  -*- lexical-binding: t -*-
-;;;; inferior-lisp-program.el
+;;; ./inferior-lisp-program.el  -*- lexical-binding: t -*-
 
-(defun sly--host-port-open-p (host port)
+(defun sly-host-port-open-p (host port)
   "Return non-nil if HOST:PORT is accepting TCP connections."
   (condition-case nil
       (let ((proc (open-network-stream
@@ -20,7 +19,7 @@
    ;; 1) Пользователь хочет подключиться к существующему серверу
    ;;    и порт открыт → подключаемся
    ((and use-existing
-         (sly--host-port-open-p host port))
+         (sly-host-port-open-p host port))
     (message "SLY: detected running server at %s:%d, connecting..." host port)
     (sly-connect host port))
 

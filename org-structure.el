@@ -1,6 +1,4 @@
-;;; ...  -*- lexical-binding: t -*-
-
-;;;; org-structure.el
+;;; ./org-structure.el  -*- lexical-binding: t -*-
 
 (defun org-remove-blank-line ()
   (newline) ;;;; (org-return)

@@ -1,5 +1,4 @@
-;;; ...  -*- lexical-binding: t -*-
-;;;; ~/elisp/gnuplot.el
+;;;; ./gnuplot.el  -*- lexical-binding: t -*-
 
 ;;;; Configuration:
 ;;;; 

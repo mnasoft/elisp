@@ -1,5 +1,4 @@
-;;; ...  -*- lexical-binding: nil -*-
-;;;; /home/namatv/elisp/translate-commands-gr-ru-uk.el
+;;; ./translate-commands-gr-ru-uk.el  -*- lexical-binding: nil -*-
 
 (setq *abc-ru-eng* (list "йцукенгшщзхъфывапролджэ\ячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖ\ЭЯЧСМИТЬБЮ№"
 			 "qwertyuiop[]asdfghjkl;'\zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>#"))

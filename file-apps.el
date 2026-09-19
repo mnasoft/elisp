@@ -1,4 +1,4 @@
-;;; ...  -*- lexical-binding: t -*-
+;;;; ./file-apps.el -*- lexical-binding: t -*-
 
 (setq org-file-apps
       '((auto-mode . emacs)

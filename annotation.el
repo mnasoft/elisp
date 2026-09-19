@@ -1,5 +1,4 @@
-;;; ...  -*- lexical-binding: t -*-
-;;;; /home/namatv/elisp/annotation.el
+;;;; ./annotation.el -*- lexical-binding: t -*-
 
 (defun ann-enable ()
   "Предназначена для формирования вставки блока кода"

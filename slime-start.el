@@ -1,4 +1,4 @@
-;;; ...  -*- lexical-binding: t -*-
+;;; ~/elisp/slime-start.el  -*- lexical-binding: t -*-
 
 ;;;; SLIME-LOADING-CONTRIB-PACKAGES-START 
 

@@ -1,6 +1,4 @@
-;;; ...  -*- lexical-binding: t -*-
-
-;;;; /home/namatv/elisp/scriba.el
+;;; ./scriba.el  -*- lexical-binding: t -*-
 
 (defun scr-code ()
   "Предназначена для формирования вставки блока кода"

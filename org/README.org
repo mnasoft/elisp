@@ -76,29 +76,39 @@
 #+END_SRC
 
 #+RESULTS:
-| [[file:~/elisp/annotation.el]]                  |
-| [[file:~/elisp/common-lisp.el]]                 |
-| [[file:~/elisp/directory.el]]                   |
-| [[file:~/elisp/gnuplot.el]]                     |
-| [[file:~/elisp/hide-show-mode.el]]              |
-| [[file:~/elisp/hunspell.el]]                    |
-| [[file:~/elisp/inferior-lisp-program.el]]       |
-| [[file:~/elisp/kill-some-buffers.el]]           |
-| [[file:~/elisp/main.el]]                        |
-| [[file:~/elisp/mik-tex.el]]                     |
-| [[file:~/elisp/mnas-publish.el]]                |
-| [[file:~/elisp/neotree.el]]                     |
-| [[file:~/elisp/open-some-files.el]]             |
-| [[file:~/elisp/org-babel-do-load-languages.el]] |
-| [[file:~/elisp/org-code.el]]                    |
-| [[file:~/elisp/org-structure.el]]               |
-| [[file:~/elisp/scriba.el]]                      |
-| [[file:~/elisp/slime-start.el]]                 |
-| [[file:~/elisp/sly-start.el]]                   |
-| [[file:~/elisp/tcl-helper.el]]                  |
-| [[file:~/elisp/translate-commands-gr-ru-uk.el]] |
-| [[file:~/elisp/yes-or-no-p.el]]                 |
-| [[file:~/elisp/zm-tz-header.el]]                |
+| [[~/elisp/annotation.el]]                  |
+| [[~/elisp/auto-coding-alist.el]]           |
+| [[~/elisp/common-lisp.el]]                 |
+| [[~/elisp/company-mode.el]]                |
+| [[~/elisp/directory.el]]                   |
+| [[~/elisp/file-apps.el]]                   |
+| [[~/elisp/find-and-replace.el]]            |
+| [[~/elisp/global-set-key.el]]              |
+| [[~/elisp/gnuplot.el]]                     |
+| [[~/elisp/hide-show-mode.el]]              |
+| [[~/elisp/hunspell.el]]                    |
+| [[~/elisp/inferior-lisp-program.el]]       |
+| [[~/elisp/kill-some-buffers.el]]           |
+| [[~/elisp/lang-utf-8.el]]                  |
+| [[~/elisp/line-numbering.el]]              |
+| [[~/elisp/main.el]]                        |
+| [[~/elisp/mik-tex.el]]                     |
+| [[~/elisp/mnas-publish.el]]                |
+| [[~/elisp/my-minor-mode.el]]               |
+| [[~/elisp/neotree.el]]                     |
+| [[~/elisp/open-some-files.el]]             |
+| [[~/elisp/org-babel-do-load-languages.el]] |
+| [[~/elisp/org-code.el]]                    |
+| [[~/elisp/org-structure.el]]               |
+| [[~/elisp/powershell.el]]                  |
+| [[~/elisp/proxy.el]]                       |
+| [[~/elisp/scriba.el]]                      |
+| [[~/elisp/slime-start.el]]                 |
+| [[~/elisp/sly-start.el]]                   |
+| [[~/elisp/tcl-helper.el]]                  |
+| [[~/elisp/translate-commands-gr-ru-uk.el]] |
+| [[~/elisp/yes-or-no-p.el]]                 |
+| [[~/elisp/zm-tz-header.el]]                |
 
 ** Файл init.el
 
@@ -133,3 +143,59 @@
   (put 'downcase-region 'disabled nil)
   (put 'upcase-region 'disabled nil)
 #+end_src
+
+** Install Hunspell dictionaries (uk_UA, ru_RU) for MSYS2
+#+begin_src bash
+  #!/usr/bin/env bash
+
+  set -e
+
+  HUNSPELL_DIR="/c/msys64/ucrt64/share/hunspell"
+  TMP_DIR="/tmp/hunspell-dicts"
+
+  mkdir -p "$TMP_DIR"
+  mkdir -p "$HUNSPELL_DIR"
+
+#  echo "Downloading Ukrainian dictionary..."
+#  curl -L -o "$TMP_DIR/uk_UA.oxt" \
+#    https://extensions.libreoffice.org/assets/downloads/ukrainian-dictionary-pack.oxt
+
+#  echo "Downloading Russian dictionary..."
+#  curl -L -o "$TMP_DIR/ru_RU.oxt" \
+#    https://extensions.libreoffice.org/assets/downloads/russian-dictionary-pack.oxt
+
+  echo "Extracting Ukrainian dictionary..."
+  unzip -o "$TMP_DIR/uk_UA.oxt" -d "$TMP_DIR/uk_UA"
+  cp "$TMP_DIR/uk_UA"/*.aff "$HUNSPELL_DIR/uk_UA.aff"
+  cp "$TMP_DIR/uk_UA"/*.dic "$HUNSPELL_DIR/uk_UA.dic"
+
+  echo "Extracting Russian dictionary..."
+  unzip -o "$TMP_DIR/ru_RU.oxt" -d "$TMP_DIR/ru_RU"
+  cp "$TMP_DIR/ru_RU"/*.aff "$HUNSPELL_DIR/ru_RU.aff"
+  cp "$TMP_DIR/ru_RU"/*.dic "$HUNSPELL_DIR/ru_RU.dic"
+
+  echo "Done. Installed dictionaries:"
+  ls -1 "$HUNSPELL_DIR"
+
+  echo "Testing hunspell -D..."
+  hunspell -D
+#+end_src
+
+#+RESULTS:
+| Extracting | Ukrainian                                             | dictionary... |
+| Archive:   | /tmp/hunspell-dicts/uk_UA.oxt                         |               |
+| inflating: | /tmp/hunspell-dicts/uk_UA/description.xml             |               |
+| inflating: | /tmp/hunspell-dicts/uk_UA/dictionaries.xcu            |               |
+| inflating: | /tmp/hunspell-dicts/uk_UA/downloadplaces.txt          |               |
+| inflating: | /tmp/hunspell-dicts/uk_UA/icon64.png                  |               |
+| creating:  | /tmp/hunspell-dicts/uk_UA/META-INF/                   |               |
+| inflating: | /tmp/hunspell-dicts/uk_UA/META-INF/manifest.xml       |               |
+| creating:  | /tmp/hunspell-dicts/uk_UA/uk_UA/                      |               |
+| inflating: | /tmp/hunspell-dicts/uk_UA/uk_UA/README_hyph_uk_UA.txt |               |
+| inflating: | /tmp/hunspell-dicts/uk_UA/uk_UA/README_th_uk_UA.txt   |               |
+| inflating: | /tmp/hunspell-dicts/uk_UA/uk_UA/README_uk_UA.txt      |               |
+| inflating: | /tmp/hunspell-dicts/uk_UA/uk_UA/hyph_uk_UA.dic        |               |
+| inflating: | /tmp/hunspell-dicts/uk_UA/uk_UA/th_uk_UA.dat          |               |
+| inflating: | /tmp/hunspell-dicts/uk_UA/uk_UA/th_uk_UA.idx          |               |
+| inflating: | /tmp/hunspell-dicts/uk_UA/uk_UA/uk_UA.aff             |               |
+| inflating: | /tmp/hunspell-dicts/uk_UA/uk_UA/uk_UA.dic             |               |

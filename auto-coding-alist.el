@@ -1,5 +1,4 @@
-;;; ...  -*- lexical-binding: t -*-
-;;; ./auto-coding-alist.el
+;;;; ./auto-coding-alist.el -*- lexical-binding: t -*-
 
 (add-to-list 'auto-coding-alist '("\\.lsp\\'" . windows-1251-dos))
 (add-to-list 'auto-coding-alist '("\\.prj\\'" . windows-1251-dos))

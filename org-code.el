@@ -1,5 +1,4 @@
-;;; ...  -*- lexical-binding: t -*-
-;;;; org-code.el
+;;; ./org-code.el  -*- lexical-binding: t -*-
 
 (defun org-code-elisp ()
   "Заготовка кода для elisp"

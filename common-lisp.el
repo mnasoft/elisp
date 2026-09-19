@@ -1,5 +1,4 @@
-;;; ...  -*- lexical-binding: t -*-
-;;;; common-lisp.el
+;;;; ./common-lisp.el  -*- lexical-binding: t -*-
 
 (defun compile-all ()
   "Предназначена для формирования заголовка технического задания"

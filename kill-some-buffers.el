@@ -1,5 +1,4 @@
-;;; ...  -*- lexical-binding: t -*-
-;;;; kill-some-buffers.el
+;;; ./kill-some-buffers.el  -*- lexical-binding: t -*-
 
 (defun my/save-and-kill-all-file-buffers ()
   (interactive)
@@ -17,7 +16,3 @@
         (when (and (not buffer-file-name)
                    (not (string-match-p "^ ?\\*sly" name)))
           (kill-buffer buf))))))
-
-(global-set-key (kbd "C-c k f") #'my/save-and-kill-all-file-buffers)
-(global-set-key (kbd "C-c k n") #'my/kill-non-file-buffers-except-sly)
-

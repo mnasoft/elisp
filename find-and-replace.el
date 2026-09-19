@@ -1,5 +1,4 @@
-;;; ...  -*- lexical-binding: t -*-
-;;;; ~/elisp/find-and-replace.el
+;;; ./find-and-replace.el  -*- lexical-binding: t -*-
 
 (defun my/replace-in-files-silently (pattern replacement directory &optional extensions)
   "Recursively replace PATTERN with REPLACEMENT in DIRECTORY.
