@@ -1,5 +1,4 @@
-;;; ...  -*- lexical-binding: t -*-
-;;;; /home/mna/elisp/line-numbering.el
+;;; ./line-numbering.el  -*- lexical-binding: t -*-
 
 (defun numbering ()
   (interactive)

@@ -31,7 +31,6 @@
 (load "~/elisp/scriba.el")
 (load "~/elisp/org-structure.el")
 (load "~/elisp/annotation.el")
-(load "~/elisp/hunspell.el")
 (load "~/elisp/yes-or-no-p.el")
 (load "~/elisp/tcl-helper.el")
 (load "~/elisp/neotree.el")
@@ -44,6 +43,8 @@
 (load "~/elisp/common-lisp.el")
 (load "~/elisp/find-and-replace.el")
 (load "~/elisp/line-numbering.el")
+
+(load "~/elisp/hunspell.el")
 
 (load "~/elisp/global-set-key.el")
 (load "~/elisp/my-minor-mode.el")

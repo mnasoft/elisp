@@ -45,11 +45,6 @@
 ;;;
   (define-key my-map (kbd "C-c e")         #'my/sly-open-last-error))
 
-(global-set-key (kbd "C-c C-1") #'ispell) ; Проверка орфографии текущего буфера.
-(global-set-key (kbd "C-c C-2") #'flyspell-mode) ; Включение\выключение режима проверки орфографии на лету.
-
-
-
 ;; Привязка всего keymap к префиксу C-c m
 (define-key global-map (kbd "C-c m") my-map)
 

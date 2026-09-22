@@ -1,18 +1,62 @@
-;;; ./hunspell.el -*- lexical-binding: t -*-
+;;; ./hunspell.el -*- lexical-binding: nil -*-
 
-;;;; Установка текущей программы для проверки орфографии.
-(defun hunspell-load ()
+(setq ispell-program-name "hunspell"
+      ispell-dictionary "en_US" ;"uk_UA,ru_RU,en_US"
+      )
+
+(defun init-dictionary-uk-ru-en ()
+  (when (and (boundp 'ispell-dictionary-alist)
+             (null (assoc "uk_UA,ru_RU,en_US" ispell-dictionary-alist)))
+    (add-to-list 'ispell-dictionary-alist
+                 '("ru_RU"
+                   "[[:alpha:]]"
+                   "[^[:alpha:]]"
+                   "[0-9']"
+                   t
+                   ("-d" "ru_RU")
+                   nil
+                   utf-8))
+    (add-to-list 'ispell-dictionary-alist
+                 '("en_US"
+                   "[[:alpha:]]"
+                   "[^[:alpha:]]"
+                   "[0-9']"
+                   t ("-d" "en_US")
+                   nil
+                   utf-8))
+    (add-to-list 'ispell-dictionary-alist
+                 '("uk_UA,ru_RU,en_US"
+                   "[[:alpha:]]"
+                   "[^[:alpha:]]"
+                   "[0-9']"
+                   t
+                   ("-d" "uk_UA,ru_RU,en_US")
+                   nil
+                   utf-8))
+    (add-to-list 'ispell-dictionary-alist
+                 '("uk_UA"
+                   "[[:alpha:]]"
+                   "[^[:alpha:]]"
+                   "['`ʼ-]"
+                   t
+                   ("-d" "uk_UA")
+                   nil
+                   utf-8))))
+
+(defun switch-dictionary-uk-ru-en ()
+  ""
   (interactive)
-  (if (executable-find "hunspell")
-      (progn
-	(setq ispell-program-name "hunspell")
-	(setq ispell-really-aspell   nil)
-	(setq ispell-really-hunspell t)
-	(setq ispell-really-enchant  nil)
-	(setq ispell-dictionary "ru-en")
-	(if (boundp 'ispell-dictionary-alist)
-	    (add-to-list 'ispell-dictionary-alist '("ru-en" "[[:alpha:]]" "[^[:alpha:]]" "" t ("-d" "ru-en") nil utf-8)))
-	(setq ispell-dictionary-alist '(("ru-en" "[[:alpha:]]" "[^[:alpha:]]" "" t ("-d" "ru-en") nil utf-8))))))
+  (when (boundp 'ispell-dictionary-alist)
+    (init-dictionary-uk-ru-en)
+    (let* ((dict ispell-current-dictionary)
+           (new (cond
+                 ((string= dict "uk_UA"            ) "ru_RU")
+                 ((string= dict "ru_RU"            ) "en_US")
+                 ((string= dict "en_US"            ) "uk_UA,ru_RU,en_US" )
+                 ((string= dict "uk_UA,ru_RU,en_US") "uk_UA"))))
+      (ispell-change-dictionary new)
+      (message "Switced dictionary from %s to %s" dict new))))
 
-;;;; (cadr ispell-dictionary-alist)
-;;;; ispell-local-dictionary
+(global-set-key (kbd "C-c d") #'switch-dictionary-uk-ru-en)
+
+;; ispell-dictionary-alist
