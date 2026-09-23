@@ -1,0 +1,4 @@
+*.oxt
+*.pkg.tar.zst
+*.log
+*.log.*
