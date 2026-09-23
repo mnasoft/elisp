@@ -1,0 +1,116 @@
+* Залежності
+** JDK-21 для Windows-x64
+Для збірки пакету потрібна саме версия JDK-21 Windows-x64
+Потрібно встановити з сайту msi-пакет:
+- Сайт для завантаження: https://www.oracle.com/java/technologies/downloads/
+- MSI-встановлювач: https://download.oracle.com/java/21/latest/jdk-21_windows-x64_bin.msi
+
+** Отримання шляху до java
+*** Через powershell
+Отримання шляху до java виконується через визов команди powershell.
+
+Цю команду треба виконувати безпосередньо у командному інтерпретаторі
+powershell.
+
+#+name: java-home-powershell
+#+begin_src powershell
+  java -XshowSettings:properties -version 2>&1 |
+    Select-String "java.home"
+#+end_src
+
+#+RESULTS:
+: 
+:     java.home = C:\Program Files\Java\jdk-21.0.12.1
+: 
+: 
+*** Через cmd
+Отримання шляху до java виконується через визов команди cmd.
+
+Цю команду треба виконувати безпосередньо у командному інтерпретаторі
+cmd.
+#+name: java-home-cmd
+#+begin_src cmd
+  java -XshowSettings:properties -version 2>&1 | findstr "java.home"  
+#+end_src
+
+*** Налаштування powershell для можливості пакетного виконання команд
+#+begin_src powershell
+  Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned  
+#+end_src
+
+** Додавання шляхів пошуку до виконуваних файлів
+Після отримання шляху до домашнього каталогу java для забезпечення
+вдалого збирання пакету потрібно:
+- встановити системну змінну "JAVA_HOME"
+- додати шлях до виконуваних файлів типу java.exe
+  - до системної змінної "PATH";
+  - до змінної exec-path,
+через виконання наступного коду
+
+Строку "C:/Program Files/Java/jdk-21.0.12.1" треба
+замінити/відкорегувати за потреби згідно з результатами виконання
+[[java-home-cmd]] або [[java-home-powershell]].
+    
+#+begin_src elisp
+  (let ((java-home "C:/Program Files/Java/jdk-21.0.12.1"))
+    (setenv "JAVA_HOME" java-home)
+    (setenv "PATH"
+            (concat java-home "/bin;"
+                    (getenv "PATH")))
+    (add-to-list 'exec-path
+                 (concat java-home "/bin")))
+#+end_src
+    
+* Встановлення пакету
+** Збирання пакету
+#+begin_src sh 
+  cd .
+  makepkg-mingw -sLfc
+  # makepkg-mingw -sLfi
+  # MINGW_PACKAGE_PREFIX=mingw-w64-ucrt-x86_64 makepkg-mingw -sLf
+#+end_src
+
+** Безпосередньо встановлення пакету
+#+begin_src sh
+  pacman -U mingw-w64-ucrt-x86_64-hunspell-uk-6.8.6-1-any.pkg.tar.zst
+#+end_src
+
+** Перевірка що пакет встановлено
+При виконанні команди
+#+begin_src sh
+  hunspell -D
+#+end_src
+у її виводі повинно з'явитися щось типу "C:/msys64/ucrt64/share/hunspell/uk_UA"
+
+#+RESULTS:
+
+* Очищення каталогу збирання
+#+begin_src sh
+  ls
+  rm -f *.log
+  rm -f *.log.[0-9]
+  rm -f *~
+  rm -f *.tar.gz  
+#+end_src
+
+#+RESULTS:
+| mingw-w64-ucrt-x86_64-hunspell-uk-6.8.6-1-any.pkg.tar.zst |
+| PKGBUILD                                                  |
+| README.org                                                |
+
+* Повне очищення каталогу збирання
+
+#+begin_src sh
+  ls
+  rm -f *.log
+  rm -f *.log.[0-9]
+  rm -f *~
+  rm -f *.oxt
+  rm -f *.tar.gz
+  rm -f *.pkg.tar.zst  
+#+end_src
+
+#+RESULTS:
+| mingw-w64-ucrt-x86_64-hunspell-uk-6.8.6.tar.gz |
+| PKGBUILD                                       |
+| README.org                                     |

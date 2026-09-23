@@ -1,0 +1,53 @@
+# Maintainer: Mykola
+
+pkgbase=mingw-w64-hunspell-uk
+pkgname="${MINGW_PACKAGE_PREFIX}-hunspell-uk"
+pkgver=6.8.6
+pkgrel=1
+pkgdesc="Ukrainian Hunspell dictionary"
+arch=('any')
+url="https://github.com/brown-uk/dict_uk"
+license=('GPL-3.0-or-later' 'CC-BY-NC-SA-4.0')
+
+depends=(
+  "${MINGW_PACKAGE_PREFIX}-hunspell"
+)
+
+makedepends=('gradle')
+
+source=(
+  "${pkgname}-${pkgver}.tar.gz::https://github.com/brown-uk/dict_uk/archive/refs/tags/v${pkgver}.tar.gz"
+)
+
+sha256sums=(
+  '677a4eb19125c997bc30ac4aa48c5ecf752849286b2c8bc1da087a3457cd96f6'
+)
+
+build() {
+  cd "${srcdir}/dict_uk-${pkgver}"
+
+  export JAVA_HOME="/c/Program Files/Java/jdk-21.0.12.1"
+  export PATH="${JAVA_HOME}/bin:${PATH}"
+
+  java -version
+
+  gradle \
+    --project-dir=distr/hunspell \
+    hunspell \
+    --no-daemon \
+    --gradle-user-home="${srcdir}/gradle"
+}
+
+package() {
+  cd "${srcdir}/dict_uk-${pkgver}"
+
+  install -Dm644 \
+    distr/hunspell/build/hunspell/uk_UA.aff \
+    "${pkgdir}${MINGW_PREFIX}/share/hunspell/uk_UA.aff"
+
+  install -Dm644 \
+    distr/hunspell/build/hunspell/uk_UA.dic \
+    "${pkgdir}${MINGW_PREFIX}/share/hunspell/uk_UA.dic"
+}
+
+
