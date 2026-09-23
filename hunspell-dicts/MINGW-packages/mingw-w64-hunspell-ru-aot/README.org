@@ -1,0 +1,39 @@
+* Встановлення пакету
+
+#+begin_src sh 
+  cd .
+  makepkg-mingw -sLfc
+  # makepkg-mingw -sLfi
+  # MINGW_PACKAGE_PREFIX=mingw-w64-ucrt-x86_64 makepkg-mingw -sLf
+#+end_src
+
+#+RESULTS:
+
+* Очищення каталогу збирання
+#+begin_src sh
+  ls
+  rm -f *.log
+  rm -f *.log.[0-9]
+  rm -f *~
+#+end_src
+
+#+RESULTS:
+| dict_ru_ru-aot-0.4.5.oxt                                      |
+| mingw-w64-ucrt-x86_64-hunspell-ru-aot-0.4.5-1-any.pkg.tar.zst |
+| PKGBUILD                                                      |
+| README.org                                                    |
+
+* Повне очищення каталогу збирання
+
+#+begin_src sh
+  ls
+  rm -f *.log
+  rm -f *.log.[0-9]
+  rm -f *~
+  rm -f *.oxt
+  rm -f *.pkg.tar.zst   
+#+end_src
+
+#+RESULTS:
+| PKGBUILD   |
+| README.org |

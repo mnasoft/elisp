@@ -1,0 +1,44 @@
+# Maintainer: Your Name
+
+_realname=dict_ru_ru-aot
+pkgbase=mingw-w64-hunspell-ru-aot
+pkgname="${MINGW_PACKAGE_PREFIX}-hunspell-ru-aot"
+pkgver=0.4.5
+pkgrel=1
+pkgdesc="Russian Hunspell dictionary (AOT.ru, only-yo variant)"
+arch=('any')
+url="https://extensions.libreoffice.org/en/extensions/show/russian-spellcheck-dictionary.-based-on-works-of-aot-group"
+license=('LGPL')
+depends=("${MINGW_PACKAGE_PREFIX}-hunspell")
+provides=("${MINGW_PACKAGE_PREFIX}-hunspell-ru")
+conflicts=("${MINGW_PACKAGE_PREFIX}-hunspell-ru")
+
+source=("https://extensions.libreoffice.org/assets/downloads/48/${_realname}-${pkgver}.oxt")
+sha256sums=('dfba6bf1c50e41653d720fc9bc5806232600c13a00730240b8d5d192af1ee1be')
+
+noextract=("${_realname}-${pkgver}.oxt")
+
+prepare() {
+    cd "${srcdir}"
+
+    rm -rf unpack
+    mkdir unpack
+
+    bsdtar -xf "${_realname}-${pkgver}.oxt" -C unpack
+}
+
+package() {
+    cd "${srcdir}/unpack"
+
+    install -Dm644 russian-aot.aff \
+        "${pkgdir}${MINGW_PREFIX}/share/hunspell/ru_RU.aff"
+
+    install -Dm644 russian-aot.dic \
+        "${pkgdir}${MINGW_PREFIX}/share/hunspell/ru_RU.dic"
+
+    install -Dm644 copyright.txt \
+        "${pkgdir}${MINGW_PREFIX}/share/doc/${pkgname}/copyright.txt"
+
+    install -Dm644 lgpl.txt \
+        "${pkgdir}${MINGW_PREFIX}/share/doc/${pkgname}/lgpl.txt"
+}
