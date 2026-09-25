@@ -45,6 +45,7 @@
 (load "~/elisp/line-numbering.el")
 
 (load "~/elisp/hunspell.el")
+(load "~/elisp/registry.el")
 
 (load "~/elisp/global-set-key.el")
 (load "~/elisp/my-minor-mode.el")

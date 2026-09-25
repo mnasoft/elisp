@@ -100,6 +100,9 @@ uk_UA -> ru_RU -> en_US -> смешанный -> uk_UA.
 ;; Проверка слова под курсором
 (define-key my-spell-map (kbd "w") #'ispell-word)
 (define-key my-spell-map (kbd "ц") #'ispell-word)
+;; Проверка региона
+(define-key my-spell-map (kbd "r") #'ispell-region)
+(define-key my-spell-map (kbd "к") #'ispell-region)
 ;; Исправить предыдущее слово
 (define-key my-spell-map (kbd "p") #'flyspell-correct-word-before-point)
 (define-key my-spell-map (kbd "з") #'flyspell-correct-word-before-point)
