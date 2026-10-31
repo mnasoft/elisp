@@ -1,0 +1,557 @@
+* Использование gptel с Ollama
+
+Конфигурация =gptel= использует Ollama в качестве backend.
+
+Основной принцип работы:
+
+#+begin_example
+модель + директива + запрос -> ответ
+#+end_example
+
+Модель определяет, какая LLM обрабатывает запрос.
+
+Директива определяет специализацию и правила поведения модели.
+
+После выбора модели и директивы можно использовать =gptel= как
+отдельный чат или непосредственно из рабочего буфера Emacs.
+
+
+** Доступные модели
+
+| Модель              | Назначение                              |
+|---------------------+-----------------------------------------|
+| =qwen2.5-coder:14b= | Основная модель для программирования    |
+| =qwen2.5-coder:7b=  | Быстрая модель для программирования     |
+| =qwen3:30b=         | Более крупная универсальная модель      |
+| =beam:cloud=        | Облачная модель                         |
+
+Модель по умолчанию:
+
+#+begin_example
+qwen2.5-coder:14b
+#+end_example
+
+
+** Переключение моделей
+
+Для моделей определены следующие команды:
+
+| Модель              | Команда                    | Клавиши   |
+|---------------------+----------------------------+-----------|
+| =qwen2.5-coder:14b= | =my/gptel-coder-14b=       | =C-c g 1= |
+| =qwen2.5-coder:7b=  | =my/gptel-coder-7b=        | =C-c g 7= |
+| =qwen3:30b=         | =my/gptel-qwen=            | =C-c g q= |
+| =beam:cloud=        | =my/gptel-beam=            | =C-c g b= |
+
+Например, выбрать =qwen2.5-coder:14b=:
+
+#+begin_example
+C-c g 1
+#+end_example
+
+или:
+
+#+begin_example
+M-x my/gptel-coder-14b
+#+end_example
+
+В minibuffer появится:
+
+#+begin_example
+gptel -> qwen2.5-coder:14b
+#+end_example
+
+
+** Директивы
+
+Директива задаёт системные инструкции для модели.
+
+Определены следующие специализированные директивы:
+
+| Директива     | Назначение                         |
+|---------------+------------------------------------|
+| =common-lisp= | Common Lisp, SBCL, ASDF, Quicklisp |
+| =emacs-lisp=  | Emacs Lisp и настройка Emacs       |
+| =linux=       | Arch Linux, pacman, systemd        |
+| =bash=        | Bash и Unix shell                  |
+
+Модель и директива независимы друг от друга.
+
+Например:
+
+#+begin_example
+model     -> qwen2.5-coder:14b
+directive -> common-lisp
+#+end_example
+
+или:
+
+#+begin_example
+model     -> qwen3:30b
+directive -> linux
+#+end_example
+
+
+** Выбор директивы
+
+Для выбора директивы текущего буфера:
+
+#+begin_example
+C-c g d
+#+end_example
+
+или:
+
+#+begin_example
+M-x my/gptel-select-directive
+#+end_example
+
+Emacs предложит выбрать директиву:
+
+#+begin_example
+common-lisp
+emacs-lisp
+linux
+bash
+...
+#+end_example
+
+Например:
+
+#+begin_example
+C-c g d
+
+gptel directive: common-lisp
+#+end_example
+
+После выбора:
+
+#+begin_example
+gptel directive -> common-lisp
+#+end_example
+
+
+** Проверка текущей директивы
+
+Для просмотра активной директивы текущего буфера:
+
+#+begin_example
+C-c g D
+#+end_example
+
+или:
+
+#+begin_example
+M-x my/gptel-current-directive
+#+end_example
+
+Например:
+
+#+begin_example
+gptel directive -> common-lisp
+#+end_example
+
+Директива устанавливается локально для текущего буфера.
+
+Поэтому разные буферы могут использовать разные директивы:
+
+#+begin_example
+project.lisp -> common-lisp
+init.el      -> emacs-lisp
+script.sh    -> bash
+#+end_example
+
+
+** Основные команды gptel
+
+Для повседневной работы используются следующие команды:
+
+| Действие             | Команда          | Клавиши   |
+|----------------------+------------------+-----------|
+| Открыть чат          | =gptel=          | =C-c g c= |
+| Отправить запрос     | =gptel-send=     | =C-c g s= |
+| Rewrite/refactor     | =gptel-rewrite=  | =C-c g r= |
+| Открыть меню gptel   | =gptel-menu=     | =C-c g m= |
+| Отправить из gptel   | =gptel-send=     | =C-c RET= |
+
+Для этих клавиш в =init.el= должны быть определены:
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c g c") #'gptel)
+(global-set-key (kbd "C-c g s") #'gptel-send)
+(global-set-key (kbd "C-c g r") #'gptel-rewrite)
+(global-set-key (kbd "C-c g m") #'gptel-menu)
+#+end_src
+
+
+** Работа в отдельном чате
+
+Самый простой способ использования gptel:
+
+#+begin_example
+C-c g c
+#+end_example
+
+или:
+
+#+begin_example
+M-x gptel
+#+end_example
+
+Откроется буфер gptel.
+
+Написать запрос:
+
+#+begin_example
+Объясни разницу между DEFVAR и DEFPARAMETER.
+#+end_example
+
+Отправить:
+
+#+begin_example
+C-c RET
+#+end_example
+
+После ответа можно написать следующий вопрос и снова нажать:
+
+#+begin_example
+C-c RET
+#+end_example
+
+Таким образом получается обычный диалог с моделью.
+
+
+** Типичный сценарий: Common Lisp
+
+Выбираем основную coding-модель:
+
+#+begin_example
+C-c g 1
+#+end_example
+
+Результат:
+
+#+begin_example
+model -> qwen2.5-coder:14b
+#+end_example
+
+Выбираем директиву:
+
+#+begin_example
+C-c g d
+#+end_example
+
+и затем:
+
+#+begin_example
+common-lisp
+#+end_example
+
+Открываем чат:
+
+#+begin_example
+C-c g c
+#+end_example
+
+Пишем:
+
+#+begin_example
+Покажи идиоматический способ определить класс POINT
+с координатами X и Y.
+#+end_example
+
+Отправляем:
+
+#+begin_example
+C-c RET
+#+end_example
+
+В результате запрос выполняется с настройками:
+
+#+begin_example
+model     -> qwen2.5-coder:14b
+directive -> common-lisp
+#+end_example
+
+
+** Типичный сценарий: Emacs Lisp
+
+Выбираем модель:
+
+#+begin_example
+C-c g 1
+#+end_example
+
+Выбираем директиву:
+
+#+begin_example
+C-c g d
+emacs-lisp
+#+end_example
+
+Открываем чат:
+
+#+begin_example
+C-c g c
+#+end_example
+
+Пример запроса:
+
+#+begin_example
+Напиши интерактивную Emacs Lisp функцию,
+которая показывает имя текущего major-mode.
+#+end_example
+
+Отправляем:
+
+#+begin_example
+C-c RET
+#+end_example
+
+
+** Типичный сценарий: Linux
+
+Для более сложного вопроса можно выбрать =qwen3:30b=:
+
+#+begin_example
+C-c g q
+#+end_example
+
+Выбираем:
+
+#+begin_example
+C-c g d
+linux
+#+end_example
+
+Открываем чат:
+
+#+begin_example
+C-c g c
+#+end_example
+
+Например:
+
+#+begin_example
+Объясни, как systemd определяет порядок запуска сервисов.
+#+end_example
+
+и отправляем:
+
+#+begin_example
+C-c RET
+#+end_example
+
+
+** Типичный сценарий: Bash
+
+Для простой Bash-задачи можно использовать более быструю модель:
+
+#+begin_example
+C-c g 7
+#+end_example
+
+Выбираем директиву:
+
+#+begin_example
+C-c g d
+bash
+#+end_example
+
+Открываем чат:
+
+#+begin_example
+C-c g c
+#+end_example
+
+Например:
+
+#+begin_example
+Напиши Bash-цикл, который обрабатывает все *.org файлы
+в текущем каталоге.
+#+end_example
+
+
+** Работа непосредственно из текущего буфера
+
+gptel можно использовать не только в отдельном chat-буфере.
+
+Например, открыт файл:
+
+#+begin_example
+project.lisp
+#+end_example
+
+Выбрать модель:
+
+#+begin_example
+C-c g 1
+#+end_example
+
+Выбрать:
+
+#+begin_example
+C-c g d
+common-lisp
+#+end_example
+
+После этого =gptel-send= можно запускать непосредственно из
+текущего буфера:
+
+#+begin_example
+C-c g s
+#+end_example
+
+или:
+
+#+begin_example
+M-x gptel-send
+#+end_example
+
+
+** Работа с выделенным кодом
+
+Можно выделить интересующий фрагмент кода.
+
+Например:
+
+#+begin_src lisp
+(defun foo (x)
+  (if x
+      (car x)
+      nil))
+#+end_src
+
+После этого использовать команды gptel для работы с данным
+фрагментом.
+
+Это позволяет работать с LLM непосредственно во время
+редактирования исходного кода.
+
+
+** Rewrite и refactoring
+
+Для изменения выделенного текста используется:
+
+#+begin_example
+C-c g r
+#+end_example
+
+или:
+
+#+begin_example
+M-x gptel-rewrite
+#+end_example
+
+Например, можно выделить Lisp-функцию и использовать gptel для
+её переработки или рефакторинга.
+
+
+** Меню gptel
+
+Дополнительные параметры gptel доступны через:
+
+#+begin_example
+C-c g m
+#+end_example
+
+или:
+
+#+begin_example
+M-x gptel-menu
+#+end_example
+
+
+** Рекомендуемый рабочий процесс
+
+Для Common Lisp:
+
+#+begin_example
+C-c g 1
+    |
+    +-- qwen2.5-coder:14b
+
+C-c g d
+    |
+    +-- common-lisp
+
+C-c g c
+    |
+    +-- открыть чат
+
+Написать вопрос
+
+C-c RET
+    |
+    +-- отправить запрос
+#+end_example
+
+Для работы непосредственно с кодом:
+
+#+begin_example
+открыть .lisp
+    |
+    v
+выбрать/выделить интересующий код
+    |
+    v
+C-c g r
+    |
+    v
+работать с результатом
+#+end_example
+
+
+** Краткая памятка
+
+*** Работа с gptel
+
+| Действие           | Клавиши    |
+|--------------------+------------|
+| Открыть чат        | =C-c g c=  |
+| Отправить запрос   | =C-c g s=  |
+| Отправить из чата  | =C-c RET=  |
+| Rewrite/refactor   | =C-c g r=  |
+| Меню gptel         | =C-c g m=  |
+
+*** Модели
+
+| Модель              | Клавиши   |
+|---------------------+-----------|
+| =qwen2.5-coder:14b= | =C-c g 1= |
+| =qwen2.5-coder:7b=  | =C-c g 7= |
+| =qwen3:30b=         | =C-c g q= |
+| =beam:cloud=        | =C-c g b= |
+
+*** Директивы
+
+| Действие                   | Клавиши   |
+|----------------------------+-----------|
+| Выбрать директиву          | =C-c g d= |
+| Показать текущую директиву | =C-c g D= |
+
+Доступные специализированные директивы:
+
+#+begin_example
+common-lisp
+emacs-lisp
+linux
+bash
+#+end_example
+
+
+** Основная комбинация для Common Lisp
+
+Для большинства задач по Common Lisp:
+
+#+begin_example
+C-c g 1          -> qwen2.5-coder:14b
+C-c g d          -> common-lisp
+C-c g c          -> открыть gptel
+C-c RET          -> отправить запрос
+#+end_example
+
+Таким образом, модель и директива определяют /как/ будет
+обрабатываться запрос, а =gptel=, =gptel-send= и =gptel-rewrite=
+определяют /как именно мы взаимодействуем/ с моделью из Emacs.
+
