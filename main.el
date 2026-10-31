@@ -46,7 +46,7 @@
 
 (load "~/elisp/hunspell.el")
 (load "~/elisp/registry.el")
-(load "~/elisp/gptel.el")
+(load "~/elisp/gptel-setup/gptel-setup.el")
 
 (load "~/elisp/global-set-key.el")
 (load "~/elisp/my-minor-mode.el")

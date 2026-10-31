@@ -106,7 +106,7 @@ Be concise and technically precise.")))
   (interactive)
   (setq gptel-backend my/gptel-ollama
         gptel-model 'beam:cloud)
-  (message "gptel -> beam:cloud"))
+  (message "gptel -> %s" gptel-model))
 
 
 (defun my/gptel-qwen ()
@@ -114,8 +114,7 @@ Be concise and technically precise.")))
   (interactive)
   (setq gptel-backend my/gptel-ollama
         gptel-model 'qwen3:30b)
-  (message "gptel -> qwen3:30b"))
-
+  (message "gptel -> %s" gptel-model))
 
 (defun my/gptel-coder-7b ()
   "Switch gptel to qwen2.5-coder:7b."
@@ -124,13 +123,19 @@ Be concise and technically precise.")))
         gptel-model 'qwen2.5-coder:7b)
   (message "gptel -> qwen2.5-coder:7b"))
 
+(defun my/gptel-coder-7b ()
+  "Switch gptel to qwen2.5-coder:7b."
+  (interactive)
+  (setq gptel-backend my/gptel-ollama
+        gptel-model 'qwen2.5-coder:7b)
+  (message "gptel -> %s" gptel-model))
 
 (defun my/gptel-coder-14b ()
   "Switch gptel to qwen2.5-coder:14b."
   (interactive)
   (setq gptel-backend my/gptel-ollama
         gptel-model 'qwen2.5-coder:14b)
-  (message "gptel -> qwen2.5-coder:14b"))
+  (message "gptel -> %s" gptel-model))
 
 (defun my/gptel-select-directive ()
   "Select a gptel directive."
@@ -164,6 +169,24 @@ Be concise and technically precise.")))
            'default))))
     (alist-get directive gptel-directives)))
 
+(defun my/gptel-current-directive ()
+  "Показать активную директиву gptel для текущего буфера."
+  (interactive)
+  (unless (boundp 'gptel--system-message)
+    (user-error "gptel не загружен"))
+  (let* ((msg (if (functionp gptel--system-message)
+                  (funcall gptel--system-message)
+                gptel--system-message))
+         (name (cond
+                ((null msg) "default")
+                ((symbolp msg) (symbol-name msg))
+                ((stringp msg)
+                 (let ((entry (rassoc msg gptel-directives)))
+                   (if entry (symbol-name (car entry)) "unknown")))
+                (t "unknown"))))
+    (message "gptel directive -> %s" name)
+    name))
+
 ;; ==================================================================
 ;; gptel key bindings
 ;; ==================================================================
@@ -183,3 +206,5 @@ Be concise and technically precise.")))
 
 (setq-default gptel--system-message
               #'my/gptel-directive-by-major-mode)
+
+
