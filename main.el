@@ -47,6 +47,7 @@
 (load "~/elisp/hunspell.el")
 (load "~/elisp/registry.el")
 (load "~/elisp/gptel-setup/gptel-setup.el")
+(load "~/elisp/ollama-buddy-setup/ollama-buddy-setup.el")
 
 (load "~/elisp/global-set-key.el")
 (load "~/elisp/my-minor-mode.el")
