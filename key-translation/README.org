@@ -1,0 +1,59 @@
+#+title: key-translation
+#+author: Mykola
+
+* Назначение
+
+Пакет =key-translation= позволяет использовать стандартные сочетания клавиш
+Emacs при активной русской, украинской или греческой раскладке клавиатуры.
+
+Преобразования устанавливаются через =key-translation-map= для префиксов
+=C-=, =M-=, =C-M-=, =C-x =, =C-c C-d = и =C-h =.
+
+* Установка
+
+Поместите каталог пакета в дерево, входящее в =load-path=, затем:
+
+#+begin_src emacs-lisp
+(require 'key-translation)
+#+end_src
+
+Русская раскладка включается автоматически для сохранения поведения исходной
+конфигурации.
+
+* Дополнительные раскладки
+
+#+begin_src emacs-lisp
+(key-translation-enable-ukrainian)
+(key-translation-enable-greek)
+#+end_src
+
+Русскую раскладку можно установить повторно командой:
+
+#+begin_src emacs-lisp
+(key-translation-enable-russian)
+#+end_src
+
+* Реализация
+
+Параллельный обход символов двух строк выполняется через =cl-loop= и
+итератор =across=. Список модификаторов также обходится через =cl-loop= с
+итератором =in=.
+
+* Тесты
+
+#+begin_src sh
+emacs -Q --batch \
+  -L . \
+  -l key-translation.el \
+  -l key-translation-test.el \
+  -f ert-run-tests-batch-and-exit
+#+end_src
+
+* Структура
+
+#+begin_example
+key-translation/
+├── key-translation.el
+├── key-translation-test.el
+└── README.org
+#+end_example

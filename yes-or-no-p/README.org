@@ -1,0 +1,78 @@
+#+title: yes-or-no-p
+#+author: Mykola Matvyeyev
+#+email: mnasoft@gmail.com
+
+* Назначение
+
+=yes-or-no-p= — небольшой пакет для Emacs, который заменяет стандартные
+запросы подтверждения через =yes-or-no-p= на более краткий интерфейс
+=y-or-n-p=.
+
+Вместо ввода полного =yes= или =no= достаточно нажать =y= или =n=.
+
+* Автор
+
+Mykola Matvyeyev <mnasoft@gmail.com>
+
+* Установка
+
+Распакуйте архив:
+
+#+begin_src sh
+tar -xJf yes-or-no-p.tar.xz
+#+end_src
+
+Скопируйте главный файл в каталог, входящий в =load-path= Emacs. Например:
+
+#+begin_src sh
+cp yes-or-no-p/yes-or-no-p.el ~/elisp/
+#+end_src
+
+Добавьте в конфигурацию Emacs:
+
+#+begin_src emacs-lisp
+(require 'yes-or-no-p)
+#+end_src
+
+* Реализация
+
+Пакет намеренно минимален. Основная настройка состоит из определения
+псевдонима:
+
+#+begin_src emacs-lisp
+(defalias 'yes-or-no-p #'y-or-n-p)
+#+end_src
+
+После загрузки пакета вызовы =yes-or-no-p= используют поведение =y-or-n-p=.
+
+* Тесты
+
+ERT-тесты находятся в файле =yes-or-no-p-tests.el=.
+
+Запуск из каталога пакета:
+
+#+begin_src sh
+emacs -Q --batch \
+  -L . \
+  -l yes-or-no-p-tests.el \
+  -f ert-run-tests-batch-and-exit
+#+end_src
+
+Тесты проверяют, что =yes-or-no-p= после загрузки пакета ссылается на ту же
+функцию, что и =y-or-n-p=.
+
+* Удаление
+
+Удалите =yes-or-no-p.el= из пользовательского каталога Emacs и строку
+
+#+begin_src emacs-lisp
+(require 'yes-or-no-p)
+#+end_src
+
+из конфигурации, затем перезапустите Emacs.
+
+* Состав
+
+- =yes-or-no-p.el= :: главный файл пакета;
+- =yes-or-no-p-tests.el= :: ERT-тесты;
+- =README.org= :: документация.

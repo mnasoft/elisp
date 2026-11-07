@@ -5,25 +5,17 @@
 
 * Назначение
 
-Когда вычислительная машина с GPU стоит отдельно от рабочего
-компьютера, нет особой причины делать HTTP API Ollama доступным всей
-локальной сети. Гораздо аккуратнее оставить Ollama локальным сервисом
-на сервере, а доступ к нему предоставить через SSH-туннель.
+Когда вычислительная машина с GPU стоит отдельно от рабочего компьютера,
+нет особой причины делать HTTP API Ollama доступным всей локальной сети.
+Гораздо аккуратнее оставить Ollama локальным сервисом на сервере, а доступ
+к нему предоставить через SSH-туннель.
 
-В описанной ниже конфигурации использованы две машины:
+В описанной конфигурации используются две машины:
 
 - =mnasoft-00= — Linux-сервер, на котором работает Ollama;
 - =DESKTOP-JVRHMFB= — Windows/MSYS2, где работают Emacs и Ollama Buddy.
 
-Адрес сервера в локальной сети:
-
-#+begin_example
-192.168.0.140
-#+end_example
-
-В результате приложения на рабочем компьютере обращаются к обычному
-локальному адресу =127.0.0.1:11434=, не заботясь о том, что сама
-модель исполняется на другой машине.
+Адрес сервера: =192.168.0.140=.
 
 #+begin_example
 DESKTOP-JVRHMFB                         mnasoft-00
@@ -42,105 +34,46 @@ Emacs / Ollama Buddy
 
 * 1. Ограничиваем Ollama локальным интерфейсом
 
-На =mnasoft-00= Ollama должна слушать только loopback-интерфейс:
-
-#+begin_example
-127.0.0.1:11434
-#+end_example
-
-Если ранее сервер был открыт в LAN посредством
-
-#+begin_example
-OLLAMA_HOST=0.0.0.0:11434
-#+end_example
-
-для SSH-варианта эту настройку разумно вернуть к локальному адресу.
-
-При запуске Ollama как systemd-службы:
+На =mnasoft-00= Ollama должна слушать =127.0.0.1:11434=.
 
 #+begin_src sh
 sudo systemctl edit ollama
 #+end_src
-
-В override-конфигурации:
 
 #+begin_src conf
 [Service]
 Environment="OLLAMA_HOST=127.0.0.1:11434"
 #+end_src
 
-Затем:
-
 #+begin_src sh
 sudo systemctl daemon-reload
 sudo systemctl restart ollama.service
-#+end_src
-
-Проверяем:
-
-#+begin_src sh
 ss -ltnp | grep 11434
-#+end_src
-
-Рабочая конфигурация должна показывать прослушивание
-=127.0.0.1:11434=, а не =*:11434=.
-
-Сам API можно проверить непосредственно на сервере:
-
-#+begin_src sh
 curl http://127.0.0.1:11434/api/version
 #+end_src
 
 * 2. Первый SSH-туннель
 
-На =DESKTOP-JVRHMFB= сначала полезно убедиться, что принцип вообще
-работает, не скрывая детали за конфигурационными файлами:
+На =DESKTOP-JVRHMFB=:
 
 #+begin_src sh
 ssh -N -L 11434:127.0.0.1:11434 mna@192.168.0.140
 #+end_src
 
-Опция =-N= означает, что удалённый shell не нужен: соединение
-существует исключительно ради перенаправления портов.
-
-Пока команда работает, во втором терминале:
+Во втором терминале:
 
 #+begin_src sh
 curl http://127.0.0.1:11434/api/tags
 #+end_src
 
-Если возвращается список моделей с =mnasoft-00=, туннель исправен.
-
 * 3. Авторизация по SSH-ключу
-
-Для постоянной работы ввод пароля при каждом создании туннеля быстро
-становится лишней церемонией. На клиентской машине уже может
-существовать стандартная пара ключей:
-
-#+begin_example
-~/.ssh/id_ed25519
-~/.ssh/id_ed25519.pub
-#+end_example
-
-При отсутствии ключа его можно создать:
 
 #+begin_src sh
 ssh-keygen -t ed25519
-#+end_src
-
-Публичный ключ необходимо поместить в =~/.ssh/authorized_keys=
-пользователя =mna= на =mnasoft-00=.
-
-В обычной среде это удобно сделать через:
-
-#+begin_src sh
 ssh-copy-id -i ~/.ssh/id_ed25519.pub mna@192.168.0.140
 #+end_src
 
-В MSYS2 иногда возникают особенности интерактивного запроса пароля. В
-таком случае публичный ключ можно передать через обычный SSH-сеанс.
-
-Проверка уже установленного ключа:
+Проверка:
 
 #+begin_src sh
 ssh -i ~/.ssh/id_ed25519 \
@@ -148,20 +81,7 @@ ssh -i ~/.ssh/id_ed25519 \
     mna@192.168.0.140
 #+end_src
 
-Успешный вход без пароля учётной записи означает, что ключевая
-авторизация готова.
-
 * 4. Конфигурация ~/.ssh/config
-
-Теперь все постоянные параметры туннеля удобно собрать в одном месте.
-
-Файл на =DESKTOP-JVRHMFB=:
-
-#+begin_example
-~/.ssh/config
-#+end_example
-
-Содержимое:
 
 #+begin_src ssh-config
 Host ollama
@@ -181,223 +101,225 @@ Host ollama
     ControlPersist yes
 #+end_src
 
-Здесь имя =ollama= становится локальным псевдонимом SSH-соединения.
+* 5. Безопасность
 
-=LocalForward= описывает собственно туннель. Привязка локальной
-стороны к =127.0.0.1= намеренно не делает порт доступным другим
-машинам сети.
+Ollama принимает соединения только на loopback-интерфейсе
+=127.0.0.1:11434=. Удалённый доступ осуществляется через SSH.
+Локальный конец туннеля также привязан только к =127.0.0.1:11434=.
 
-=ExitOnForwardFailure yes= не позволяет SSH делать вид, что всё в
-порядке, если локальный порт создать не удалось.
+** Приватный ключ
 
-=ServerAliveInterval= и =ServerAliveCountMax= помогают обнаруживать
-потерю длительного соединения.
+Файл =~/.ssh/id_ed25519= является приватным ключом. На сервер передаётся
+только публичная часть =~/.ssh/id_ed25519.pub=.
 
-Наконец, =ControlMaster= и =ControlPath= дают нам штатный управляющий
-канал для фонового SSH-процесса.
+#+begin_src sh
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_ed25519
+chmod 644 ~/.ssh/id_ed25519.pub
+#+end_src
 
-* 5. Запуск туннеля
+** Проверка ключа сервера
 
-Интерактивный вариант удобен при диагностике:
+При первом соединении следует проверить fingerprint ключа сервера перед его
+подтверждением. После подтверждения ключ сохраняется клиентом для последующих
+соединений.
+
+** Ограничение локального forwarding
+
+Используется явная привязка к loopback:
+
+#+begin_src ssh-config
+LocalForward 127.0.0.1:11434 127.0.0.1:11434
+#+end_src
+
+Без необходимости не следует заменять её привязкой к =0.0.0.0=.
+
+** ControlMaster
+
+Управляющий сокет расположен внутри =~/.ssh=:
+
+#+begin_src ssh-config
+ControlMaster auto
+ControlPath ~/.ssh/ollama-control.sock
+ControlPersist yes
+#+end_src
+
+Проверка и остановка выполняются штатными командами:
+
+#+begin_src sh
+ssh -O check ollama
+ssh -O exit ollama
+#+end_src
+
+** Не открывать Ollama одновременно через LAN и SSH
+
+Если используется SSH-туннель, предпочтительно оставить:
+
+#+begin_example
+OLLAMA_HOST=127.0.0.1:11434
+#+end_example
+
+а не =OLLAMA_HOST=0.0.0.0:11434=.
+
+* 6. Запуск туннеля
+
+Диагностика:
 
 #+begin_src sh
 ssh -N ollama
 #+end_src
 
-При нормальной работе команда ничего не печатает и остаётся
-активной. Это не зависание: SSH обслуживает туннель.
-
-Для повседневной работы удобнее фоновый режим:
+Фоновый режим:
 
 #+begin_src sh
 ssh -f -N ollama
 #+end_src
 
-После установления соединения shell снова становится доступен, а
-туннель продолжает работать в фоне.
-
-* 6. Управление туннелем
-
-Благодаря =ControlMaster= больше не требуется искать PID SSH-процесса
-или завершать его через =taskkill=.
-
-** Проверка состояния
+* 7. Управление туннелем
 
 #+begin_src sh
 ssh -O check ollama
-#+end_src
-
-При работающем соединении мы получаем сообщение наподобие:
-
-#+begin_example
-Master running (pid=1167)
-#+end_example
-
-** Остановка
-
-#+begin_src sh
 ssh -O exit ollama
 #+end_src
 
-SSH отвечает:
-
-#+begin_example
-Exit request sent.
-#+end_example
-
-После завершения master-соединения повторная проверка закономерно
-сообщает, что управляющего сокета больше нет:
-
-#+begin_example
-Control socket connect(.../ollama-control.sock): No such file or directory
-#+end_example
-
-В данном случае это не ошибка настройки, а свидетельство того, что
-туннель действительно остановлен.
-
-** Повторный запуск
+Повторный запуск:
 
 #+begin_src sh
 ssh -f -N ollama
 #+end_src
 
-и затем:
-
-#+begin_src sh
-ssh -O check ollama
-#+end_src
-
-* 7. Проверка Ollama через туннель
-
-Состояние самого SSH-соединения и состояние Ollama — всё же две разные
-вещи. Поэтому после запуска полезна прикладная проверка API:
+* 8. Проверка Ollama через туннель
 
 #+begin_src sh
 curl http://127.0.0.1:11434/api/version
-#+end_src
-
-В проверенной конфигурации сервер отвечал, например:
-
-#+begin_example
-{"version":"0.40.13"}
-#+end_example
-
-Список доступных моделей:
-
-#+begin_src sh
 curl http://127.0.0.1:11434/api/tags
 #+end_src
 
-Таким образом проверяется вся цепочка, а не только существование SSH
-master-процесса.
+* 9. Ollama Buddy
 
-* 8. Ollama Buddy
-
-Прелесть этой схемы состоит в том, что Ollama Buddy почти ничего о ней
-знать не обязан. Для него удалённый Ollama выглядит локальным
-сервисом.
-
-Достаточно:
+Основная настройка находится в =ollama-buddy-setup.el=:
 
 #+begin_src emacs-lisp
-(setq ollama-buddy-host "localhost")
+(use-package ollama-buddy
+  :ensure t
+  :bind
+  (("C-c o" . ollama-buddy-role-transient-menu)
+   ("C-c O" . ollama-buddy-transient-menu))
+  :custom
+  (ollama-buddy-host "localhost")
+  (ollama-buddy-port 11434))
 #+end_src
 
-После запуска
+** RAG
+
+#+begin_src emacs-lisp
+(use-package ollama-buddy-rag
+  :after ollama-buddy
+  :config
+  (dolist (ext '("lisp" "cl" "asd"))
+    (add-to-list 'ollama-buddy-rag-file-extensions ext)))
+#+end_src
+
+** Common Lisp preset
+
+#+begin_src emacs-lisp
+(require 'ollama-buddy--preset__common-lisp)
+#+end_src
+
+Preset содержит специализированные команды для анализа, отладки,
+рефакторинга, документирования и тестирования Common Lisp-кода, а также
+работы с ASDF, макросами, Project и RAG.
+
+* 10. Установка конфигурации Emacs
+
+Архив содержит:
+
+#+begin_example
+ollama-buddy-setup/
+├── README.org
+├── ollama-buddy-setup.el
+└── ollama-buddy--preset__common-lisp.el
+#+end_example
+
+В MSYS2 архив из =C:\Users\mnaso\Downloads\= можно распаковать прямо в
+=~/elisp=:
+
+#+begin_src sh
+tar -xJvf \
+  /c/Users/mnaso/Downloads/ollama-buddy-setup.tar.xz \
+  -C ~/elisp
+#+end_src
+
+Если каталог ещё не находится в =load-path=:
+
+#+begin_src emacs-lisp
+(add-to-list
+ 'load-path
+ (expand-file-name "~/elisp/ollama-buddy-setup/"))
+#+end_src
+
+Загрузка конфигурации:
+
+#+begin_src emacs-lisp
+(require 'ollama-buddy-setup)
+#+end_src
+
+* 11. Повседневная работа
 
 #+begin_src sh
 ssh -f -N ollama
-#+end_src
-
-Ollama Buddy обращается к =localhost:11434=, а SSH прозрачно
-доставляет эти запросы на =mnasoft-00=.
-
-* 9. Повседневная работа
-
-Перед началом работы:
-
-#+begin_src sh
-ssh -f -N ollama
-#+end_src
-
-Убедиться, что SSH master жив:
-
-#+begin_src sh
 ssh -O check ollama
-#+end_src
-
-Убедиться, что Ollama отвечает:
-
-#+begin_src sh
 curl http://127.0.0.1:11434/api/version
 #+end_src
 
-После этого можно запускать Emacs и Ollama Buddy.
-
-По окончании работы:
+После работы:
 
 #+begin_src sh
 ssh -O exit ollama
 #+end_src
 
-* 10. Диагностика
+* 12. Диагностика
 
 ** Порт 11434 уже занят
-
-На Windows/MSYS2:
 
 #+begin_src sh
 netstat -ano | grep 11434
 #+end_src
 
-Строка вида
-
-#+begin_example
-TCP  127.0.0.1:11434  0.0.0.0:0  LISTENING  PID
-#+end_example
-
-показывает владельца локального порта.
-
-При штатно настроенном =ControlMaster= обычно достаточно сначала проверить:
-
-#+begin_src sh
-ssh -O check ollama
-#+end_src
-
-** Нужна подробная диагностика SSH
+** Подробная диагностика SSH
 
 #+begin_src sh
 ssh -vvv -N ollama
 #+end_src
 
-Это удобно, когда требуется увидеть авторизацию, создание forwarding и
-причины преждевременного завершения соединения.
-
-** Проверить фактическую SSH-конфигурацию
+** Фактическая SSH-конфигурация
 
 #+begin_src sh
 ssh -G ollama | grep -E \
   '^(hostname|user|identityfile|localforward|exitonforwardfailure|control)'
 #+end_src
 
-** Особенность MSYS2
+** Проверка Emacs Lisp
 
-MSYS2 выполняет автоматическое преобразование некоторых аргументов,
-похожих на Unix-пути, при запуске native Windows-программ. Поэтому
-команды Windows с ключами наподобие =/FI= могут потребовать отключения
-такого преобразования:
+#+begin_src sh
+emacs -Q --batch \
+  --eval '(with-temp-buffer
+            (insert-file-contents
+             "~/elisp/ollama-buddy-setup/ollama-buddy--preset__common-lisp.el")
+            (emacs-lisp-mode)
+            (check-parens))'
+#+end_src
+
+** Особенность MSYS2
 
 #+begin_src sh
 MSYS2_ARG_CONV_EXCL='*' tasklist.exe /FI "PID eq 1234"
 #+end_src
 
-Впрочем, после перехода на =ControlMaster= вмешательство через
-=tasklist/taskkill= для обычного управления туннелем уже не требуется.
-
-* 11. Краткая памятка
+* 13. Краткая памятка
 
 #+begin_src sh
-# Запустить туннель в фоне
+# Запустить туннель
 ssh -f -N ollama
 
 # Проверить SSH master
@@ -406,35 +328,36 @@ ssh -O check ollama
 # Проверить Ollama
 curl http://127.0.0.1:11434/api/version
 
-# Получить модели
+# Получить список моделей
 curl http://127.0.0.1:11434/api/tags
 
-# Корректно остановить туннель
+# Остановить туннель
 ssh -O exit ollama
 #+end_src
 
 * Заключение
 
-У этой конфигурации есть приятное инженерное свойство: каждый
-компонент занимается своей задачей. Ollama обслуживает модели и
-остаётся локальным сервисом вычислительной машины. SSH обеспечивает
-удалённый доступ и шифрованный транспорт. Emacs и Ollama Buddy
-продолжают работать с привычным =localhost= и не нуждаются в
-специальной сетевой логике.
+Ollama остаётся локальным сервисом вычислительной машины. SSH обеспечивает
+удалённый доступ, а Emacs и Ollama Buddy продолжают работать с привычным
+=localhost=.
 
-В повседневной работе вся инфраструктура сводится к одной короткой команде:
+Конфигурация Emacs остаётся небольшой:
+
+#+begin_example
+~/elisp/ollama-buddy-setup/
+├── README.org
+├── ollama-buddy-setup.el
+└── ollama-buddy--preset__common-lisp.el
+#+end_example
+
+Для повседневной работы достаточно запустить:
 
 #+begin_src sh
 ssh -f -N ollama
 #+end_src
 
-а завершение — к столь же ясной:
+а затем завершить туннель:
 
 #+begin_src sh
 ssh -O exit ollama
 #+end_src
-
-Такой подход не только удобен. Он сохраняет архитектуру понятной:
-наружу предоставляется SSH, тогда как API Ollama остаётся там, где ему
-естественнее всего находиться, — на loopback-интерфейсе машины,
-которая непосредственно выполняет модели.

@@ -20,7 +20,9 @@
 (require 'warm-themes)
 (require 'proxy)
 (require 'scriba)
-
+(require 'key-translation)
+(require 'yes-or-no-p)
+(require 'ollama-buddy-setup)
 
 (load "~/elisp/auto-coding-alist.el")
 
@@ -33,12 +35,10 @@
 (load "~/elisp/kill-some-buffers.el")
 (load "~/elisp/zm-tz-header.el")
 (load "~/elisp/open-some-files.el")
-(load "~/elisp/translate-commands-gr-ru-uk.el")
 (load "~/elisp/hide-show-mode.el")
 (load "~/elisp/gnuplot.el")
 (load "~/elisp/org-structure.el")
 (load "~/elisp/annotation.el")
-(load "~/elisp/yes-or-no-p.el")
 (load "~/elisp/tcl-helper.el")
 
 (load "~/elisp/tcl-helper.el")
@@ -54,7 +54,7 @@
 (load "~/elisp/hunspell.el")
 (load "~/elisp/registry.el")
 (load "~/elisp/gptel-setup/gptel-setup.el")
-(load "~/elisp/ollama-buddy-setup/ollama-buddy-setup.el")
+
 
 (load "~/elisp/global-set-key.el")
 (load "~/elisp/my-minor-mode.el")

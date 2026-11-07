@@ -1,8 +1,28 @@
 ;;; ollama-buddy--preset__common-lisp.el --- Common Lisp role -*- lexical-binding: t; -*-
 
-(require 'ollama-buddy)
+;;; Commentary:
 
-(defconst my/ollama-buddy-common-lisp-system
+;; Common Lisp role and command definitions for Ollama Buddy.
+;;
+;; This preset provides commands for explaining, debugging, reviewing,
+;; refactoring and documenting Common Lisp code, writing tests, analysing
+;; ASDF definitions and macros, and accessing project and RAG context.
+;;
+;; Loading this file replaces `ollama-buddy-command-definitions' with the
+;; Common Lisp-oriented command set below.
+
+;;; Code:
+
+(require 'ollama-buddy)
+(require 'ollama-buddy-project)
+(require 'ollama-buddy-rag)
+
+(defgroup my/ollama-buddy-common-lisp nil
+  "Common Lisp configuration for Ollama Buddy."
+  :group 'ollama-buddy
+  :prefix "my/ollama-buddy-common-lisp-")
+
+(defcustom my/ollama-buddy-common-lisp-system
   "You are an expert Common Lisp programmer.
 
 Use ANSI Common Lisp unless implementation-specific code is explicitly
@@ -27,16 +47,12 @@ Guidelines:
   to change it.
 - Do not invent functions, packages or library APIs.
 - If information about an external library is missing, explicitly say so."
-  "System prompt used by the Common Lisp Ollama Buddy role.")
-
+  "System prompt used by the Common Lisp Ollama Buddy role."
+  :type 'string
+  :group 'my/ollama-buddy-common-lisp)
 
 (setq ollama-buddy-command-definitions
-      `(
-        ;; ------------------------------------------------------------
-        ;; General
-        ;; ------------------------------------------------------------
-
-        (open-chat
+      `((open-chat
          :key ?o
          :description "Open chat"
          :group "General"
@@ -60,27 +76,21 @@ Guidelines:
          :group "General"
          :action ollama-buddy--menu-help-assistant)
 
-
-        ;; ------------------------------------------------------------
-        ;; Analysis
-        ;; ------------------------------------------------------------
-
         (explain-lisp
          :key ?e
-         :description "Explain Lisp"
+         :description "Explain Common Lisp"
          :group "Analysis"
          :prompt "Explain the following Common Lisp code. Describe its purpose,
 control flow, data structures, side effects, package dependencies and any
 non-obvious Common Lisp idioms:"
          :system ,my/ollama-buddy-common-lisp-system
          :destination chat
-         :action
-         (lambda ()
-           (ollama-buddy--send-with-command 'explain-lisp)))
+         :action (lambda ()
+                   (ollama-buddy--send-with-command 'explain-lisp)))
 
         (debug-lisp
          :key ?d
-         :description "Debug Lisp"
+         :description "Debug Common Lisp"
          :group "Analysis"
          :prompt "Analyze the following Common Lisp code or error. Identify the
 root cause first, then propose the smallest correct fix. Pay particular
@@ -88,13 +98,12 @@ attention to packages, symbols, lexical/dynamic bindings, macros, evaluation
 order, type declarations and SBCL diagnostics:"
          :system ,my/ollama-buddy-common-lisp-system
          :destination chat
-         :action
-         (lambda ()
-           (ollama-buddy--send-with-command 'debug-lisp)))
+         :action (lambda ()
+                   (ollama-buddy--send-with-command 'debug-lisp)))
 
         (review-lisp
          :key ?v
-         :description "Review Lisp"
+         :description "Review Common Lisp"
          :group "Analysis"
          :prompt "Review the following Common Lisp code. Look for correctness
 problems, non-idiomatic constructs, unnecessary complexity, package issues,
@@ -102,18 +111,12 @@ portability problems and opportunities for simplification. Do not rewrite
 the code unless needed to demonstrate a recommendation:"
          :system ,my/ollama-buddy-common-lisp-system
          :destination chat
-         :action
-         (lambda ()
-           (ollama-buddy--send-with-command 'review-lisp)))
-
-
-        ;; ------------------------------------------------------------
-        ;; Editing
-        ;; ------------------------------------------------------------
+         :action (lambda ()
+                   (ollama-buddy--send-with-command 'review-lisp)))
 
         (refactor-lisp
          :key ?r
-         :description "Refactor Lisp"
+         :description "Refactor Common Lisp"
          :group "Editing"
          :prompt "Refactor the following Common Lisp code. Preserve behaviour.
 Prefer idiomatic ANSI Common Lisp, clear names, simple control flow and
@@ -121,13 +124,12 @@ appropriate abstraction. Return only the replacement Common Lisp code:"
          :system ,my/ollama-buddy-common-lisp-system
          :parameters ((temperature . 0.2))
          :destination in-buffer
-         :action
-         (lambda ()
-           (ollama-buddy--send-with-command 'refactor-lisp)))
+         :action (lambda ()
+                   (ollama-buddy--send-with-command 'refactor-lisp)))
 
         (simplify-lisp
          :key ?s
-         :description "Simplify Lisp"
+         :description "Simplify Common Lisp"
          :group "Editing"
          :prompt "Simplify the following Common Lisp code without changing its
 observable behaviour. Remove unnecessary complexity and prefer idiomatic
@@ -135,13 +137,12 @@ Common Lisp. Return only the replacement code:"
          :system ,my/ollama-buddy-common-lisp-system
          :parameters ((temperature . 0.2))
          :destination in-buffer
-         :action
-         (lambda ()
-           (ollama-buddy--send-with-command 'simplify-lisp)))
+         :action (lambda ()
+                   (ollama-buddy--send-with-command 'simplify-lisp)))
 
         (document-lisp
          :key ?c
-         :description "Document Lisp"
+         :description "Document Common Lisp"
          :group "Editing"
          :prompt "Add or improve Common Lisp documentation for the following
 code. Prefer useful docstrings that describe semantics, arguments, return
@@ -150,14 +151,8 @@ repeat the code. Return only the resulting code:"
          :system ,my/ollama-buddy-common-lisp-system
          :parameters ((temperature . 0.2))
          :destination in-buffer
-         :action
-         (lambda ()
-           (ollama-buddy--send-with-command 'document-lisp)))
-
-
-        ;; ------------------------------------------------------------
-        ;; Development
-        ;; ------------------------------------------------------------
+         :action (lambda ()
+                   (ollama-buddy--send-with-command 'document-lisp)))
 
         (write-tests
          :key ?t
@@ -170,9 +165,8 @@ testing framework unless it is evident from the context:"
          :system ,my/ollama-buddy-common-lisp-system
          :parameters ((temperature . 0.2))
          :destination chat
-         :action
-         (lambda ()
-           (ollama-buddy--send-with-command 'write-tests)))
+         :action (lambda ()
+                   (ollama-buddy--send-with-command 'write-tests)))
 
         (analyze-asdf
          :key ?a
@@ -183,9 +177,8 @@ components, dependency relationships, package/load ordering and portability.
 Explain potential ASDF problems and suggest concrete corrections:"
          :system ,my/ollama-buddy-common-lisp-system
          :destination chat
-         :action
-         (lambda ()
-           (ollama-buddy--send-with-command 'analyze-asdf)))
+         :action (lambda ()
+                   (ollama-buddy--send-with-command 'analyze-asdf)))
 
         (analyze-macro
          :key ?M
@@ -197,14 +190,8 @@ gensym usage and compile-time versus run-time effects. Identify any potential
 macro-writing errors:"
          :system ,my/ollama-buddy-common-lisp-system
          :destination chat
-         :action
-         (lambda ()
-           (ollama-buddy--send-with-command 'analyze-macro)))
-
-
-        ;; ------------------------------------------------------------
-        ;; Ollama Buddy
-        ;; ------------------------------------------------------------
+         :action (lambda ()
+                   (ollama-buddy--send-with-command 'analyze-macro)))
 
         (project
          :key ?P
@@ -222,8 +209,8 @@ macro-writing errors:"
          :key ?D
          :description "Roles directory"
          :group "Context"
-         :action ollama-buddy-roles-open-directory)
-        ))
+         :action ollama-buddy-roles-open-directory)))
 
 (provide 'ollama-buddy--preset__common-lisp)
 
+;;; ollama-buddy--preset__common-lisp.el ends here
