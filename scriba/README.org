@@ -1,0 +1,145 @@
+#+title: scriba.el
+#+author: Mykola
+
+* Назначение
+
+=scriba.el= — небольшой Emacs Lisp пакет с интерактивными командами для
+вставки часто используемых конструкций разметки Scriba.
+
+Основное назначение пакета — сократить ручной набор однотипных конструкций
+при подготовке технической документации, в особенности документации
+Common Lisp.
+
+* Возможности
+
+Пакет содержит команды для вставки:
+
+- блоков кода Lisp и обычного текста;
+- маркированных и нумерованных списков;
+- списков определений;
+- секций;
+- конструкций =@cl:doc(...)=;
+- внешних и внутренних ссылок;
+- шаблонов описания, переменных, примеров и возвращаемых значений;
+- небольшого Common Lisp примера обхода hash-table.
+
+* Установка
+
+Поместите =scriba.el= в каталог, входящий в =load-path=.
+
+Например, если пакет находится в =~/elisp/scriba/=:
+
+#+begin_src emacs-lisp
+(add-to-list 'load-path (expand-file-name "~/elisp/scriba"))
+(require 'scriba)
+#+end_src
+
+Если =~/elisp= и его подкаталоги уже добавляются в =load-path= автоматически,
+достаточно:
+
+#+begin_src emacs-lisp
+(require 'scriba)
+#+end_src
+
+* Использование
+
+Все пользовательские команды имеют префикс =scriba-=.
+
+Например:
+
+#+begin_example
+M-x scriba-code-lisp
+M-x scriba-list
+M-x scriba-section
+M-x scriba-doc-function
+M-x scriba-link-external
+#+end_example
+
+** Блоки кода
+
+#+begin_src emacs-lisp
+(scriba-code-lisp)
+(scriba-code-text)
+#+end_src
+
+** Документация Common Lisp
+
+Например:
+
+#+begin_src emacs-lisp
+(scriba-doc-function)
+(scriba-doc-macro)
+(scriba-doc-method)
+(scriba-doc-class)
+#+end_src
+
+Команда =scriba-doc= вставляет общий шаблон документации для пакета.
+
+** Внешняя ссылка
+
+Вызов:
+
+#+begin_example
+M-x scriba-link-external
+#+end_example
+
+предлагает отредактировать URL и отображаемый текст. По умолчанию используются:
+
+#+begin_example
+URL: https://www.google.com/
+Текст ссылки: Google
+#+end_example
+
+Программный вызов:
+
+#+begin_src emacs-lisp
+(scriba-link-external "https://www.gnu.org/" "GNU")
+#+end_src
+
+вставляет:
+
+#+begin_example
+@link[uri="https://www.gnu.org/"](GNU)
+#+end_example
+
+* Имена функций
+
+Публичные команды используют префикс =scriba-=.
+
+Внутренние вспомогательные определения используют двойной дефис:
+
+#+begin_example
+scriba--insert-cl-doc
+scriba--define-doc-command
+#+end_example
+
+* Тестирование
+
+Файл =scriba-test.el= содержит минимальные ERT-тесты для основных вставок.
+
+Из каталога пакета:
+
+#+begin_src sh
+emacs -Q --batch \
+  -L . \
+  -l scriba.el \
+  -l scriba-test.el \
+  -f ert-run-tests-batch-and-exit
+#+end_src
+
+* Структура
+
+#+begin_example
+scriba/
+├── scriba.el
+├── scriba-test.el
+└── README.org
+#+end_example
+
+* Подключение
+
+Пакет предоставляет feature =scriba=:
+
+#+begin_src emacs-lisp
+(require 'scriba)
+#+end_src

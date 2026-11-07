@@ -1,0 +1,115 @@
+#+title: proxy.el
+#+author: Mykola
+
+* Назначение
+
+=proxy.el= — небольшая библиотека настройки HTTP/HTTPS-прокси для Emacs.
+
+Она читает адреса прокси-серверов из переменных окружения
+=HTTP_PROXY= и =HTTPS_PROXY= и на их основе устанавливает
+=url-proxy-services=, используемую библиотекой =url.el=.
+
+Если обе переменные окружения заданы, настройки прокси включаются.
+Если хотя бы одна из них отсутствует, =url-proxy-services= сбрасывается
+в =nil=.
+
+Такой подход позволяет хранить параметры прокси вне конфигурации Emacs
+и использовать те же переменные окружения, что и консольные программы.
+
+* Переменные окружения
+
+Библиотека использует:
+
+- =HTTP_PROXY= — прокси для HTTP;
+- =HTTPS_PROXY= — прокси для HTTPS.
+
+Например:
+
+#+begin_src sh
+export HTTP_PROXY="http://127.0.0.1:8080"
+export HTTPS_PROXY="http://127.0.0.1:8080"
+#+end_src
+
+После запуска Emacs эти значения доступны через =getenv=.
+
+* Использование
+
+Загрузить файл можно обычным способом:
+
+#+begin_src emacs-lisp
+(load-file "~/elisp/proxy.el")
+#+end_src
+
+Если каталог, содержащий =proxy.el=, находится в =load-path=, файл можно
+оформить как библиотеку и загружать через =require=.
+
+Текущая версия файла автоматически вызывает:
+
+#+begin_src emacs-lisp
+(set-url-proxy-service)
+#+end_src
+
+при загрузке.
+
+* Проверка
+
+Посмотреть переменные окружения из Emacs:
+
+#+begin_src emacs-lisp
+(getenv "HTTP_PROXY")
+(getenv "HTTPS_PROXY")
+#+end_src
+
+Посмотреть текущую конфигурацию прокси:
+
+#+begin_src emacs-lisp
+url-proxy-services
+#+end_src
+
+При корректно заданных переменных результат будет иметь вид:
+
+#+begin_src emacs-lisp
+(("http"  . "http://127.0.0.1:8080")
+ ("https" . "http://127.0.0.1:8080"))
+#+end_src
+
+* Реализация
+
+Основная функция:
+
+#+begin_src emacs-lisp
+(defun set-url-proxy-service ()
+  (let ((http-proxy  (getenv "HTTP_PROXY"))
+        (https-proxy (getenv "HTTPS_PROXY")))
+    (if (and http-proxy https-proxy)
+        (setq url-proxy-services
+              `(("http"  . ,http-proxy)
+                ("https" . ,https-proxy)))
+      (setq url-proxy-services nil))))
+#+end_src
+
+Алгоритм намеренно прост:
+
+1. прочитать =HTTP_PROXY=;
+2. прочитать =HTTPS_PROXY=;
+3. если доступны оба значения, сформировать =url-proxy-services=;
+4. иначе отключить явно заданную конфигурацию прокси.
+
+* Возможное оформление как Emacs-библиотеки
+
+Если =proxy.el= используется через =require=, имеет смысл добавить в конец
+файла:
+
+#+begin_src emacs-lisp
+(provide 'proxy)
+#+end_src
+
+После этого библиотеку можно загружать так:
+
+#+begin_src emacs-lisp
+(require 'proxy)
+#+end_src
+
+Для законченного пакета также стоит добавить стандартный заголовок
+библиотеки, секции =Commentary= и =Code= и публичным функциям дать префикс,
+например =proxy-set-url-proxy-service=.

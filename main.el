@@ -13,11 +13,18 @@
 ;;;; (setq package-check-signature nil)
 (setq package-gnupghome-dir (concat "/home/" (getenv "USER") "/.emacs.d/elpa/gnupg"))
 
+(let ((default-directory (expand-file-name "~/elisp/")))
+  (normal-top-level-add-subdirs-to-load-path))
+
+(provide 'neotree-setup)
+(require 'warm-themes)
+(require 'proxy)
+(require 'scriba)
 
 
-(load "~/elisp/proxy.el")
 (load "~/elisp/auto-coding-alist.el")
-(load "~/elisp/themes/themes-loader.el")
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load "~/elisp/company-mode.el")
 (load "~/elisp/directory.el")
@@ -29,12 +36,11 @@
 (load "~/elisp/translate-commands-gr-ru-uk.el")
 (load "~/elisp/hide-show-mode.el")
 (load "~/elisp/gnuplot.el")
-(load "~/elisp/scriba.el")
 (load "~/elisp/org-structure.el")
 (load "~/elisp/annotation.el")
 (load "~/elisp/yes-or-no-p.el")
 (load "~/elisp/tcl-helper.el")
-(load "~/elisp/neotree.el")
+
 (load "~/elisp/tcl-helper.el")
 (load "~/elisp/file-apps.el")
 (load "~/elisp/lang-utf-8.el")

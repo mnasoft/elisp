@@ -1,0 +1,104 @@
+#+title: neotree-setup
+#+author: Mykola
+
+* Назначение
+
+=neotree-setup= — небольшая персональная библиотека настройки NeoTree для Emacs.
+
+Она выполняет две настройки:
+
+- включает =neo-smart-open=;
+- назначает клавишу =F8= на команду =neotree-toggle=.
+
+Таким образом, =F8= используется для показа и скрытия дерева файлов NeoTree.
+
+* Структура
+
+#+begin_example
+neotree-setup/
+├── neotree-setup.el
+└── README.org
+#+end_example
+
+Важно, что файл называется =neotree-setup.el=, а не =neotree.el=. Это отделяет
+персональную конфигурацию от библиотеки NeoTree, которую она загружает через
+=require=.
+
+* Установка
+
+Поместите =neotree-setup.el= в каталог, входящий в =load-path=, например:
+
+#+begin_example
+~/elisp/neotree-setup/neotree-setup.el
+#+end_example
+
+Если =~/elisp= и его подкаталоги уже добавляются в =load-path=, дополнительная
+настройка пути не требуется.
+
+В =init.el= добавьте:
+
+#+begin_src emacs-lisp
+(require 'neotree-setup)
+#+end_src
+
+* Использование
+
+Нажмите:
+
+#+begin_example
+F8
+#+end_example
+
+Клавиша привязана к:
+
+#+begin_src emacs-lisp
+(neotree-toggle)
+#+end_src
+
+Настройка выполняется строкой:
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "<f8>") #'neotree-toggle)
+#+end_src
+
+* Smart open
+
+Пакет включает:
+
+#+begin_src emacs-lisp
+(setq neo-smart-open t)
+#+end_src
+
+* Проверка
+
+Проверить путь к основной библиотеке NeoTree:
+
+#+begin_src emacs-lisp
+(locate-library "neotree")
+#+end_src
+
+Проверить путь к нашей конфигурации:
+
+#+begin_src emacs-lisp
+(locate-library "neotree-setup")
+#+end_src
+
+Проверить привязку =F8=:
+
+#+begin_src emacs-lisp
+(key-binding (kbd "<f8>"))
+#+end_src
+
+Ожидаемый результат:
+
+#+begin_example
+neotree-toggle
+#+end_example
+
+* Подключение
+
+Библиотека предоставляет feature =neotree-setup=:
+
+#+begin_src emacs-lisp
+(require 'neotree-setup)
+#+end_src

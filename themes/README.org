@@ -1,0 +1,48 @@
+#+title: color-adjust
+
+* Description
+
+=color-adjust= is a small Emacs Lisp library for changing color brightness
+and saturation in HSV space.
+
+It uses Emacs' built-in =color-rgb-to-hsv= conversion.  Hue follows the Emacs
+=color.el= convention and is represented in radians.
+
+* Installation
+
+Place =color-adjust.el= somewhere in =load-path=, for example:
+
+#+begin_src emacs-lisp
+(add-to-list 'load-path (expand-file-name "~/elisp/color-adjust"))
+(require 'color-adjust)
+#+end_src
+
+* Usage
+
+#+begin_src emacs-lisp
+(color-adjust-lighten "#5f8580" 20)
+(color-adjust-darken "#5f8580" 20)
+(color-adjust-saturate "#5f8580" 20)
+(color-adjust-desaturate "#5f8580" 20)
+#+end_src
+
+The functions return colors in =#RRGGBB= form.
+
+* API
+
+- =color-adjust-lighten COLOR PERCENT=
+- =color-adjust-darken COLOR PERCENT=
+- =color-adjust-saturate COLOR PERCENT=
+- =color-adjust-desaturate COLOR PERCENT=
+
+* Tests
+
+From the package directory:
+
+#+begin_src sh
+emacs -Q --batch \
+  -L . \
+  -l color-adjust.el \
+  -l color-adjust-test.el \
+  -f ert-run-tests-batch-and-exit
+#+end_src

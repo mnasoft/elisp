@@ -1,20 +1,28 @@
 ;;; warm-night-theme.el --- Warm light nighttime theme -*- lexical-binding: t; -*-
-(deftheme warm-night "Warm light theme for nighttime use." :family 'warm :kind 'color-scheme :background-mode 'light)
-(let* ((colored   0)
-       (c-fg    -10)
-       (c-bg     -5)
-       (bg      (my/color-adjust "#f1e5cf" c-bg))
-       (bg-alt  (my/color-adjust "#e5d6bd" c-bg))
-       (fg      (my/color-adjust "#40372f" c-fg))
-       (fg-dim  (my/color-adjust "#766d64" c-fg))
-       (red     (my/color-adjust "#a6534c" colored))
-       (green   (my/color-adjust "#66805c" colored))
-       (yellow  (my/color-adjust "#a47a3f" colored))
-       (blue    (my/color-adjust "#607c8c" colored))
-       (magenta (my/color-adjust "#826b85" colored))
-       (cyan    (my/color-adjust "#5f8580" colored))
-       (orange  (my/color-adjust "#9b653d" colored))
-       (select  (my/color-adjust "#d8c4a6" 00)))
+
+(require 'color-adjust)
+
+(deftheme
+    warm-night  "Warm light theme for nighttime use."
+    :family 'warm
+    :kind 'color-scheme
+    :background-mode 'light)
+
+(let* ((saturate  75)
+       (c-fg     -50)
+       (c-bg     -10)
+       (bg      (color-adjust-lighten  "#f1e5cf" c-bg))
+       (bg-alt  (color-adjust-lighten  "#e5d6bd" c-bg))
+       (fg      (color-adjust-lighten  "#40372f" c-fg))
+       (fg-dim  (color-adjust-lighten  "#766d64" c-fg))
+       (red     (color-adjust-saturate "#a6534c" saturate))
+       (green   (color-adjust-saturate "#66805c" saturate))
+       (yellow  (color-adjust-lighten  "#a47a3f" -100))
+       (blue    (color-adjust-saturate "#607c8c" saturate))
+       (magenta (color-adjust-saturate "#826b85" saturate))
+       (cyan    (color-adjust-saturate "#5f8580" saturate))
+       (orange  (color-adjust-saturate "#9b653d" saturate))
+       (select  (color-adjust-lighten  "#d8c4a6" 00)))
   (custom-theme-set-faces 'warm-night
                           `(default ((t (:background ,bg :foreground ,fg))))
                           `(cursor ((t (:background ,orange))))
@@ -39,5 +47,7 @@
                           `(mode-line-inactive ((t (:background ,bg-alt :foreground ,fg-dim :box nil))))
                           `(show-paren-match ((t (:background ,green :foreground ,bg :weight bold))))
                           `(show-paren-mismatch ((t (:background ,red :foreground ,bg :weight bold))))))
+
 (provide-theme 'warm-night)
+;;(provide 'warm-night-theme)
 ;;; warm-night-theme.el ends here

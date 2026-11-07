@@ -1,5 +1,12 @@
 ;;; warm-cloudy-theme.el --- Warm cloudy theme -*- lexical-binding: t; -*-
-(deftheme warm-cloudy "Warm muted theme for cloudy weather." :family 'warm :kind 'color-scheme :background-mode 'dark)
+
+(provide 'color-adjust)
+
+(deftheme warm-cloudy "Warm muted theme for cloudy weather."
+          :family 'warm
+          :kind 'color-scheme
+          :background-mode 'dark)
+
 (let ((bg       "#3b3732")
       (bg-alt   "#46413b")
       (fg       "#e5ddd1")
@@ -36,5 +43,7 @@
    `(mode-line-inactive ((t (:background ,bg-alt :foreground ,fg-dim :box nil))))
    `(show-paren-match ((t (:background ,green :foreground ,bg :weight bold))))
    `(show-paren-mismatch ((t (:background ,red :foreground ,bg :weight bold))))))
+
 (provide-theme 'warm-cloudy)
+;;(provide 'warm-cloudy-theme)
 ;;; warm-cloudy-theme.el ends here

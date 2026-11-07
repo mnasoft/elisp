@@ -1,20 +1,27 @@
 ;;; warm-day-theme.el --- Warm dark daytime theme -*- lexical-binding: t; -*-
-(deftheme warm-day "Warm dark theme for daytime use." :family 'warm :kind 'color-scheme :background-mode 'dark)
+
+(require 'color-adjust)
+
+(deftheme warm-day "Warm dark theme for daytime use."
+          :family 'warm
+          :kind 'color-scheme
+          :background-mode 'dark)
+
 (let* ((colored   0)
        (c-fg    +10)
        (c-bg    +10)
-       (bg      (my/color-adjust "#29241f" c-bg))
-       (bg-alt  (my/color-adjust "#332d28" c-bg))
-       (fg      (my/color-adjust "#e3d5c3" c-fg))
-       (fg-dim  (my/color-adjust "#a99b8b" c-fg))
-       (red     (my/color-adjust "#cc6b63" colored))
-       (green   (my/color-adjust "#879b68" colored))
-       (yellow  (my/color-adjust "#d19a66" colored))
-       (blue    (my/color-adjust "#7297a6" colored))
-       (magenta (my/color-adjust "#a7839b" colored))
-       (cyan    (my/color-adjust "#72a39b" colored))
-       (orange  (my/color-adjust "#e5ad72" colored))
-       (select  (my/color-adjust "#51453a" 0)))
+       (bg      (color-adjust-lighten "#29241f" c-bg))
+       (bg-alt  (color-adjust-lighten "#332d28" c-bg))
+       (fg      (color-adjust-lighten "#e3d5c3" c-fg))
+       (fg-dim  (color-adjust-lighten "#a99b8b" c-fg))
+       (red     (color-adjust-lighten "#cc6b63" colored))
+       (green   (color-adjust-lighten "#879b68" colored))
+       (yellow  (color-adjust-lighten "#d19a66" colored))
+       (blue    (color-adjust-lighten "#7297a6" colored))
+       (magenta (color-adjust-lighten "#a7839b" colored))
+       (cyan    (color-adjust-lighten "#72a39b" colored))
+       (orange  (color-adjust-lighten "#e5ad72" colored))
+       (select  (color-adjust-lighten "#51453a" 0)))
   (custom-theme-set-faces 'warm-day
                           `(default ((t (:background ,bg :foreground ,fg))))
                           `(cursor ((t (:background ,orange))))
@@ -39,5 +46,7 @@
                           `(mode-line-inactive ((t (:background ,bg-alt :foreground ,fg-dim :box nil))))
                           `(show-paren-match ((t (:background ,green :foreground ,bg :weight bold))))
                           `(show-paren-mismatch ((t (:background ,red :foreground ,bg :weight bold))))))
+
 (provide-theme 'warm-day)
+;;(provide 'warm-day-theme)
 ;;; warm-day-theme.el ends here
