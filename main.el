@@ -17,6 +17,7 @@
 
 (load "~/elisp/proxy.el")
 (load "~/elisp/auto-coding-alist.el")
+(load "~/elisp/themes/themes-loader.el")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load "~/elisp/company-mode.el")
 (load "~/elisp/directory.el")
