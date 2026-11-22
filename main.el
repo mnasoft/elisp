@@ -16,7 +16,7 @@
 (let ((default-directory (expand-file-name "~/elisp/")))
   (normal-top-level-add-subdirs-to-load-path))
 
-(provide 'neotree-setup)
+(require 'neotree-setup)
 (require 'warm-themes)
 (require 'proxy)
 (require 'scriba)
